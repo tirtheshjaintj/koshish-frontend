@@ -55,10 +55,11 @@ export default function Nav() {
 
     return (
         <>
-            <Navbar className="bg-white/50 fixed w-[100vw] lg:w-[90vw] z-10 dark:bg-gray-900/50 backdrop-blur-3xl">
-                <Link to="/" className="flex flex-grow" onClick={isInstallable ? install : undefined}>
+            <Navbar className=" sticky top-0 w-[100vw]   z-10  backdrop-blur-3xl">
+                <Link to="/" className="flex flex-grow" 
+                onClick={isInstallable ? install : undefined}>
                     <img src="/pcte.jpeg" className="h-12 mr-3" alt="PCTE Placement Preparation" />
-                    <h1 className="self-center text-2xl font-semibold cursor-pointer whitespace-nowrap dark:text-white">
+                    <h1 className="self-center text-2xl font-semibold cursor-pointer whitespace-nowrap ">
                         PCTE&nbsp;
                     </h1>
                 </Link>
