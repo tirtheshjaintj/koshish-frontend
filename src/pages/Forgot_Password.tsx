@@ -8,7 +8,7 @@ import Navbar from "../components/Navbar";
 import { useSelector } from 'react-redux';
 
 interface Prop {
-  type: 'user' | 'admin';
+  type: 'teacher' | 'admin' | 'convenor';
 }
 
 const Forgot_Password: React.FC<Prop> = ({ type }) => {
@@ -30,7 +30,7 @@ const Forgot_Password: React.FC<Prop> = ({ type }) => {
     if (email) {
       try {
         setLoading(true); // Start loading
-        await axiosInstance.post(`${type}/forgot-password`, { email });
+        await axiosInstance.post(`/user/forgot-password`, { email });
         toast.success('OTP resent to your email!');
         setTimer(60); // Set timer for 60 seconds
         setResendDisabled(true); // Disable the button
@@ -50,7 +50,7 @@ const Forgot_Password: React.FC<Prop> = ({ type }) => {
     if (email) {
       try {
         setLoading(true); // Start loading
-        const response = await axiosInstance.post(`/${type}/forgot-password`, { email, userType: type });
+        const response = await axiosInstance.post(`/user/forgot-password`, { email, user_type:type.charAt(0).toUpperCase() + type.slice(1) });
         console.log(response);
         toast.success('OTP sent to your email!');
         setResendDisabled(true); // Disable the resend button
@@ -81,7 +81,7 @@ const Forgot_Password: React.FC<Prop> = ({ type }) => {
     }
     try {
       setLoading(true); // Start loading
-      const response = await axiosInstance.post(`/${type}/change-password`, {
+      const response = await axiosInstance.post(`/user/change-password`, {
         email,
         otp,
         password: newPassword,
@@ -127,22 +127,19 @@ const Forgot_Password: React.FC<Prop> = ({ type }) => {
   }, [resendDisabled]);
 
   useEffect(() => {
-    document.title = `TJ Bazaar🛒: Change ${type.charAt(0).toUpperCase() + type.slice(1)} Password`;
+    document.title = `PCTE Koshish Planning: Change ${type.charAt(0).toUpperCase() + type.slice(1)} Password`;
     window.scrollTo(0, 0);
   }, []);
 
 
   useEffect(() => {
-    if (type === "user" && user && user.email) {
+    if (user && user.email) {
       setEmail(user.email);
-      // Check if email is not empty before submitting
       if (user.email) {
         handleEmailSubmit({ preventDefault: () => { } } as React.FormEvent);
       }
     }
   }, [user]);
-
-
 
 
 
@@ -273,7 +270,7 @@ const Forgot_Password: React.FC<Prop> = ({ type }) => {
                 </form>
               )}
               <div className="flex">
-                <Link to={`/${type}/login`} className="w-full dark:text-white bg-gray-600 text-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"                  >
+                <Link to={`/user/login`} className="w-full dark:text-white bg-gray-600 text-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"                  >
                   <span className='flex items-center justify-center text-white'>Back to Login&nbsp;<FaLock /></span>
                 </Link>
               </div>

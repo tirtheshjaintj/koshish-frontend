@@ -85,9 +85,19 @@ export default function Nav() {
                             </>
                         ) : (
                             <>
-                                <Link to={"../user/dashboard"}>
+                                <Link to={"../teacher/login"}>
                                     <Dropdown.Item>
-                                        Become User
+                                        Become Teacher
+                                    </Dropdown.Item>
+                                </Link>
+                                <Link to={"../convenor/login"}>
+                                    <Dropdown.Item>
+                                        Become Convenor
+                                    </Dropdown.Item>
+                                </Link>
+                                <Link to={"../admin/login"}>
+                                    <Dropdown.Item>
+                                        Become Admin
                                     </Dropdown.Item>
                                 </Link>
                             </>

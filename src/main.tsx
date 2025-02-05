@@ -14,9 +14,13 @@ const router = createBrowserRouter(
   createRoutesFromChildren(
     <Route path="" element={<App />}>
       <Route path="/" element={<Home />} />
-      <Route path="/user/login" element={<Login type="user" />} />
+      <Route path="/teacher/login" element={<Login type="teacher" />} />
+      <Route path="/teacher/forgot" element={<Forgot_Password type="teacher" />} />
+      <Route path="/convenor/login" element={<Login type="convenor" />} />
+      <Route path="/convenor/forgot" element={<Forgot_Password type="convenor" />} />
+      <Route path="/admin/login" element={<Login type="admin" />} />
+      <Route path="/admin/forgot" element={<Forgot_Password type="admin" />} />
       <Route path="/user/dashboard" element={<User_Dashboard />} />
-      <Route path="/user/forgot" element={<Forgot_Password type="user" />} />
     </Route>
   )
 );
