@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom'
 import Background from './components/Background'
-import ModeBall from './components/modeBall'
 import { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookie from "universal-cookie";
@@ -46,11 +45,9 @@ function App() {
   }, []);
   return (
     <>
-      <Background>
-        <Toaster position="bottom-right" />
-        <Outlet />
-        <ModeBall />
-      </Background>
+      <Toaster position="bottom-right" />
+      <Outlet />
+
     </>
   )
 }

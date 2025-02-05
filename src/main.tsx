@@ -7,7 +7,7 @@ import Home from './pages/Home.tsx';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import Login from "./pages/Login.tsx";
-import User_Dashboard from "./pages/user/User_Dashboard";
+import User_Dashboard from "./pages/user/dashboard/User_Dashboard.tsx";
 import Forgot_Password from './pages/Forgot_Password.tsx';
 
 const router = createBrowserRouter(
