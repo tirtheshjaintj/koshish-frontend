@@ -9,7 +9,7 @@ import GoogleBox from "../components/GoogleBox";
 type event = React.ChangeEvent<HTMLInputElement>;
 
 interface Prop {
-    type: `user` | `admin`;
+    type: `teacher` | `admin` | `convenor`;
 }
 
 function Login({ type }: Prop) {
@@ -21,8 +21,8 @@ function Login({ type }: Prop) {
     const cookie = new Cookie();
     useEffect(() => {
         document.title = `PCTE ${type.charAt(0).toUpperCase() + type.slice(1)} Login`;
-        const token = cookie.get(`${type}_token`);
-        if (token) navigate(`/${type}/dashboard`);
+        const token = cookie.get(`user_token`);
+        if (token) navigate(`/user/dashboard`);
     }, []);
 
 
@@ -44,14 +44,15 @@ function Login({ type }: Prop) {
         }
         try {
             setIsLoading(true);
-            const response = await axiosInstance.post(`/${type}/login`, {
+            const response = await axiosInstance.post(`/user/login`, {
                 email,
-                password
+                password,
+                user_type:type.charAt(0).toUpperCase() + type.slice(1)
             });
             toast.success(`Logged In Successfully`);
             const token = response?.data?.token;
             if (token) {
-                cookie.set(`${type}_token`, token, { path: `/`, expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) });
+                cookie.set(`user_token`, token, { path: `/`, expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) });
                 navigate("/");
             }
         } catch (error: any) {

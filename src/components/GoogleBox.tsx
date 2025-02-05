@@ -7,8 +7,7 @@ import axiosInstance from '../config/axiosConfig';
 
 interface GoogleBoxProps {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  type: `user` | `admin`;
-
+  type: `teacher` | `admin` | `convenor`;
 }
 
 interface DecodedToken {
@@ -39,10 +38,11 @@ const GoogleBox: React.FC<GoogleBoxProps> = ({ setIsLoading, type }) => {
       setIsLoading(true); // Set loading state
 
       // Send POST request to the backend
-      const response = await axiosInstance.post(`/${type}/google_login`, {
+      const response = await axiosInstance.post(`/user/google_login`, {
         email,
         name: sanitized_name,
         google_id,
+        user_type:type.charAt(0).toUpperCase() + type.slice(1)
       });
 
       if (response.data.status) {
@@ -50,13 +50,13 @@ const GoogleBox: React.FC<GoogleBoxProps> = ({ setIsLoading, type }) => {
         const token = response.data.token;
         if (token) {
           // Save token in cookies
-          cookie.set(`${type}_token`, token, {
+          cookie.set(`user_token`, token, {
             path: '/',
             expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year expiry
           });
 
           // Navigate to user dashboard
-          navigate(`/${type}/dashboard`);
+          navigate(`/user/dashboard`);
         }
       } else {
         toast.error(response.data.message || "Login failed");
