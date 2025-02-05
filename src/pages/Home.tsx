@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import {useNavigate } from "react-router-dom"; // To navigate to quiz page
-import axiosInstance from "../config/axiosConfig";
 import Chatbot from "../components/ChatBot";
 import { useSelector } from "react-redux";
 import Navbar from "../components/Navbar";
