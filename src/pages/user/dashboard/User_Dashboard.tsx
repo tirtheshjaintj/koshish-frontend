@@ -12,7 +12,7 @@ export default function Dashboard() {
   const location = useLocation();
 
   return (
-    <div className='flex  w-full  min-h-screen max-h-screen '
+    <div className='flex  w-full  min-h-screen bg-slate-50 max-h-screen '
       style={{ scrollbarWidth: "none" }}>
       <div
         className={`max-md:z-50 absolute min-h-full ${open ? "translate-x-0 flex-1  min-w-[270px] z-50" : "max-md:-translate-x-[130%] transition-all  w-[60px] "
@@ -21,12 +21,12 @@ export default function Dashboard() {
           py-4 px-2 transition-transform duration-300 ease-in-out`}
       >
 
-        <Sidebar setOpen={setOpen} tab={sideTab} setTab={setSideTab} />
+        <Sidebar open={open} setOpen={setOpen} tab={sideTab} setTab={setSideTab} />
 
       </div>
 
       {/* Dashboard Content */}
-      <div className='flex-1 my-2 relative mr-2 overflow-y-auto ' style={{ scrollbarWidth: "none" }}>
+      <div className='flex-1 my-2 relative mr-2 overflow-y-auto bg-slate-50' style={{ scrollbarWidth: "none" }}>
 
         {/* Topbar */}
         <div className='flex sticky top-0 z-40   h-14 items-center
@@ -50,7 +50,7 @@ export default function Dashboard() {
 
 
         {/* Main Area */}
-        <div className='w-full   bg-slate-50 mt-6 px-4' >
+        <div className='w-full min-h-full  bg-slate-50 mt-6 px-4' >
 
          {/* Content */}
           

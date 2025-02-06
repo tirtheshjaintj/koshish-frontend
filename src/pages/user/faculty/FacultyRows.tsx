@@ -46,7 +46,7 @@ const FacultyRows: React.FC<FacultyRowsProps> = ({
   data,
 }) => {
   return (
-    <tr className="border-b border-stone-300 dark:border-stone-700 text-xs text-stone-700 dark:text-stone-100">
+    <tr className="border-b border-stone-300  text-xs text-stone-700 ">
       {/* Avatar */}
       <td className="p-2">
         <img
@@ -61,7 +61,7 @@ const FacultyRows: React.FC<FacultyRowsProps> = ({
         <input
           type="text"
           disabled={!isEditing || faculty._id !== editFacultyId}
-          className="w-full p-1 border rounded-md text-xs text-stone-800 dark:text-stone-100 border-stone-300 outline-none dark:bg-stone-900 dark:border-stone-700 focus:ring-1 focus:ring-emerald-800"
+          className="w-full p-1 border rounded-md text-xs text-stone-800  border-stone-300 outline-none   focus:ring-1 focus:ring-emerald-800"
           name="name"
           onChange={handleInputChange}
           value={isEditing && faculty._id === editFacultyId ? data.name : faculty.name}
@@ -76,7 +76,7 @@ const FacultyRows: React.FC<FacultyRowsProps> = ({
           disabled={!isEditing || faculty._id !== editFacultyId}
           value={isEditing && faculty._id === editFacultyId ? data.email : faculty.email}
           onChange={handleInputChange}
-          className="w-full p-1 border rounded-md text-xs text-stone-800 dark:text-stone-100 border-stone-300 outline-none dark:bg-stone-900 dark:border-stone-700 focus:ring-1 focus:ring-emerald-800"
+          className="w-full p-1 border rounded-md text-xs text-stone-800  border-stone-300 outline-none   focus:ring-1 focus:ring-emerald-800"
         />
       </td>
 
