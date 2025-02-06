@@ -4,11 +4,12 @@ import Sidebar from "../SideBar/Sidebar.tsx"
 import { useLocation } from 'react-router-dom'
 import FacultyManageMain from '../faculty/FacultyMain.tsx'
 import DashboardContent from './Dashboard.tsx'
+import RegisterForEvent from './DashBoardComponents/RegisterForEvent.tsx'
 
 // Student Dashboard
 export default function Dashboard() {
   const [open, setOpen] = useState(true)
-    const location = useLocation();
+  const location = useLocation();
 
   return (
     <div className='flex  w-full  min-h-screen bg-slate-50 max-h-screen '
@@ -51,10 +52,14 @@ export default function Dashboard() {
         {/* Main Area */}
         <div className='w-full min-h-full  bg-slate-50 mt-6 px-4' >
 
+          {/* Content */}
+
+
          {/* Content */}
           
           {location.pathname === '/user/dashboard' && <DashboardContent />}
           {location.pathname === '/user/dashboard/faculties' && <FacultyManageMain />}
+          {location.pathname === '/user/dashboard/registerEvent' && <RegisterForEvent />}
 
 
 
