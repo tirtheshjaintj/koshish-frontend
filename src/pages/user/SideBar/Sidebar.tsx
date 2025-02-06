@@ -7,7 +7,7 @@ import { FaBars, FaLaptopCode } from "react-icons/fa";
 import { MdTimer } from "react-icons/md";
 import { PiChalkboardTeacherFill, PiStudent } from "react-icons/pi";
 import { MdOutlineInventory } from "react-icons/md";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import DeleteConfirmation from '../../common/DeleteConfirmation';
 // import ModalWrapper from '../../common/ModalWrapper';
 
@@ -15,10 +15,12 @@ const listData = [
     {
         name: "Dashboard",
         icon: <MdDashboard size={20} />,
+        link: "/user/dashboard",
     },
  
     {
         name: "Faculty",
+        link : "faculties",
         icon: <PiChalkboardTeacherFill size={20} />,
     }
 ];
@@ -69,7 +71,8 @@ export default function Sidebar({ setTab ,open , tab , setOpen }:SidebarProps) {
 
             <div className='flex flex-col mt-5 gap-2'>
                 {listData.map((item, index) => (
-                    <div
+                    <Link
+                        to={item.link}
                         key={index}
                         onClick={() => setTab(item.name)}
                         className={` 
@@ -86,7 +89,7 @@ export default function Sidebar({ setTab ,open , tab , setOpen }:SidebarProps) {
                     >
                         {item.icon}
                         {open && item.name}
-                    </div>
+                    </Link>
                 ))}
             </div>
 
