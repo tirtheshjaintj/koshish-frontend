@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import { FaBars } from 'react-icons/fa6'
 import Sidebar from "../SideBar/Sidebar.tsx"
+import { useLocation } from 'react-router-dom'
+import FacultyManageMain from '../faculty/FacultyMain.tsx'
+import DashboardContent from './Dashboard.tsx'
 
 // Student Dashboard
 export default function Dashboard() {
   const [open, setOpen] = useState(true)
   const [sideTab, setSideTab] = useState('Dashboard')
-
+  const location = useLocation();
 
   return (
     <div className='flex  w-full  min-h-screen max-h-screen '
@@ -49,9 +52,10 @@ export default function Dashboard() {
         {/* Main Area */}
         <div className='w-full   bg-slate-50 mt-6 px-4' >
 
-          {/* Content */}
-
-          Dashboard
+         {/* Content */}
+          
+          {location.pathname === '/user/dashboard' && <DashboardContent />}
+          {location.pathname === '/user/dashboard/faculties' && <FacultyManageMain />}
 
 
 

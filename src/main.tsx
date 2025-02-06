@@ -9,21 +9,66 @@ import store from './store/store';
 import Login from "./pages/Login.tsx";
 import User_Dashboard from "./pages/user/dashboard/User_Dashboard.tsx";
 import Forgot_Password from './pages/Forgot_Password.tsx';
+import FacultyManageMain from './pages/user/faculty/FacultyMain.tsx';
 
-const router = createBrowserRouter(
-  createRoutesFromChildren(
-    <Route path="" element={<App />}>
-      <Route path="/" element={<Home />} />
-      <Route path="/teacher/login" element={<Login type="teacher" />} />
-      <Route path="/teacher/forgot" element={<Forgot_Password type="teacher" />} />
-      <Route path="/convenor/login" element={<Login type="convenor" />} />
-      <Route path="/convenor/forgot" element={<Forgot_Password type="convenor" />} />
-      <Route path="/admin/login" element={<Login type="admin" />} />
-      <Route path="/admin/forgot" element={<Forgot_Password type="admin" />} />
-      <Route path="/user/dashboard" element={<User_Dashboard />} />
-    </Route>
-  )
-);
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/teacher/login",
+        element: <Login type="teacher" />,
+      },
+      {
+        path: "/teacher/forgot",
+        element: <Forgot_Password type="teacher" />,
+      },
+      {
+        path: "/convenor/login",
+        element: <Login type="convenor" />,
+      },
+      {
+        path: "/convenor/forgot",
+        element: <Forgot_Password type="convenor" />,
+      },
+      {
+        path: "/admin/login",
+        element: <Login type="admin" />,
+      },
+      {
+        path: "/admin/forgot",
+        element: <Forgot_Password type="admin" />,
+      },
+      {
+        path: "/user/dashboard",
+        element: <User_Dashboard />,
+      },
+    ],
+
+  },
+
+  // Dashboard Routes
+  {
+    path: "/user/dashboard",
+    element: <User_Dashboard />,
+    children: [
+      {
+        path: "/user/dashboard",
+        element: <User_Dashboard />,
+      },
+      {
+        path: "/user/dashboard/faculties",
+        element: <FacultyManageMain />,
+      }
+    ]
+  }
+]);
 
 createRoot(document.getElementById('root')!).render(
   <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_ID} >
@@ -31,7 +76,7 @@ createRoot(document.getElementById('root')!).render(
       <RouterProvider router={router} />
     </Provider>
   </GoogleOAuthProvider>
-)
+);
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
