@@ -7,7 +7,7 @@ import { FaBars, FaLaptopCode } from "react-icons/fa";
 import { MdTimer } from "react-icons/md";
 import { PiChalkboardTeacherFill, PiStudent } from "react-icons/pi";
 import { MdOutlineInventory } from "react-icons/md";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 // import DeleteConfirmation from '../../common/DeleteConfirmation';
 // import ModalWrapper from '../../common/ModalWrapper';
 
@@ -20,8 +20,8 @@ const listData = [
  
     {
         name: "Faculty",
-        link : "faculties",
-        icon: <PiChalkboardTeacherFill size={20} />,
+        link : "/user/dashboard/faculties",
+         icon: <PiChalkboardTeacherFill size={20} />,
     }
 ];
 
@@ -33,11 +33,12 @@ interface SidebarProps {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
   }
 
-export default function Sidebar({ setTab ,open , tab , setOpen }:SidebarProps) {
+export default function Sidebar({ setTab ,open  , setOpen }:SidebarProps) {
     // const [open] = useRecoilState(openSideBar);
 
     // const [currUser, setCurrUser] = useRecoilState(userData);
     const [openModal, setOpenModal] = useState(false);
+    const location = useLocation();
     
     // const navigate = useNavigate();
 
@@ -76,7 +77,7 @@ export default function Sidebar({ setTab ,open , tab , setOpen }:SidebarProps) {
                         key={index}
                         onClick={() => setTab(item.name)}
                         className={` 
-                            ${item.name === tab && "bg-red-800 text-white"}
+                            ${item.link === location.pathname && "bg-red-800 text-white"}
                             rounded-md
                             p-2 
                             transition-all
