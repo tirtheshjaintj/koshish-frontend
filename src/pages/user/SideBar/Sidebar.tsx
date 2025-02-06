@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdDashboard } from 'react-icons/md'
 import { MdSendTimeExtension } from "react-icons/md";
 import { GrLogout, GrResources } from "react-icons/gr";
@@ -17,42 +17,41 @@ const listData = [
         icon: <MdDashboard size={20} />,
         link: "/user/dashboard",
     },
- 
+
     {
         name: "Faculty",
-        link : "/user/dashboard/faculties",
-         icon: <PiChalkboardTeacherFill size={20} />,
+        link: "/user/dashboard/faculties",
+        icon: <PiChalkboardTeacherFill size={20} />,
     }
 ];
 
 
 interface SidebarProps {
-    setTab: (tab: string) => void;
     open: boolean;
-    tab: string;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  }
+}
 
-export default function Sidebar({ setTab ,open  , setOpen }:SidebarProps) {
+export default function Sidebar({ open, setOpen }: SidebarProps) {
     // const [open] = useRecoilState(openSideBar);
 
     // const [currUser, setCurrUser] = useRecoilState(userData);
     const [openModal, setOpenModal] = useState(false);
     const location = useLocation();
-    
+
     // const navigate = useNavigate();
 
     // const logoutHandler = () => {
-        // if (logoutUser()) {
-        //     setCurrUser(null);
-        //     setOpenModal(false);
-        //     // console.log("first")
-        // }
-        // navigate("/login");
+    // if (logoutUser()) {
+    //     setCurrUser(null);
+    //     setOpenModal(false);
+    //     // console.log("first")
+    // }
+    // navigate("/login");
     // }
 
 
-  
+
+
 
     return (
         <div className='relative min-h-full text-stone-700 '>
@@ -75,7 +74,6 @@ export default function Sidebar({ setTab ,open  , setOpen }:SidebarProps) {
                     <Link
                         to={item.link}
                         key={index}
-                        onClick={() => setTab(item.name)}
                         className={` 
                             ${item.link === location.pathname && "bg-red-800 text-white"}
                             rounded-md

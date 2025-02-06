@@ -8,8 +8,7 @@ import DashboardContent from './Dashboard.tsx'
 // Student Dashboard
 export default function Dashboard() {
   const [open, setOpen] = useState(true)
-  const [sideTab, setSideTab] = useState('Dashboard')
-  const location = useLocation();
+    const location = useLocation();
 
   return (
     <div className='flex  w-full  min-h-screen bg-slate-50 max-h-screen '
@@ -21,7 +20,7 @@ export default function Dashboard() {
           py-4 px-2 transition-transform duration-300 ease-in-out`}
       >
 
-        <Sidebar open={open} setOpen={setOpen} tab={sideTab} setTab={setSideTab} />
+        <Sidebar open={open} setOpen={setOpen}  />
 
       </div>
 
@@ -42,7 +41,7 @@ export default function Dashboard() {
             <FaBars
               onClick={() => setOpen((prev) => !prev)}
               className=' hover:text-slate-500 cursor-pointer' />
-            <h1 className='text-xl  font-bold'>{sideTab}</h1>
+            {/* <h1 className='text-xl  font-bold'>{sideTab}</h1> */}
           </div>
 
 
