@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import ModalWrapper from "../components/common/ModalWrapper";
 
 const Events = () => {
-  const { events } = useData();
+  const { events:allEvents } = useData();
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("");
   const [partFilterType, setPartFilterType] = useState("");
