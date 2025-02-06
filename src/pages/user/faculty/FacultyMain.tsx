@@ -117,7 +117,7 @@ export default function FacultyManageMain() {
             </ModalWrapper>
 
             <div className="flex justify-end my-4">
-                <button onClick={() => setOpenModal(true)} className="bg-emerald-700 text-white px-4 py-2 rounded shadow hover:bg-emerald-600">
+                <button onClick={() => setOpenModal(true)} className="bg-red-800 text-white px-4 py-2 rounded shadow hover:bg-red-600">
                     Add Faculty
                 </button>
             </div>
@@ -137,8 +137,10 @@ export default function FacultyManageMain() {
                     <table className="w-full border-collapse border border-stone-300">
                         <thead className="bg-stone-100">
                             <tr>
+                                <th className="text-left p-2 text-xs font-semibold text-stone-700">Avatar</th>
                                 <th className="text-left p-2 text-xs font-semibold text-stone-700">Name</th>
                                 <th className="text-left p-2 text-xs font-semibold text-stone-700">Email</th>
+                                <th className="text-left p-2 text-xs font-semibold text-stone-700">Access</th>
                                 <th className="text-left p-2 text-xs font-semibold text-stone-700">Remove</th>
                                 <th className="text-left p-2 text-xs font-semibold text-stone-700">Update</th>
                             </tr>

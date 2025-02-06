@@ -16,11 +16,7 @@ const listData = [
         name: "Dashboard",
         icon: <MdDashboard size={20} />,
     },
-
-    {
-        name: "Labs",
-        icon: <FaLaptopCode size={20} />,
-    },
+ 
     {
         name: "Faculty",
         icon: <PiChalkboardTeacherFill size={20} />,
@@ -30,14 +26,14 @@ const listData = [
 
 interface SidebarProps {
     setTab: (tab: string) => void;
+    open: boolean;
     tab: string;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
   }
 
-export default function Sidebar({ setTab  , tab , setOpen }:SidebarProps) {
+export default function Sidebar({ setTab ,open , tab , setOpen }:SidebarProps) {
     // const [open] = useRecoilState(openSideBar);
 
-    const [open, setOpenSideBar] = useState(true);
     // const [currUser, setCurrUser] = useRecoilState(userData);
     const [openModal, setOpenModal] = useState(false);
     
