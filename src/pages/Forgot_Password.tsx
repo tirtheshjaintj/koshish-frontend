@@ -7,11 +7,9 @@ import { FaLock } from 'react-icons/fa';
 import Navbar from "../components/Navbar";
 import { useSelector } from 'react-redux';
 
-interface Prop {
-  type: 'teacher' | 'admin' | 'convenor';
-}
 
-const Forgot_Password: React.FC<Prop> = ({ type }) => {
+
+const Forgot_Password: React.FC = () => {
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
@@ -50,7 +48,7 @@ const Forgot_Password: React.FC<Prop> = ({ type }) => {
     if (email) {
       try {
         setLoading(true); // Start loading
-        const response = await axiosInstance.post(`/user/forgot-password`, { email, user_type:type.charAt(0).toUpperCase() + type.slice(1) });
+        const response = await axiosInstance.post(`/user/forgot-password`, { email});
         console.log(response);
         toast.success('OTP sent to your email!');
         setResendDisabled(true); // Disable the resend button
@@ -94,7 +92,7 @@ const Forgot_Password: React.FC<Prop> = ({ type }) => {
         setOtp('');
         setNewPassword('');
         setConfirmPassword('');
-        navigate(`../${type}/login`);
+        navigate(`../user/login`);
       } else {
         toast.error('Failed to change password. Please try again.');
       }
@@ -127,7 +125,7 @@ const Forgot_Password: React.FC<Prop> = ({ type }) => {
   }, [resendDisabled]);
 
   useEffect(() => {
-    document.title = `PCTE Koshish Planning: Change ${type.charAt(0).toUpperCase() + type.slice(1)} Password`;
+    document.title = `PCTE Koshish Planning: Change User Password`;
     window.scrollTo(0, 0);
   }, []);
 

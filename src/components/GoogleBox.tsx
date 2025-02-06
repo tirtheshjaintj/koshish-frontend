@@ -7,7 +7,6 @@ import axiosInstance from '../config/axiosConfig';
 
 interface GoogleBoxProps {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  type: `teacher` | `admin` | `convenor`;
 }
 
 interface DecodedToken {
@@ -16,7 +15,7 @@ interface DecodedToken {
   sub: string; // Represents the Google user ID
 }
 
-const GoogleBox: React.FC<GoogleBoxProps> = ({ setIsLoading, type }) => {
+const GoogleBox: React.FC<GoogleBoxProps> = ({ setIsLoading}) => {
   const cookie = new Cookie();
   const navigate = useNavigate();
 
@@ -41,8 +40,7 @@ const GoogleBox: React.FC<GoogleBoxProps> = ({ setIsLoading, type }) => {
       const response = await axiosInstance.post(`/user/google_login`, {
         email,
         name: sanitized_name,
-        google_id,
-        user_type:type.charAt(0).toUpperCase() + type.slice(1)
+        google_id
       });
 
       if (response.data.status) {
