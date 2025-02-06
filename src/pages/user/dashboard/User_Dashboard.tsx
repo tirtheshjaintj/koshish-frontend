@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { FaBars } from 'react-icons/fa6'
 import Sidebar from "../SideBar/Sidebar.tsx"
+import RegisterForEvent from './DashBoardComponents/RegisterForEvent.tsx';
 
 // Student Dashboard
 export default function Dashboard() {
-  const [open, setOpen] = useState(true)
-  const [sideTab, setSideTab] = useState('Dashboard')
+  const [open, setOpen] = useState<boolean>(true)
+  const [sideTab, setSideTab] = useState<string | undefined | null>('Dashboard');
 
 
   return (
@@ -51,7 +52,7 @@ export default function Dashboard() {
 
           {/* Content */}
 
-          Dashboard
+          <RegisterForEvent />
 
 
 

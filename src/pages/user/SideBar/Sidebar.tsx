@@ -24,10 +24,19 @@ const listData = [
     {
         name: "Faculty",
         icon: <PiChalkboardTeacherFill size={20} />,
+    },{
+        name:"Register for Event",
+        icon:<PiStudent size={20}/>
     }
 ];
+interface SidebarProps {
+    setTab:React.Dispatch<React.SetStateAction<string | undefined | null>>
+    tab: string | undefined | null;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  }
 
-export default function Sidebar({ setTab, tab, setOpen }) {
+export default function Sidebar({ setTab  , tab , setOpen }:SidebarProps) {
+    // const [open] = useRecoilState(openSideBar);
     // const [open] = useRecoilState(openSideBar);
 
     const [open, setOpenSideBar] = useState(true);
@@ -68,7 +77,7 @@ export default function Sidebar({ setTab, tab, setOpen }) {
                 {listData.map((item, index) => (
                     <div
                         key={index}
-                        onClick={() => setTab(item.name)}
+                        onClick={() => setTab(item?.name)}
                         className={` 
                             ${item.name === tab && "bg-red-800 text-white"}
                             rounded-md
