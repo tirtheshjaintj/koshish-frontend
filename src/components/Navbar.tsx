@@ -58,7 +58,7 @@ export default function Nav() {
             <Navbar className=" sticky top-0 w-[100vw]   z-10  backdrop-blur-3xl">
                 <Link to="/" className="flex flex-grow" 
                 onClick={isInstallable ? install : undefined}>
-                    <img src="/pcte.jpeg" className="h-12 mr-3" alt="PCTE Placement Preparation" />
+                    <img src="/pcte.jpeg" className="h-12 mr-3" alt="PCTE Koshish App" />
                     <h1 className="self-center text-2xl font-semibold cursor-pointer whitespace-nowrap ">
                         PCTE&nbsp;
                     </h1>
@@ -86,19 +86,9 @@ export default function Nav() {
                             </>
                         ) : (
                             <>
-                                <Link to={"../teacher/login"}>
+                                <Link to={"../user/login"}>
                                     <Dropdown.Item>
-                                        Become Teacher
-                                    </Dropdown.Item>
-                                </Link>
-                                <Link to={"../convenor/login"}>
-                                    <Dropdown.Item>
-                                        Become Convenor
-                                    </Dropdown.Item>
-                                </Link>
-                                <Link to={"../admin/login"}>
-                                    <Dropdown.Item>
-                                        Become Admin
+                                        Become User
                                     </Dropdown.Item>
                                 </Link>
                             </>

@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
-import { createBrowserRouter, createRoutesFromChildren, Route, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Home from './pages/Home.tsx';
 import { Provider } from 'react-redux';
@@ -14,66 +14,30 @@ import RegisterForEvent from './pages/user/dashboard/DashBoardComponents/Registe
 import DashboardContent from './pages/user/dashboard/Dashboard.tsx';
 
 
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
+      { path: "", element: <Home /> },
+      { path: "user/login", element: <Login /> },
+      { path: "user/forgot", element: <Forgot_Password /> },
       {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/teacher/login",
-        element: <Login type="teacher" />,
-      },
-      {
-        path: "/teacher/forgot",
-        element: <Forgot_Password type="teacher" />,
-      },
-      {
-        path: "/convenor/login",
-        element: <Login type="convenor" />,
-      },
-      {
-        path: "/convenor/forgot",
-        element: <Forgot_Password type="convenor" />,
-      },
-      {
-        path: "/admin/login",
-        element: <Login type="admin" />,
-      },
-      {
-        path: "/admin/forgot",
-        element: <Forgot_Password type="admin" />,
-      },
-      {
-        path: "/user/dashboard",
+        path: "user/dashboard",
         element: <User_Dashboard />,
+        children: [
+          { path: "faculties", element: <FacultyManageMain /> },
+          {
+            path:"registerEvent",
+            element:<RegisterForEvent/>
+          }
+        ],
       },
     ],
-
   },
-
-  // Dashboard Routes
-  {
-    path: "/user/dashboard",
-    element: <User_Dashboard />,
-    children: [
-      {
-        path: "/user/dashboard",
-        element: <DashboardContent />,
-      },
-      {
-        path: "/user/dashboard/faculties",
-        element: <FacultyManageMain />,
-      },{
-        path:"/user/dashboard/registerEvent",
-        element:<RegisterForEvent/>
-      }
-    ]
-  }
 ]);
+
 
 createRoot(document.getElementById('root')!).render(
   <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_ID} >

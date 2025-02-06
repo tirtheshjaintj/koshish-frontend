@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router-dom'
-import Background from './components/Background'
 import { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookie from "universal-cookie";
@@ -41,6 +40,7 @@ function App() {
     }
   };
   useEffect(() => {
+    document.title="PCTE Koshish App";
     window.scrollTo(0, 0);
   }, []);
   return (

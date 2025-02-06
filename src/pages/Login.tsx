@@ -7,12 +7,7 @@ import Cookie from "universal-cookie";
 import Navbar from "../components/Navbar";
 import GoogleBox from "../components/GoogleBox";
 type event = React.ChangeEvent<HTMLInputElement>;
-
-interface Prop {
-    type: `teacher` | `admin` | `convenor`;
-}
-
-function Login({ type }: Prop) {
+function Login() {
     const [email, setEmail] = useState(``);
     const [password, setPassword] = useState(``);
     const [showPassword, setShowPassword] = useState(false);
@@ -20,7 +15,7 @@ function Login({ type }: Prop) {
     const navigate = useNavigate();
     const cookie = new Cookie();
     useEffect(() => {
-        document.title = `PCTE ${type.charAt(0).toUpperCase() + type.slice(1)} Login`;
+        document.title = `PCTE User Login`;
         const token = cookie.get(`user_token`);
         if (token) navigate(`/user/dashboard`);
     }, []);
@@ -46,8 +41,7 @@ function Login({ type }: Prop) {
             setIsLoading(true);
             const response = await axiosInstance.post(`/user/login`, {
                 email,
-                password,
-                user_type:type.charAt(0).toUpperCase() + type.slice(1)
+                password
             });
             toast.success(`Logged In Successfully`);
             const token = response?.data?.token;
@@ -70,7 +64,7 @@ function Login({ type }: Prop) {
             <section className="min-h-screen pb-8 md:pb-0">
                 <div className="flex flex-col items-center justify-center h-screen px-6 py-8 mx-auto lg:py-0">
                     <h1 className="flex items-center pt-10 mb-6 text-4xl font-semibold text-gray-900 dark:text-white">
-                        PCTE {type.charAt(0).toUpperCase() + type.slice(1)}
+                        PCTE User
                     </h1>
 
                     <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -129,8 +123,8 @@ function Login({ type }: Prop) {
                                         `Sign In`  // Default text when not loading
                                     )}
                                 </button>
-                                <GoogleBox setIsLoading={setIsLoading} type={type} />
-                                <Link to={`/${type}/forgot`} className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
+                                <GoogleBox setIsLoading={setIsLoading} />
+                                <Link to={`/user/forgot`} className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
                                     Forgot Password?{` `}
                                 </Link>
                             </form>
