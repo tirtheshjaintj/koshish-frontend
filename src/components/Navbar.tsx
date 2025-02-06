@@ -55,7 +55,7 @@ export default function Nav() {
 
     return (
         <>
-            <Navbar className=" sticky top-0 w-[100vw]   z-10  backdrop-blur-3xl">
+            <Navbar className=" sticky top-0 bg-slate-100   z-10  backdrop-blur-3xl">
                 <Link to="/" className="flex flex-grow" 
                 onClick={isInstallable ? install : undefined}>
                     <img src="/pcte.jpeg" className="h-12 mr-3" alt="PCTE Koshish App" />

@@ -2,9 +2,6 @@ import { useState } from 'react'
 import { FaBars } from 'react-icons/fa6'
 import Sidebar from "../SideBar/Sidebar.tsx"
 import { Outlet, useLocation } from 'react-router-dom'
-import FacultyManageMain from '../faculty/FacultyMain.tsx'
-import DashboardContent from './Dashboard.tsx'
-import RegisterForEvent from './DashBoardComponents/RegisterForEvent.tsx'
 
 // Student Dashboard
 export default function Dashboard() {
@@ -49,11 +46,10 @@ export default function Dashboard() {
         </div>
 
 
-        {/* Main Area */}
         <div className='w-full min-h-full  bg-slate-50 mt-6 px-4' >
 
-          {/* Content */}
           <Outlet/>
+
         </div>
 
         <div>
