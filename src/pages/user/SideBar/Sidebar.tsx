@@ -20,20 +20,22 @@ const listData = [
  
     {
         name: "Faculty",
+        icon: <PiChalkboardTeacherFill size={20} />,
         link : "/user/dashboard/faculties",
-         icon: <PiChalkboardTeacherFill size={20} />,
+    },{
+        name:"Register for Event",
+        icon:<PiStudent size={20}/>,
+        link : "/user/dashboard/registerEvent",
     }
 ];
 
 
 interface SidebarProps {
-    setTab: (tab: string) => void;
     open: boolean;
-    tab: string;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
   }
 
-export default function Sidebar({ setTab ,open  , setOpen }:SidebarProps) {
+export default function Sidebar({ open  , setOpen }:SidebarProps) {
     // const [open] = useRecoilState(openSideBar);
 
     // const [currUser, setCurrUser] = useRecoilState(userData);
@@ -75,7 +77,7 @@ export default function Sidebar({ setTab ,open  , setOpen }:SidebarProps) {
                     <Link
                         to={item.link}
                         key={index}
-                        onClick={() => setTab(item.name)}
+                        // onClick={() => setTab(item?.name)}
                         className={` 
                             ${item.link === location.pathname && "bg-red-800 text-white"}
                             rounded-md

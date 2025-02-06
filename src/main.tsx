@@ -10,6 +10,7 @@ import Login from "./pages/Login.tsx";
 import User_Dashboard from "./pages/user/dashboard/User_Dashboard.tsx";
 import Forgot_Password from './pages/Forgot_Password.tsx';
 import FacultyManageMain from './pages/user/faculty/FacultyMain.tsx';
+import RegisterForEvent from './pages/user/dashboard/DashBoardComponents/RegisterForEvent.tsx';
 
 
 
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
         element: <User_Dashboard />,
         children: [
           { path: "faculties", element: <FacultyManageMain /> },
+          {
+            path:"registerEvent",
+            element:<RegisterForEvent/>
+          }
         ],
       },
     ],
