@@ -11,6 +11,7 @@ import User_Dashboard from "./pages/user/dashboard/User_Dashboard.tsx";
 import Forgot_Password from './pages/Forgot_Password.tsx';
 import FacultyManageMain from './pages/user/faculty/FacultyMain.tsx';
 import RegisterForEvent from './pages/user/dashboard/DashBoardComponents/RegisterForEvent.tsx';
+import DashboardContent from './pages/user/dashboard/Dashboard.tsx';
 
 
 

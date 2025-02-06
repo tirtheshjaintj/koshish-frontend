@@ -21,7 +21,8 @@ const RegisterForEvent: React.FC<any> = () => {
   const [message, setMessage] = useState<string | null>(null);
   
 
-  const handleAddStudent = () => {
+  const handleAddStudent = (e : React.FormEvent) => {
+    e.preventDefault()
     if (newStudent.trim() !== "" && students.length < event.maxStudents) {
       setStudents([...students, newStudent.trim()]);
       setNewStudent(""); // Clear input field
@@ -119,7 +120,7 @@ const RegisterForEvent: React.FC<any> = () => {
       </div>
 
       {/* Input Field with Add Button */}
-      <div className="flex items-center gap-2 mt-4">
+      <form onSubmit={(e) => handleAddStudent(e)} className="flex items-center gap-2 mt-4">
         <input
           type="text"
           value={newStudent}
@@ -136,7 +137,7 @@ const RegisterForEvent: React.FC<any> = () => {
         >
           <TiTick />
         </button>
-      </div>
+      </form>
 
       {
         filledFields === event.maxStudents && (
@@ -149,9 +150,10 @@ const RegisterForEvent: React.FC<any> = () => {
       {/* Submit Button */}
       <button
         type="submit"
-        className="bg-red-800 text-white p-2 rounded-md w-full mt-4 hover:bg-red-700 transition "
+        className={ `${loading || (filledFields < event.minStudents) ? "cursor-not-allowed opacity-50" : ""} bg-red-800 text-white p-2 rounded-md w-full mt-4 hover:bg-red-700 transition `}
         onClick={handleSubmit}
-        disabled={loading}
+        disabled={loading || (filledFields < event.minStudents)}
+
       >
         {loading ? "Registering..." : "Submit Registration"}
       </button>
