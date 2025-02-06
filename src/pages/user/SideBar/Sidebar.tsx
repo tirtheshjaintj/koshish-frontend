@@ -27,7 +27,14 @@ const listData = [
     }
 ];
 
-export default function Sidebar({ setTab, tab, setOpen }) {
+
+interface SidebarProps {
+    setTab: (tab: string) => void;
+    tab: string;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  }
+
+export default function Sidebar({ setTab  , tab , setOpen }:SidebarProps) {
     // const [open] = useRecoilState(openSideBar);
 
     const [open, setOpenSideBar] = useState(true);
