@@ -12,7 +12,7 @@ import Forgot_Password from './pages/Forgot_Password.tsx';
 import FacultyManageMain from './pages/user/faculty/FacultyMain.tsx';
 import RegisterForEvent from './pages/user/dashboard/DashBoardComponents/RegisterForEvent.tsx';
 import DashboardContent from './pages/user/dashboard/Dashboard.tsx';
-
+import {DataProvider} from "./context/DataProviderContext.tsx"
 
 
 const router = createBrowserRouter([
@@ -41,8 +41,12 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_ID} >
+    
     <Provider store={store}>
+    <DataProvider>
+      
       <RouterProvider router={router} />
+    </DataProvider>
     </Provider>
   </GoogleOAuthProvider>
 );
