@@ -8,6 +8,7 @@ interface DataContextType {
   allRegisterations: Array<any>;
   allClasses: Array<any>;
   allEvents: Array<any>;
+  classRegisterations:Array<any>;
 }
 
 // Create Context
@@ -110,7 +111,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     }
   }, [user]);
 
-  return <DataContext.Provider value={{faculties , allRegisterations  ,allClasses  , allEvents}}>{children}</DataContext.Provider>;
+  return <DataContext.Provider value={{faculties , allRegisterations  ,allClasses  , allEvents , classRegisterations}}>{children}</DataContext.Provider>;
 };
 
 // Custom hook to use the DataContext
