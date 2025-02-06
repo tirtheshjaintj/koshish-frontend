@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { FaBars } from 'react-icons/fa6'
 import Sidebar from "../SideBar/Sidebar.tsx"
-import { useLocation } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import FacultyManageMain from '../faculty/FacultyMain.tsx'
 import DashboardContent from './Dashboard.tsx'
 import RegisterForEvent from './DashBoardComponents/RegisterForEvent.tsx'
@@ -53,14 +53,7 @@ export default function Dashboard() {
         <div className='w-full min-h-full  bg-slate-50 mt-6 px-4' >
 
           {/* Content */}
-
-
-         {/* Content */}
-          
-          {location.pathname === '/user/dashboard' && <DashboardContent />}
-          {location.pathname === '/user/dashboard/faculties' && <FacultyManageMain />}
-          {location.pathname === '/user/dashboard/registerEvent' && <RegisterForEvent />}
-
+          <Outlet/>
         </div>
 
         <div>
