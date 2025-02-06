@@ -7,7 +7,7 @@ import { FaBars, FaLaptopCode } from "react-icons/fa";
 import { MdTimer } from "react-icons/md";
 import { PiChalkboardTeacherFill, PiStudent } from "react-icons/pi";
 import { MdOutlineInventory } from "react-icons/md";
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 // import DeleteConfirmation from '../../common/DeleteConfirmation';
 // import ModalWrapper from '../../common/ModalWrapper';
 
@@ -15,24 +15,30 @@ const listData = [
     {
         name: "Dashboard",
         icon: <MdDashboard size={20} />,
+        link: "/user/dashboard",
     },
-
-    {
-        name: "Labs",
-        icon: <FaLaptopCode size={20} />,
-    },
+ 
     {
         name: "Faculty",
-        icon: <PiChalkboardTeacherFill size={20} />,
+        link : "/user/dashboard/faculties",
+         icon: <PiChalkboardTeacherFill size={20} />,
     }
 ];
 
-export default function Sidebar({ setTab, tab, setOpen }) {
+
+interface SidebarProps {
+    setTab: (tab: string) => void;
+    open: boolean;
+    tab: string;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  }
+
+export default function Sidebar({ setTab ,open  , setOpen }:SidebarProps) {
     // const [open] = useRecoilState(openSideBar);
 
-    const [open, setOpenSideBar] = useState(true);
     // const [currUser, setCurrUser] = useRecoilState(userData);
     const [openModal, setOpenModal] = useState(false);
+    const location = useLocation();
     
     // const navigate = useNavigate();
 
@@ -66,11 +72,12 @@ export default function Sidebar({ setTab, tab, setOpen }) {
 
             <div className='flex flex-col mt-5 gap-2'>
                 {listData.map((item, index) => (
-                    <div
+                    <Link
+                        to={item.link}
                         key={index}
                         onClick={() => setTab(item.name)}
                         className={` 
-                            ${item.name === tab && "bg-red-800 text-white"}
+                            ${item.link === location.pathname && "bg-red-800 text-white"}
                             rounded-md
                             p-2 
                             transition-all
@@ -83,7 +90,7 @@ export default function Sidebar({ setTab, tab, setOpen }) {
                     >
                         {item.icon}
                         {open && item.name}
-                    </div>
+                    </Link>
                 ))}
             </div>
 
