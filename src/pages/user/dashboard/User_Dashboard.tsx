@@ -4,11 +4,11 @@ import Sidebar from "../SideBar/Sidebar.tsx"
 import { useLocation } from 'react-router-dom'
 import FacultyManageMain from '../faculty/FacultyMain.tsx'
 import DashboardContent from './Dashboard.tsx'
+import RegisterForEvent from './DashBoardComponents/RegisterForEvent.tsx'
 
 // Student Dashboard
 export default function Dashboard() {
   const [open, setOpen] = useState(true)
-  const [sideTab, setSideTab] = useState('Dashboard')
   const location = useLocation();
 
   return (
@@ -21,7 +21,7 @@ export default function Dashboard() {
           py-4 px-2 transition-transform duration-300 ease-in-out`}
       >
 
-        <Sidebar open={open} setOpen={setOpen} tab={sideTab} setTab={setSideTab} />
+        <Sidebar open={open} setOpen={setOpen}  />
 
       </div>
 
@@ -42,7 +42,7 @@ export default function Dashboard() {
             <FaBars
               onClick={() => setOpen((prev) => !prev)}
               className=' hover:text-slate-500 cursor-pointer' />
-            <h1 className='text-xl  font-bold'>{sideTab}</h1>
+            {/* <h1 className='text-xl  font-bold'>{sideTab}</h1> */}
           </div>
 
 
@@ -52,10 +52,14 @@ export default function Dashboard() {
         {/* Main Area */}
         <div className='w-full min-h-full  bg-slate-50 mt-6 px-4' >
 
+          {/* Content */}
+
+
          {/* Content */}
           
           {location.pathname === '/user/dashboard' && <DashboardContent />}
           {location.pathname === '/user/dashboard/faculties' && <FacultyManageMain />}
+          {location.pathname === '/user/dashboard/registerEvent' && <RegisterForEvent />}
 
 
 
