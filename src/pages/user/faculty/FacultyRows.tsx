@@ -48,7 +48,7 @@ const FacultyRows: React.FC<FacultyRowsProps> = ({
   data,
 }) => {
   return (
-    <tr className="border-b border-stone-300  text-xs text-stone-700 ">
+    <tr className="border-b border-red-300  text-xs text-stone-700 ">
       {/* Avatar */}
       <td className="p-2">
         <img
@@ -60,60 +60,40 @@ const FacultyRows: React.FC<FacultyRowsProps> = ({
 
       {/* Name */}
       <td className="p-2">
-        <p> {faculty.name}</p>
+        <p className="font-semibold"> {faculty.name}</p>
       </td>
 
       {/* Email */}
       <td className="p-2">
-        <p> {faculty.email}</p>
+        <p className="font-semibold"> {faculty.email}</p>
       </td>
 
       {/* Phone Number */}
       <td className="p-2">
-        <p> {faculty.phone_number}</p>
+        <p className="font-semibold"> {faculty.phone_number}</p>
       </td>
       {/* User Type */}
       <td className="p-2">
-        <p> {faculty.user_type}</p>
+        <p className="font-semibold"> {faculty.user_type}</p>
       </td>
 
 
       {/* is_active Toggle */}
-      <td className="p-2">
-        {faculty?.is_active ? (
-          <FaToggleOn
-            onClick={() => handleToggleAccess(faculty._id)}
-            className="text-emerald-500 cursor-pointer text-xl"
-          />
-        ) : (
-          <FaToggleOff
-            onClick={() => handleToggleAccess(faculty._id)}
-            className="text-red-500 cursor-pointer text-xl"
-          />
-        )}
+      <td className="p-2 ">
+        {faculty?.is_active ?
+          <div className="w-4 h-4  rounded-full bg-green-600 ">
+          </div>
+          :
+          <div className="w-4 h-4 rounded-full bg-red-600 ">
+          </div>
+        }
       </td>
 
-       
-      {/* Edit / Save / Cancel */}
+
+      {/* Edit  */}
       <td className="p-2">
-        {!isEditing || editFacultyId !== faculty._id ? (
-          <FaPen title="Edit" onClick={() => handleEdit(faculty)} className="cursor-pointer" />
-        ) : (
-          <div className="flex gap-4 items-center">
-            <IoCheckmarkDoneCircle
-              title="Save"
-              className="text-green-600 hover:text-green-700 cursor-pointer"
-              onClick={handleSave}
-              size={20}
-            />
-            <MdCancel
-              title="Cancel"
-              className="text-red-600 cursor-pointer"
-              onClick={handleCancel}
-              size={20}
-            />
-          </div>
-        )}
+        <FaPen title="Edit" onClick={() => handleEdit(faculty)} className="cursor-pointer" />
+
       </td>
     </tr>
   );
