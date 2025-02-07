@@ -51,7 +51,7 @@ function Login() {
             const token = response?.data?.token;
             if (token) {
                 cookie.set(`user_token`, token, { path: `/`, expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) });
-                navigate("/");
+                navigate("/dashboard");
             }
         } catch (error: any) {
             const error_msg = error.response?.data?.message || "An error occurred";
