@@ -14,6 +14,7 @@ import RegisterForEvent from './pages/user/dashboard/DashBoardComponents/Registe
 import DashboardContent from './pages/user/dashboard/Dashboard.tsx';
 import {DataProvider} from "./context/DataProviderContext.tsx"
 import Events from './pages/Events.tsx';
+import EventResult from './pages/EventResult.tsx';
 
 
 const router = createBrowserRouter([
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       { path: "user/login", element: <Login /> },
       { path: "user/forgot", element: <Forgot_Password /> },
       { path: "events", element: <Events /> },
+      { path: "events/:event_id", element: <EventResult/> },
       {
         path: "user/dashboard",
         element: <User_Dashboard />,

@@ -5,7 +5,6 @@ import Loader from '../../../components/common/Loader';
 import ModalWrapper from '../../../components/common/ModalWrapper';
 import FacultyForm from './FacultyForm';
 import FacultyRows from './FacultyRows';
-import axiosInstance from '../../../config/axiosConfig';
 
 interface Faculty {
     _id: string;

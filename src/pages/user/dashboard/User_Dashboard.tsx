@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import { FaBars } from 'react-icons/fa6'
 import Sidebar from "../SideBar/Sidebar.tsx"
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 
 // Student Dashboard
 export default function Dashboard() {
   const [open, setOpen] = useState(true)
-  const location = useLocation();
 
   return (
     <div className='flex  w-full  min-h-screen bg-slate-50 max-h-screen '
