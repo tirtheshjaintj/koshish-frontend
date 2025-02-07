@@ -4,8 +4,9 @@ import { useSelector } from "react-redux";
 
 interface DataContextType {
   // Define the shape of the context value here
+   
 }
-
+  
 // Create Context
 const DataContext = createContext<DataContextType | null>(null);
 
@@ -47,7 +48,11 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     }
   }, [user]);
 
-  return <DataContext.Provider value={{}}>{children}</DataContext.Provider>;
+  return <DataContext.Provider value={{
+    faculties,
+    fetchAllFaculties
+
+  }}>{children}</DataContext.Provider>;
 };
 
 // Custom hook to use the DataContext

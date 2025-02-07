@@ -10,9 +10,11 @@ interface Faculty {
   email: string;
   avatar?: string;
   block: string;
-  access: boolean;
+  is_active: boolean;
+  phone_number: string;
+  user_type: string;
 
- }
+}
 
 // Define Props for the component
 interface FacultyRowsProps {
@@ -29,7 +31,7 @@ interface FacultyRowsProps {
     name: string;
     email: string;
     password?: string;
-    role?: string;
+    user_type?: string;
   };
 }
 
@@ -58,31 +60,27 @@ const FacultyRows: React.FC<FacultyRowsProps> = ({
 
       {/* Name */}
       <td className="p-2">
-        <input
-          type="text"
-          disabled={!isEditing || faculty._id !== editFacultyId}
-          className="w-full p-1 border rounded-md text-xs text-stone-800  border-stone-300 outline-none   focus:ring-1 focus:ring-emerald-800"
-          name="name"
-          onChange={handleInputChange}
-          value={isEditing && faculty._id === editFacultyId ? data.name : faculty.name}
-        />
+        <p> {faculty.name}</p>
       </td>
 
       {/* Email */}
       <td className="p-2">
-        <input
-          type="email"
-          name="email"
-          disabled={!isEditing || faculty._id !== editFacultyId}
-          value={isEditing && faculty._id === editFacultyId ? data.email : faculty.email}
-          onChange={handleInputChange}
-          className="w-full p-1 border rounded-md text-xs text-stone-800  border-stone-300 outline-none   focus:ring-1 focus:ring-emerald-800"
-        />
+        <p> {faculty.email}</p>
       </td>
 
-      {/* Access Toggle */}
+      {/* Phone Number */}
       <td className="p-2">
-        {faculty?.access ? (
+        <p> {faculty.phone_number}</p>
+      </td>
+      {/* User Type */}
+      <td className="p-2">
+        <p> {faculty.user_type}</p>
+      </td>
+
+
+      {/* is_active Toggle */}
+      <td className="p-2">
+        {faculty?.is_active ? (
           <FaToggleOn
             onClick={() => handleToggleAccess(faculty._id)}
             className="text-emerald-500 cursor-pointer text-xl"
@@ -95,17 +93,7 @@ const FacultyRows: React.FC<FacultyRowsProps> = ({
         )}
       </td>
 
-      {/* Remove */}
-      <td className="p-2">
-        <button
-          type="button"
-          onClick={() => handleRemove(faculty._id)}
-          className="text-red-500 cursor-pointer hover:text-red-600 focus:outline-none"
-        >
-          <FaTrash />
-        </button>
-      </td>
-
+       
       {/* Edit / Save / Cancel */}
       <td className="p-2">
         {!isEditing || editFacultyId !== faculty._id ? (

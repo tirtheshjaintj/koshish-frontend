@@ -6,6 +6,8 @@ import ModalWrapper from '../../../components/common/ModalWrapper';
 import FacultyForm from './FacultyForm';
 import FacultyRows from './FacultyRows';
 import axiosInstance from '../../../config/axiosConfig';
+import { useData } from '../../../context/DataProviderContext';
+import FacultyCardView from './FacultyCardView';
 
 interface Faculty {
     _id: string;
@@ -15,11 +17,6 @@ interface Faculty {
     access: boolean;
 }
 
-const dummyFaculties: Faculty[] = [
-    { _id: '1', name: 'John Doe', email: 'john@example.com', block: 'A' ,access: true},
-    { _id: '2', name: 'Jane Smith', email: 'jane@example.com', block: 'B' ,access: true},
-    { _id: '3', name: 'Alice Brown', email: 'alice@example.com', block: 'A',access: true },
-];
 
 export default function FacultyManageMain() {
     const [openModal, setOpenModal] = useState(false);
@@ -28,15 +25,17 @@ export default function FacultyManageMain() {
     const [loading, setLoading] = useState(false);
     const [outLoading, setOutLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-    const [allFaculties, setAllFaculties] = useState<Faculty[]>(dummyFaculties);
+    const { faculties } = useData()
+
     const [data, setData] = useState({
         name: '',
         email: '',
         password: '',
-        role: 'faculty',
+        user_type: '',
+        phone_number: '',
     });
 
-    const filteredFaculties = allFaculties.filter((faculty) =>
+    const filteredFaculties = faculties?.filter((faculty: Faculty) =>
         faculty.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         faculty.email.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -45,6 +44,7 @@ export default function FacultyManageMain() {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
+    // console.log(data)
     const handleSubmit = async (e: React.FormEvent): Promise<void> => {
         e.preventDefault();
         setLoading(true);
@@ -55,33 +55,38 @@ export default function FacultyManageMain() {
                     toast.error('Email and Name are required');
                     return
                 }
-
-                // const response = await axiosInstance.put(`/user/faculty/${editFacultyId}`, data);
-
-                toast.success('Updated Successfully');
+                const response = await axiosInstance.put(`/user/faculty/${editFacultyId}`, data);
+                toast.success(response?.data?.message || 'Updated Successfully');
                 setIsEditing(false);
                 setEditFacultyId(null);
             } else {
-                toast.success('Successfully Added');
+                const response = await axiosInstance.post(`/user/signup`, data);
+                // console.log({response});
+                toast.success(response?.data?.message || 'Added Successfully');
             }
             setOpenModal(false);
-            setData({ name: '', email: '', password: '', role: 'faculty' });
+            setData({
+                name: '',
+                email: '',
+                password: '',
+                user_type: '',
+                phone_number: '',
+            });
         } catch (error) {
-            toast.error('Something went wrong');
+            toast.error( error?.response?.data?.message || 'Something went wrong');
         } finally {
             setLoading(false);
         }
     };
 
-    const handleToggleAccess = async (id: string) : Promise<void> => {
+    const handleToggleAccess = async (id: string): Promise<void> => {
         console.log(id);
     }
 
-    
+
     const handleRemove = (id: string) => {
         if (!confirm('Are you sure you want to remove this faculty?')) return;
-        setAllFaculties(allFaculties.filter((faculty) => faculty._id !== id));
-        toast.success('Faculty removed successfully');
+         toast.success('Faculty removed successfully');
     };
 
     //   interface EditProps {
@@ -133,16 +138,34 @@ export default function FacultyManageMain() {
                     />
                 </div>
 
-                <div className="p-4 overflow-x-auto">
+
+        <div className='flex flex-wrap my-4 items-center px-2 gap-4'>
+            {
+                filteredFaculties?.length === 0 ? (
+                    <p className="text-stone-600">No faculties found</p>
+                ) : (
+                    <>
+                        {filteredFaculties?.map((item) => (
+                            <FacultyCardView key={item._id} value={item} />
+                        ))}
+                    </>
+                )
+            }
+        </div>
+
+
+
+                <div className="p-4 hidden overflow-x-auto">
                     <table className="w-full border-collapse border border-stone-300">
                         <thead className="bg-stone-100">
                             <tr>
                                 <th className="text-left p-2 text-xs font-semibold text-stone-700">Avatar</th>
                                 <th className="text-left p-2 text-xs font-semibold text-stone-700">Name</th>
                                 <th className="text-left p-2 text-xs font-semibold text-stone-700">Email</th>
-                                <th className="text-left p-2 text-xs font-semibold text-stone-700">Access</th>
-                                <th className="text-left p-2 text-xs font-semibold text-stone-700">Remove</th>
-                                <th className="text-left p-2 text-xs font-semibold text-stone-700">Update</th>
+                                <th className="text-left p-2 text-xs font-semibold text-stone-700">Phone</th>
+                                <th className="text-left p-2 text-xs font-semibold text-stone-700">Role</th>
+                                <th className="text-left p-2 text-xs font-semibold text-stone-700">Active</th>
+                                 <th className="text-left p-2 text-xs font-semibold text-stone-700">Update</th>
                             </tr>
                         </thead>
                         <tbody>
