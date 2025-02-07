@@ -10,9 +10,11 @@ interface Faculty {
   email: string;
   avatar?: string;
   block: string;
-  access: boolean;
+  is_active: boolean;
+  phone_number: string;
+  user_type: string;
 
- }
+}
 
 // Define Props for the component
 interface FacultyRowsProps {
@@ -29,7 +31,7 @@ interface FacultyRowsProps {
     name: string;
     email: string;
     password?: string;
-    role?: string;
+    user_type?: string;
   };
 }
 
@@ -46,7 +48,7 @@ const FacultyRows: React.FC<FacultyRowsProps> = ({
   data,
 }) => {
   return (
-    <tr className="border-b border-stone-300  text-xs text-stone-700 ">
+    <tr className="border-b border-red-300  text-xs text-stone-700 ">
       {/* Avatar */}
       <td className="p-2">
         <img
@@ -58,74 +60,40 @@ const FacultyRows: React.FC<FacultyRowsProps> = ({
 
       {/* Name */}
       <td className="p-2">
-        <input
-          type="text"
-          disabled={!isEditing || faculty._id !== editFacultyId}
-          className="w-full p-1 border rounded-md text-xs text-stone-800  border-stone-300 outline-none   focus:ring-1 focus:ring-emerald-800"
-          name="name"
-          onChange={handleInputChange}
-          value={isEditing && faculty._id === editFacultyId ? data.name : faculty.name}
-        />
+        <p className="font-semibold"> {faculty.name}</p>
       </td>
 
       {/* Email */}
       <td className="p-2">
-        <input
-          type="email"
-          name="email"
-          disabled={!isEditing || faculty._id !== editFacultyId}
-          value={isEditing && faculty._id === editFacultyId ? data.email : faculty.email}
-          onChange={handleInputChange}
-          className="w-full p-1 border rounded-md text-xs text-stone-800  border-stone-300 outline-none   focus:ring-1 focus:ring-emerald-800"
-        />
+        <p className="font-semibold"> {faculty.email}</p>
       </td>
 
-      {/* Access Toggle */}
+      {/* Phone Number */}
       <td className="p-2">
-        {faculty?.access ? (
-          <FaToggleOn
-            onClick={() => handleToggleAccess(faculty._id)}
-            className="text-emerald-500 cursor-pointer text-xl"
-          />
-        ) : (
-          <FaToggleOff
-            onClick={() => handleToggleAccess(faculty._id)}
-            className="text-red-500 cursor-pointer text-xl"
-          />
-        )}
+        <p className="font-semibold"> {faculty.phone_number}</p>
+      </td>
+      {/* User Type */}
+      <td className="p-2">
+        <p className="font-semibold"> {faculty.user_type}</p>
       </td>
 
-      {/* Remove */}
-      <td className="p-2">
-        <button
-          type="button"
-          onClick={() => handleRemove(faculty._id)}
-          className="text-red-500 cursor-pointer hover:text-red-600 focus:outline-none"
-        >
-          <FaTrash />
-        </button>
-      </td>
 
-      {/* Edit / Save / Cancel */}
-      <td className="p-2">
-        {!isEditing || editFacultyId !== faculty._id ? (
-          <FaPen title="Edit" onClick={() => handleEdit(faculty)} className="cursor-pointer" />
-        ) : (
-          <div className="flex gap-4 items-center">
-            <IoCheckmarkDoneCircle
-              title="Save"
-              className="text-green-600 hover:text-green-700 cursor-pointer"
-              onClick={handleSave}
-              size={20}
-            />
-            <MdCancel
-              title="Cancel"
-              className="text-red-600 cursor-pointer"
-              onClick={handleCancel}
-              size={20}
-            />
+      {/* is_active Toggle */}
+      <td className="p-2 ">
+        {faculty?.is_active ?
+          <div className="w-4 h-4  rounded-full bg-green-600 ">
           </div>
-        )}
+          :
+          <div className="w-4 h-4 rounded-full bg-red-600 ">
+          </div>
+        }
+      </td>
+
+
+      {/* Edit  */}
+      <td className="p-2">
+        <FaPen title="Edit" onClick={() => handleEdit(faculty)} className="cursor-pointer" />
+
       </td>
     </tr>
   );

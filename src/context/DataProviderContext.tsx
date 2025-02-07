@@ -10,7 +10,7 @@ interface DataContextType {
   allEvents: Array<any>;
   classRegisterations:Array<any>;
 }
-
+  
 // Create Context
 const DataContext = createContext<DataContextType | null>(null);
 
