@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
-import { useData } from "../context/DataProviderContext";
-import Navbar from "../components/Navbar";
+import { useData } from "../../../../context/DataProviderContext.tsx";
+import Navbar from "../../../../components/Navbar.tsx";
 import { motion } from "framer-motion";
-import ModalWrapper from "../components/common/ModalWrapper";
+import ModalWrapper from "../../../../components/common/ModalWrapper";
+import RegisterForEvent from "../../dashboard/DashBoardComponents/RegisterForEvent.tsx";
 
 const Events = () => {
   const events = useData().allEvents;
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("");
   const [partFilterType, setPartFilterType] = useState("");
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [selectedEvent, setSelectedEvent] = useState<any>(null);
   const [openModal, setOpenModal] = useState(false);
+  const [openRegisterModal, setopenRegisterModal] = useState(false);
+  const [registerEvent, setRegisterEvent] = useState(null);
 
   // Filtered events based on search and type
   const filteredEvents = events.filter(
-    (event) =>
+    (event : any) =>
       event.name.toLowerCase().includes(search.toLowerCase()) &&
       (filterType === "" || event.type === filterType) &&
       (partFilterType === "" || event.part_type === partFilterType)
@@ -27,6 +30,13 @@ const Events = () => {
   useEffect(()=>{
     setOpenModal(selectedEvent?true:false);
   },[selectedEvent]);
+
+  
+  useEffect(()=>{
+    setopenRegisterModal(registerEvent?true:false);
+  },[registerEvent]);
+
+
 
   return (
     <>
@@ -41,6 +51,7 @@ const Events = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+          <div className="flex gap-2">
           <select
             className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-md"
             value={filterType}
@@ -59,6 +70,7 @@ const Events = () => {
             <option value="Group">Group</option>
             <option value="Solo">Solo</option>
           </select>
+          </div>
         </div>
 
         {/* Events List */}
@@ -66,7 +78,7 @@ const Events = () => {
           layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {filteredEvents.map((event) => (
+          {filteredEvents.map((event : any) => (
             <motion.div
               key={event._id}
               layout
@@ -90,8 +102,9 @@ const Events = () => {
                 </button>
                 <button
                   className="px-4 py-2 bg-[#9B1C1C] text-white rounded-lg  transition"
+                    onClick={()=>setRegisterEvent(event)}
                 >
-                  Results
+                  Register
                 </button>
               </div>
             </motion.div>
@@ -108,9 +121,9 @@ const Events = () => {
           >
             {selectedEvent && (
               <>
-                <h2 className="text-2xl font-bold">{selectedEvent.name}</h2>
+                <h2 className="text-2xl font-bold">{selectedEvent?.name}</h2>
                 <p className="text-gray-700 mt-4">
-                  <strong>Description:</strong> <br/>{selectedEvent.description}
+                  <strong>Description:</strong> <br/>{selectedEvent?.description}
                 </p>
                 <p className="text-gray-700 mt-4">
                   <strong>Part Type:</strong> {selectedEvent.part_type}
@@ -143,6 +156,10 @@ const Events = () => {
               </>
             )}
           </motion.div>
+        </ModalWrapper>
+
+        <ModalWrapper open={openRegisterModal} setOpenModal={setopenRegisterModal} >
+            <RegisterForEvent setRegisterEvent={setRegisterEvent} event={registerEvent} />
         </ModalWrapper>
       </div>
     </>
