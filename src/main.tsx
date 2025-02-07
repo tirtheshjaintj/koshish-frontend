@@ -15,6 +15,7 @@ import DashboardContent from './pages/user/dashboard/Dashboard.tsx';
 import {DataProvider} from "./context/DataProviderContext.tsx"
 import Events from './pages/Events.tsx';
 import EventResult from './pages/EventResult.tsx';
+import TeacherEvents from "./pages/user/faculty/Events/TeacherEvents.tsx"
 
 
 const router = createBrowserRouter([
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
           { path: "faculties", element: <FacultyManageMain /> },
           {
             path:"registerEvent",
-            element:<RegisterForEvent/>
+            element:<TeacherEvents/>
           }
         ],
       },
