@@ -17,9 +17,9 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({
   const modalRef = useRef<HTMLDivElement>(null);
 
   const closeModal = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (modalRef.current === e.target && outsideClickClose) {
-      setOpenModal(false);
-    }
+    // if (modalRef.current === e.target && outsideClickClose) {
+    //   setOpenModal(false);
+    // }
   };
 
   if (!open) return null;

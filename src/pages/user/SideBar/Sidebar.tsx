@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { MdDashboard } from 'react-icons/md'
-import { MdSendTimeExtension } from "react-icons/md";
-import { GrLogout, GrResources } from "react-icons/gr";
-import { MdFeedback } from "react-icons/md";
-import { FaBars, FaLaptopCode } from "react-icons/fa";
-import { MdTimer } from "react-icons/md";
+import { GrLogout } from "react-icons/gr";
+import { FaBars } from "react-icons/fa";
 import { PiChalkboardTeacherFill, PiStudent } from "react-icons/pi";
-import { MdOutlineInventory } from "react-icons/md";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../../../store/userSlice';
 // import DeleteConfirmation from '../../common/DeleteConfirmation';
 // import ModalWrapper from '../../common/ModalWrapper';
+import Cookies from "universal-cookie";
 
 const listData = [
     {
@@ -21,11 +20,11 @@ const listData = [
     {
         name: "Faculty",
         icon: <PiChalkboardTeacherFill size={20} />,
-        link : "/user/dashboard/faculties",
-    },{
-        name:"Register for Event",
-        icon:<PiStudent size={20}/>,
-        link : "/user/dashboard/registerEvent",
+        link: "/user/dashboard/faculties",
+    }, {
+        name: "Register for Event",
+        icon: <PiStudent size={20} />,
+        link: "/user/dashboard/registerEvent",
     }
 ];
 
@@ -35,23 +34,21 @@ interface SidebarProps {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function Sidebar({ open  , setOpen }:SidebarProps) {
+export default function Sidebar({ open, setOpen }: SidebarProps) {
     // const [open] = useRecoilState(openSideBar);
 
     // const [currUser, setCurrUser] = useRecoilState(userData);
     const [openModal, setOpenModal] = useState(false);
     const location = useLocation();
+    const dispatch = useDispatch();
+    const cookie = new Cookies();
+    const navigate = useNavigate();
 
-    // const navigate = useNavigate();
-
-    // const logoutHandler = () => {
-    // if (logoutUser()) {
-    //     setCurrUser(null);
-    //     setOpenModal(false);
-    //     // console.log("first")
-    // }
-    // navigate("/login");
-    // }
+    const signOut = () => {
+        cookie.remove('user_token', { path: '/' });
+        navigate("/user/login");
+        dispatch(addUser(null));
+    };
 
 
 
@@ -59,21 +56,21 @@ export default function Sidebar({ open  , setOpen }:SidebarProps) {
 
     return (
         <div className='relative min-h-full text-stone-700 '>
-            <div className='text-2xl font-bold border-b border-zinc-700 border-opacity-30 py-4 flex relative gap-4 items-center'>
+            <div className='relative flex items-center gap-4 py-4 text-2xl font-bold border-b border-zinc-700 border-opacity-30'>
                 <FaBars
                     size={20}
                     onClick={() => setOpen((prev: boolean) => !prev)}
-                    className=' sticky md:hidden bottom-2 hover:text-slate-500 cursor-pointer'
+                    className='sticky cursor-pointer md:hidden bottom-2 hover:text-slate-500'
                 />
                 <img
                     src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0chhs7PCMWtuhOLg8yYBynOz2qsPmX_ydmCJwci-rkpfXh47lW_2YRRgT7skeD8INGrA&usqp=CAU"}
                     alt="pcte"
-                    className='w-8 h-8 rounded- object-cover'
+                    className='object-cover w-8 h-8 rounded-'
                 />
                 {open && "Koshish"}
             </div>
 
-            <div className='flex flex-col mt-5 gap-2'>
+            <div className='flex flex-col gap-2 mt-5'>
                 {listData.map((item, index) => (
                     <Link
                         to={item.link}
@@ -99,7 +96,7 @@ export default function Sidebar({ open  , setOpen }:SidebarProps) {
 
             <div
                 title='logout'
-                onClick={() => setOpenModal(true)}
+                onClick={() => signOut()}
                 className={`lg:absolute lg:bottom-3 ${!open ? 'w-fit' : 'w-[80%]'} 
                     font-medium flex items-center gap-4
                     cursor-pointer
