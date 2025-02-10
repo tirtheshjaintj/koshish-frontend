@@ -6,16 +6,14 @@ import { TiTick } from "react-icons/ti";
 import { motion, AnimatePresence } from "framer-motion"
 import axiosInstance from "../../../../config/axiosConfig";
 import toast from "react-hot-toast";
-const RegisterForEvent: React.FC<any> = ({ setRegisterEvent , event , fetchAllEvents }) => {
-  // const event = {
-  //   _id: 1,
-  //   name: "Debate",
-  //   minStudents: 3,
-  //   maxStudents: 4,
-  //   rules: ["dummy data point 1", "dummy data point 2", "dummy data point 3"],
-  // };
+const UpdateRegisterationForEvent: React.FC<any> = ({ setRegisterEvent , event , fetchAllEvents }) => {
 
-  const [students, setStudents] = useState<string[]>([]);
+  if(!event){
+    return;
+  }
+
+
+  const [students, setStudents] = useState<string[]>([...event?.register?.students]);
   const [newStudent, setNewStudent] = useState(""); // State for input field
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -39,19 +37,22 @@ const RegisterForEvent: React.FC<any> = ({ setRegisterEvent , event , fetchAllEv
     setMessage(null);
 
     try {
-      const response = await axiosInstance.post("/registrations", {
+      const response = await axiosInstance.put(`/registrations/${event?.register?._id}`, {
         students,
         eventId: event?._id,
+        classId: event?.register?.classId
       });
       if (response?.data?.status) {
-        setMessage(response.data.message);
-        toast.success("Registration successful");
+        console.log("happen")
+        // setMessage(response?.data?.message);
+        toast.success("Registration updated successfully");
         setRegisterEvent(null);
-        fetchAllEvents()
+        // await fetchAllEvents()
+        // console.log("happen 2")
       }
     } catch (error: any) {
       setMessage(error.response?.data?.message || "Something went wrong");
-      toast.error("Registration failed");
+      toast.error("Registration updation failed");
     } finally {
       setLoading(false);
     }
@@ -158,7 +159,7 @@ const RegisterForEvent: React.FC<any> = ({ setRegisterEvent , event , fetchAllEv
             disabled={loading || (filledFields < event?.minStudents)}
 
           >
-            {loading ? "Registering..." : "Submit Registration"}
+            {loading ? "Updating..." : "Update Registration"}
           </button>
 
 
@@ -179,4 +180,4 @@ const RegisterForEvent: React.FC<any> = ({ setRegisterEvent , event , fetchAllEv
   );
 };
 
-export default RegisterForEvent;
+export default UpdateRegisterationForEvent;
