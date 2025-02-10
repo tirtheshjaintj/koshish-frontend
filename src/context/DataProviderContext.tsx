@@ -10,7 +10,7 @@ interface DataContextType {
   allEvents: Array<any>;
   classRegisterations:Array<any>;
 }
-
+  
 // Create Context
 const DataContext = createContext<DataContextType | null>(null);
 
@@ -42,17 +42,6 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     }
   };
 
-  // const fetchAllEvents = async () => {
-  //   try {
-  //     const response = await axiosInstance.get("/event");
-  //     if (response.data.status) {
-  //       console.log("Events : ", response.data.events);
-  //       setEvents(response.data.events);
-  //     }
-  //   } catch (error) {
-  //     console.log("error : ", error);
-  //   }
-  // };
 
   const fetchClassRegisterations = async () => {
     try {
