@@ -3,16 +3,36 @@ import { useData } from "../../../../context/DataProviderContext.tsx";
 import { motion } from "framer-motion";
 import ModalWrapper from "../../../../components/common/ModalWrapper";
 import RegisterForEvent from "../../dashboard/DashBoardComponents/RegisterForEvent.tsx";
+import UpdateRegisterationForEvent from "../../dashboard/DashBoardComponents/UpdateRegisterations.tsx";
+import axiosInstance from "../../../../config/axiosConfig.ts";
+import { useSelector } from "react-redux";
 
 const Events = () => {
-  const events = useData().allEvents;
+  // const events = useData().allEvents;
+  const [events, setevents] = useState([])
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("");
   const [partFilterType, setPartFilterType] = useState("");
   const [selectedEvent, setSelectedEvent] = useState<any>(null);
   const [openModal, setOpenModal] = useState(false);
   const [openRegisterModal, setopenRegisterModal] = useState(false);
+  const [openUpdateRegiter, setopenUpdateRegiter] = useState(false);
+  const [updatingEvent, setupdatingEvent] = useState(null)
   const [registerEvent, setRegisterEvent] = useState(null);
+  const user = useSelector((state:any)=>state.user);
+
+  console.log("user : " , user)
+
+  const fetchEvents = async()=>{
+    try {
+      const response = await axiosInstance(`/event/class/${user._id}`);
+      if(response.data){
+        setevents(response.data.result);
+      }
+    } catch (error) {
+      console.log("error : " ,error)
+    }
+  }
 
   // Filtered events based on search and type
   const filteredEvents = events.filter(
@@ -36,10 +56,21 @@ const Events = () => {
   }, [registerEvent]);
 
 
+  useEffect(() => {
+    setopenUpdateRegiter(updatingEvent?true:false);
+  }, [updatingEvent])
+  
+
+  useEffect(() => {
+    fetchEvents()
+  }, [user])
+  
+
+
 
   return (
     <>
-      <div className="container p-6 mx-auto">
+      <div className="container mx-auto p-6">
         {/* Search and Filter Section */}
         <div className="flex flex-col items-center justify-between gap-4 mb-6 md:flex-row">
           <input
@@ -98,12 +129,22 @@ const Events = () => {
                 >
                   Details
                 </button>
-                <button
+                {/* {event.regi/ster?.toString()} */}
+                {
+                  event.register !== null ? <><button
+                  className="px-4 py-2 bg-[#9B1C1C] text-white rounded-lg  transition"
+                    onClick={()=>setupdatingEvent(event)}
+                >
+                  
+                  Update
+                </button></>:<><button
                   className="px-4 py-2 bg-[#9B1C1C] text-white rounded-lg  transition"
                   onClick={() => setRegisterEvent(event)}
                 >
                   Register
-                </button>
+                </button></>
+                }
+                
               </div>
             </motion.div>
           ))}
@@ -157,7 +198,12 @@ const Events = () => {
         </ModalWrapper>
 
         <ModalWrapper open={openRegisterModal} setOpenModal={setopenRegisterModal} >
-          <RegisterForEvent setRegisterEvent={setRegisterEvent} event={registerEvent} />
+            <RegisterForEvent setRegisterEvent={setRegisterEvent} event={registerEvent} fetchAllEvents={fetchEvents} />
+        </ModalWrapper>
+
+        <ModalWrapper  open={openUpdateRegiter} setOpenModal={setopenUpdateRegiter}  >
+
+        <UpdateRegisterationForEvent setRegisterEvent={setupdatingEvent} event={updatingEvent} fetchAllEvents={fetchEvents} />
         </ModalWrapper>
       </div>
     </>
