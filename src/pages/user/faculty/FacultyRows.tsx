@@ -26,7 +26,6 @@ interface FacultyRowsProps {
   editFacultyId: string | null;
   handleCancel: () => void;
   handleToggleAccess: (id: string) => Promise<void>;
-  handleRemove: (id: string) => void;
   data: {
     name: string;
     email: string;
@@ -44,7 +43,6 @@ const FacultyRows: React.FC<FacultyRowsProps> = ({
   editFacultyId,
   handleCancel,
   handleToggleAccess,
-  handleRemove,
   data,
 }) => {
   return (
