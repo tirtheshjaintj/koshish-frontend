@@ -50,13 +50,10 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
         dispatch(addUser(null));
     };
 
-
-
-
-
     return (
         <div className='relative min-h-full text-stone-700 '>
-            <div className='relative flex items-center gap-4 py-4 text-2xl font-bold border-b border-zinc-700 border-opacity-30'>
+            <div className='relative flex items-center gap-4
+             py-4 text-2xl font-bold border-b border-zinc-700 border-opacity-30'>
                 <FaBars
                     size={20}
                     onClick={() => setOpen((prev: boolean) => !prev)}

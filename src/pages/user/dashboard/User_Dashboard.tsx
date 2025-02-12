@@ -13,7 +13,7 @@ export default function Dashboard() {
       <div
         className={`max-md:z-50 absolute min-h-full ${open ? "translate-x-0 flex-1  min-w-[270px] z-50" : "max-md:-translate-x-[130%] transition-all  w-[60px] "
           } bg-white md:sticky top-0  border border-zinc-300  border-opacity-30
-           max-w-[300px] rounded-xl m-2 shadow-xl 
+           max-w-[200px] rounded-xl m-2 shadow-xl 
           py-4 px-2 transition-transform duration-300 ease-in-out`}
       >
 

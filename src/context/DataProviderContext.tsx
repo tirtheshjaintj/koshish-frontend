@@ -8,9 +8,14 @@ interface DataContextType {
   allRegisterations: Array<any>;
   allClasses: Array<any>;
   allEvents: Array<any>;
-  classRegisterations:Array<any>;
+  classRegisterations: Array<any>;
+  fetchAllFaculties: () => Promise<void>;
+  fetchAllRegisterations: () => Promise<void>;
+  fetchAllClasses: () => Promise<void>;
+  fetchAllEvents: () => Promise<void>;
+  fetchClassRegisterations: () => Promise<void>;
 }
-  
+
 // Create Context
 const DataContext = createContext<DataContextType | null>(null);
 
@@ -46,52 +51,52 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const fetchClassRegisterations = async () => {
     try {
       const response = await axiosInstance.get("/registrations/classRegistrations");
-      if(response?.data?.status){
-        console.log("fetclassRegisterations : "  , response.data.registrations);
+      if (response?.data?.status) {
+        console.log("fetclassRegisterations : ", response.data.registrations);
         setClassRegisterations(response.data.registrations)
       }
     } catch (error) {
-      console.log("error : " , error);
+      console.log("error : ", error);
     }
   }
 
-  const getAllRegisterations = async()=>{
+  const getAllRegisterations = async () => {
     try {
       const response = await axiosInstance.get('/registrations');
-      if(response?.data?.status){
+      if (response?.data?.status) {
         // console.log("response : " , response?.data?.registrations);
-        setAllRegisterations(response?.data?.registrations);  
+        setAllRegisterations(response?.data?.registrations);
       }
     } catch (error) {
-      console.log("error : " , error);
+      console.log("error : ", error);
     }
   }
 
-  const fetchAllClasses = async()=>{
+  const fetchAllClasses = async () => {
     try {
       const response = await axiosInstance.get('/class');
-      if(response?.data?.status){
+      if (response?.data?.status) {
         // console.log("classes : " , response?.data?.classes);
         setAllClasses(response?.data?.classes)
       }
     } catch (error) {
-      console.log("error :  " , error)
+      console.log("error :  ", error)
     }
   }
 
-  const fetchAllEvents = async()=>{
+  const fetchAllEvents = async () => {
     try {
       const response = await axiosInstance.get('/event');
-      if(response?.data?.status){
+      if (response?.data?.status) {
         // console.log("events : " , response?.data?.events);
         setAllEvents(response?.data?.events)
       }
     } catch (error) {
-      console.log("error :" , error)
+      console.log("error :", error)
     }
   }
 
-  
+
   useEffect(() => {
     fetchAllEvents();
 
@@ -114,11 +119,16 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     }
   }, [user]);
 
-  return <DataContext.Provider value={{faculties , allRegisterations  ,allClasses  , allEvents , classRegisterations}}>{children}</DataContext.Provider>;
+  return <DataContext.Provider value={{
+    faculties,
+    allRegisterations, allClasses,
+    allEvents, classRegisterations,
+    fetchAllFaculties
+  }}>{children}</DataContext.Provider>;
 };
 
 // Custom hook to use the DataContext
-export const useData = (): any=> {
+export const useData = (): any => {
   const context = useContext(DataContext);
   if (!context) {
     throw new Error("useData must be used within a DataProvider");
