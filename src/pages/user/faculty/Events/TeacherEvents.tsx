@@ -11,8 +11,9 @@ const Events = () => {
   // const events = useData().allEvents;
   const [events, setevents] = useState([])
   const [search, setSearch] = useState("");
-  const [filterType, setFilterType] = useState("");
+  // const [filterType, setFilterType] = useState("");
   const [partFilterType, setPartFilterType] = useState("");
+  const [registerFilter, setregisterFilter] = useState("")
   const [selectedEvent, setSelectedEvent] = useState<any>(null);
   const [openModal, setOpenModal] = useState(false);
   const [openRegisterModal, setopenRegisterModal] = useState(false);
@@ -38,10 +39,13 @@ const Events = () => {
   const filteredEvents = events.filter(
     (event: any) =>
       event.name.toLowerCase().includes(search.toLowerCase()) &&
-      (filterType === "" || event.type === filterType) &&
-      (partFilterType === "" || event.part_type === partFilterType)
+      // (filterType === "" || event.type === filterType) &&
+      (partFilterType === "" || event.part_type === partFilterType) &&
+      (registerFilter === "" || 
+        (registerFilter === "registered" && event.register !== null) || 
+        (registerFilter === "unregistered" && event.register === null))
   );
-
+  
   useEffect(() => {
     console.log("Hello", events);
   }, [events]);
@@ -80,8 +84,8 @@ const Events = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <div className="flex gap-2">
-            <select
+          <div className="flex gap-1 flex-wrap justify-center">
+            {/* <select
               className="px-4 py-3 transition border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
@@ -89,7 +93,7 @@ const Events = () => {
               <option value="">All Types</option>
               <option value="Junior">Junior</option>
               <option value="Senior">Senior</option>
-            </select>
+            </select> */}
             <select
               className="px-4 py-3 transition border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={partFilterType}
@@ -99,6 +103,17 @@ const Events = () => {
               <option value="Group">Group</option>
               <option value="Solo">Solo</option>
             </select>
+
+            <select
+            className="px-4 py-3 transition border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={registerFilter}
+            onChange={(e) => setregisterFilter(e.target.value)}
+          >
+            <option value="">All Events</option>
+            <option value="registered">Registered</option>
+            <option value="unregistered">Unregistered</option>
+          </select>
+
           </div>
         </div>
 
