@@ -33,7 +33,7 @@ export default function FacultyManageMain() {
     const [outLoading, setOutLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const { faculties, fetchAllFaculties } = useData();
-
+    
     const [data, setData] = useState({
         name: '',
         email: '',
@@ -83,7 +83,7 @@ export default function FacultyManageMain() {
     }, [setData, setIsEditing, setOpenModal, setEditFacultyId]);
 
     // Cancel/Reset Handler
-    const handleCancel = useCallback(() => {
+    const handleCancel = () => {
         setIsEditing(false);
         setEditFacultyId(null);
         setData({
@@ -93,7 +93,7 @@ export default function FacultyManageMain() {
             user_type: '',
             phone_number: ''
         });
-    }, [setIsEditing, setEditFacultyId, setData]);
+    }
 
     // Submit Handler
     const handleSubmit = useCallback(async (e: React.FormEvent): Promise<void> => {
@@ -129,16 +129,19 @@ export default function FacultyManageMain() {
         } finally {
             setLoading(false);
         }
-    }, [isEditing, data, editFacultyId, handleCancel, fetchAllFaculties]);
+    }, [isEditing, data, editFacultyId, fetchAllFaculties]);
 
-    
+
     return (
         <div>
             <ModalWrapper open={openModal} setOpenModal={setOpenModal} outsideClickClose={false}>
                 <FacultyForm loading={loading} data={data}
                     isEditing={isEditing}
+                    setIsEditing={setIsEditing}
                     setOpenModal={setOpenModal}
                     handleSubmit={handleSubmit}
+                    handleCancel={handleCancel}
+                    setData={setData}
                     onChangeHandler={onChangeHandler} />
             </ModalWrapper>
 

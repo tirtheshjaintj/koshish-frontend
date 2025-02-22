@@ -1,5 +1,5 @@
 import React, { SetStateAction, Dispatch, useState, FC } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaToggleOff, FaToggleOn } from "react-icons/fa";
 import Loader from "../../../components/common/Loader";
 import RequiredStar from "../../../components/common/RequiredStar";
 
@@ -13,11 +13,20 @@ interface FacultyFormProps {
     email?: string;
     password?: string;
     user_type: string;
+    is_active?: boolean;
     phone_number?: string;
   };
-  isEditing?: boolean;
-  setIsEditing?: Dispatch<SetStateAction<boolean>>;
-  resetData?: () => void;
+  isEditing: boolean;
+  setIsEditing: Dispatch<SetStateAction<boolean>>;
+  setData: Dispatch<SetStateAction<{
+    name?: string;
+    email?: string;
+    password?: string;
+    user_type: string;
+    is_active?: boolean;
+    phone_number?: string;
+  }>>;
+  handleCancel: () => void;
 }
 
 
@@ -27,12 +36,13 @@ const FacultyForm: FC<FacultyFormProps> = ({
   onChangeHandler,
   setOpenModal,
   isEditing,
+  setData,
   setIsEditing,
-  resetData,
+  handleCancel,
   data,
 }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
-
+  // console.log(data)
   return (
     <form
       onSubmit={(e) => handleSubmit(e)}
@@ -42,6 +52,45 @@ const FacultyForm: FC<FacultyFormProps> = ({
       <h2 className="text-xl font-semibold text-stone-800  text-center">
         {isEditing ? "Edit Details" : "Add Faculty"}
       </h2>
+
+
+      {/* is Active */}
+{
+     isEditing && <div className='flex px-2 items-center my-2 justify-end gap-2 '>
+
+        {
+          data?.is_active ? <>
+            <p className="font-semibold">Active </p> <FaToggleOn
+              title='Active'
+              onClick={
+                () => {
+                  if (!confirm("Are you sure to Deactivate the account?")) {
+                    return;
+                  }
+                  setData((prev) => ({ ...prev, is_active: false }))
+                }
+              }
+              size={25}
+              className='text-green-500   ' />
+          </>
+            :
+            <>
+              <p className="font-semibold">Not Active </p>
+              <FaToggleOff
+                size={25}
+                onClick={() => {
+                  if (!confirm("Are you sure to Active the account?")) {
+                    return;
+                  }
+                  setData((prev) => ({ ...prev, is_active: true }))
+                }
+                }
+                title='Inactive'
+                className='text-red-500   ' />
+            </>
+        }
+      </div>
+}
 
       {/* Name and User Type */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -77,7 +126,7 @@ const FacultyForm: FC<FacultyFormProps> = ({
             name="user_type"
             className="w-full mt-1 p-2 rounded-md border border-stone-300 dark:border-stone-700 bg-white  text-stone-800  focus:outline-none focus:ring-1 focus:ring-red-800"
             value={data?.user_type}
-            onChange={(e)=>onChangeHandler(e)}
+            onChange={(e) => onChangeHandler(e)}
           >
             <option value="" disabled>Select User Type</option>
             {["Teacher", "Convenor"].map((userType) => (
@@ -165,6 +214,8 @@ const FacultyForm: FC<FacultyFormProps> = ({
       </div>
 
 
+
+
       {/* Buttons */}
       <div className="flex items-center justify-between">
         <button
@@ -177,11 +228,9 @@ const FacultyForm: FC<FacultyFormProps> = ({
         <button
           type="reset"
           onClick={() => {
-            setOpenModal(false)
-            if (setIsEditing) {
-              setIsEditing(false)
-              resetData();
-            }
+            setIsEditing(false);
+            setOpenModal(false);
+            handleCancel()
 
           }}
           className="w-full md:w-auto px-6 py-2 bg-stone-800 text-white font-medium rounded-md shadow hover:bg-stone-600  focus:outline-none focus:ring-2 focus:ring-red-700"

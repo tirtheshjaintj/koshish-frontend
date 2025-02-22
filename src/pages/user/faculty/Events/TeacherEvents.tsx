@@ -62,6 +62,8 @@ const Events = () => {
   
 
   useEffect(() => {
+    if(!user)
+      return;
     fetchEvents()
   }, [user])
   
