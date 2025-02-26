@@ -16,7 +16,7 @@ import {DataProvider} from "./context/DataProviderContext.tsx"
 import Events from './pages/Events.tsx';
 import EventResult from './pages/EventResult.tsx';
 import TeacherEvents from "./pages/user/faculty/Events/TeacherEvents.tsx"
-
+import ClassMain from "./pages/user/classes/ClassMain.tsx"
 
 const router = createBrowserRouter([
   {
@@ -36,6 +36,10 @@ const router = createBrowserRouter([
           {
             path:"registerEvent",
             element:<TeacherEvents/>
+          },
+          {
+            path:"class",
+            element:<ClassMain/>
           }
         ],
       },

@@ -4,6 +4,7 @@ import { GrLogout } from "react-icons/gr";
 import { FaBars } from "react-icons/fa";
 import { PiChalkboardTeacherFill, PiStudent } from "react-icons/pi";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { SiGoogleclassroom } from "react-icons/si";
 import { useDispatch } from 'react-redux';
 import { addUser } from '../../../store/userSlice';
 // import DeleteConfirmation from '../../common/DeleteConfirmation';
@@ -21,7 +22,13 @@ const listData = [
         name: "Faculty",
         icon: <PiChalkboardTeacherFill size={20} />,
         link: "/user/dashboard/faculties",
-    }, {
+    }, 
+    {
+        name: "Class",
+        icon: <SiGoogleclassroom size={20} />,
+        link: "/user/dashboard/class",
+    }, 
+    {
         name: "Register for Event",
         icon: <PiStudent size={20} />,
         link: "/user/dashboard/registerEvent",
