@@ -68,9 +68,10 @@ const Events = () => {
   
 
   useEffect(() => {
-    if(user){
-      fetchEvents()
-    }
+     if(!user)
+      return;
+    fetchEvents()
+ 
   }, [user])
   
 

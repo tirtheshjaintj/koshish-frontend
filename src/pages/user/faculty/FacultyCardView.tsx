@@ -3,16 +3,22 @@ import { MdLocalPhone } from "react-icons/md";
 import { MdEmail } from "react-icons/md";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import { FaCircleCheck } from "react-icons/fa6";
+import { FaToggleOn } from "react-icons/fa6";
+import { FaToggleOff } from "react-icons/fa6";
 
 
 interface FacultyCardViewProps {
-    value:object ,
-    setIsEditing:React.Dispatch<React.SetStateAction<boolean>>,
-    isEditing:boolean,
-    handleEdit:() => void
+    value: object,
+    setIsEditing: React.Dispatch<React.SetStateAction<boolean>>,
+    isEditing: boolean,
+    handleEdit: () => void,
+    handleCancel: () => void
+
 }
-export default function FacultyCardView({ value, setIsEditing, isEditing ,handleEdit}:
+export default function FacultyCardView({ value, setIsEditing, isEditing, handleCancel, handleEdit }:
     FacultyCardViewProps) {
+
+    // console.log(value)
     return (
         <div
             className='p-2 rounded-md max-auto relative min-w-[280px] max-sm:max-w-[280px] gap-4 md:min-w-[350px]   shadow-lg flex items-center  flex-1 bg-white'>
@@ -29,8 +35,10 @@ export default function FacultyCardView({ value, setIsEditing, isEditing ,handle
                 <p className=' text-xs md:text-sm flex items-center gap-1 text-gray-700'><MdLocalPhone /> {value?.phone_number}</p>
             </div>
 
+           
+
             <FaRegPenToSquare
-                onClick={ () =>handleEdit(value) }
+                onClick={() => handleEdit(value)}
                 title='Edit'
                 className='text-stone-800 absolute top-2 right-2 cursor-pointer hover:stroke-neutral-600' />
 

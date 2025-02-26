@@ -6,6 +6,8 @@ import { addUser } from './store/userSlice';
 import axiosInstance from './config/axiosConfig';
 import { useEffect } from 'react';
 
+
+
 function App() {
   const cookie = new Cookie();
   const dispatch = useDispatch();
@@ -33,7 +35,7 @@ function App() {
       } else {
         cookie.remove('user_token');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (!error?.response?.data?.status) {
         cookie.remove('user_token');
       }

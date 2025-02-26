@@ -16,10 +16,11 @@ import {DataProvider} from "./context/DataProviderContext.tsx"
 import Events from './pages/Events.tsx';
 import EventResult from './pages/EventResult.tsx';
 import TeacherEvents from "./pages/user/faculty/Events/TeacherEvents.tsx"
-import AllRegisterations from './pages/user/dashboard/DashBoardComponents/AllRegisterations.tsx';
+import ClassMain from "./pages/user/classes/ClassMain.tsx"
+ import AllRegisterations from './pages/user/dashboard/DashBoardComponents/AllRegisterations.tsx';
 import EventRegisterations from './pages/user/dashboard/DashBoardComponents/EventRegisterations.tsx';
 
-
+ 
 const router = createBrowserRouter([
   {
     path: "/",
@@ -38,13 +39,17 @@ const router = createBrowserRouter([
           {
             path:"registerEvent",
             element:<TeacherEvents/>
-          },{
+           },
+          {
+            path:"class",
+            element:<ClassMain/>
+           },{
             path: "allRegisterations",
             element:<AllRegisterations/>
           },{
             path:"category/:eventId/:name",
             element:<EventRegisterations/>
-          }
+           }
         ],
       },
     ],
