@@ -32,6 +32,10 @@ const listData = [
         name: "Register for Event",
         icon: <PiStudent size={20} />,
         link: "/user/dashboard/registerEvent",
+    },{
+        name: "All Registerations",
+        icon : <PiStudent size={20} />,
+        link : "/user/dashboard/allRegisterations"
     }
 ];
 
