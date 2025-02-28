@@ -21,13 +21,13 @@ const Events = () => {
   const [registerEvent, setRegisterEvent] = useState(null);
   const user = useSelector((state:any)=>state.user);
 
-  console.log("user : " , user)
 
   const fetchEvents = async()=>{
     try {
       const response = await axiosInstance(`/event/class/${user._id}`);
+      console.log("Response",response);
       if(response.data){
-        setevents(response.data.result);
+        setevents(response.data.data);
       }
     } catch (error) {
       console.log("error : " ,error)

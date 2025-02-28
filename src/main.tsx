@@ -10,12 +10,13 @@ import Login from "./pages/Login.tsx";
 import User_Dashboard from "./pages/user/dashboard/User_Dashboard.tsx";
 import Forgot_Password from './pages/Forgot_Password.tsx';
 import FacultyManageMain from './pages/user/faculty/FacultyMain.tsx';
-import RegisterForEvent from './pages/user/dashboard/DashBoardComponents/RegisterForEvent.tsx';
-import DashboardContent from './pages/user/dashboard/Dashboard.tsx';
+// import RegisterForEvent from './pages/user/dashboard/DashBoardComponents/RegisterForEvent.tsx';
+// import DashboardContent from './pages/user/dashboard/Dashboard.tsx';
 import {DataProvider} from "./context/DataProviderContext.tsx"
 import Events from './pages/Events.tsx';
 import EventResult from './pages/EventResult.tsx';
 import TeacherEvents from "./pages/user/faculty/Events/TeacherEvents.tsx"
+import AddEvents from './pages/user/faculty/Events/addEvents.tsx';
 
 
 const router = createBrowserRouter([
@@ -36,6 +37,9 @@ const router = createBrowserRouter([
           {
             path:"registerEvent",
             element:<TeacherEvents/>
+          },{
+            path:"addEvent",
+            element:<AddEvents/>
           }
         ],
       },
@@ -49,10 +53,10 @@ createRoot(document.getElementById('root')!).render(
     
     <Provider store={store}>
     <DataProvider>
-      
       <RouterProvider router={router} />
     </DataProvider>
     </Provider>
+
   </GoogleOAuthProvider>
 );
 

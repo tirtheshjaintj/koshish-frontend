@@ -15,7 +15,7 @@ const Events = () => {
 
   // Filtered events based on search and type
   const filteredEvents = events.filter(
-    (event) =>
+    (event:any) =>
       event.name.toLowerCase().includes(search.toLowerCase()) &&
       (filterType === "" || event.type === filterType) &&
       (partFilterType === "" || event.part_type === partFilterType)
