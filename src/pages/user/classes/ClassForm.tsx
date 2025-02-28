@@ -13,6 +13,7 @@ interface FacultyFormProps {
     name?: string;
     password?: string;
     type?: string;
+    inchargeId? :string;
     is_active?: boolean;
   };
   isEditing: boolean;
@@ -131,6 +132,33 @@ const ClassForm: FC<FacultyFormProps> = ({
         </div>
       </div>
 
+
+      <div>
+          <label
+            htmlFor="incharge"
+            className="block text-xs font-medium text-stone-700 "
+          >
+            Teacher <RequiredStar />
+          </label>
+          <select
+            id="incharge"
+            required
+            name="incharge"
+            className="w-full mt-1 p-2 rounded-md border border-stone-300 dark:border-stone-700 bg-white  text-stone-800  focus:outline-none focus:ring-1 focus:ring-red-800"
+            value={data?.inchargeId}
+            onChange={(e)=>onChangeHandler(e)}
+          >
+            <option value="" disabled>
+              Select User Type
+            </option>
+            {["Arti", "Shairy"].map((item,idx) => (
+              <option key={idx} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </div>
+
       {!isEditing && (
         <div className="relative">
           <label
@@ -159,6 +187,8 @@ const ClassForm: FC<FacultyFormProps> = ({
           </button>
         </div>
       )}
+
+
 
       {/* Buttons */}
       <div className="flex items-center justify-between gap-4 flex-wrap">
