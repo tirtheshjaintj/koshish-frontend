@@ -16,9 +16,10 @@ function EventResult() {
   const fetchEventResult = async () => {
     try {
       const response = await axiosInstance.get(`/result/get/${event_id}`);
-      if (response?.data?.success) {
+      if (response.data?.success) {
         setEventDetails(response.data.data.eventId);
         setResult(response.data.data.result);
+        console.log(response.data.data.result);
         document.title = `${response.data.data.eventId.name} - Results`;
       } else {
         throw new Error("Results not found");
@@ -26,7 +27,6 @@ function EventResult() {
     } catch (error) {
       console.error("Error fetching result:", error);
       setError(true);
-      // If results are not found, find the event in events array
       const eventFromList = events.find(event => event._id === event_id);
       if (eventFromList) {
         setEventDetails(eventFromList);

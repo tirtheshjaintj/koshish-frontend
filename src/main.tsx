@@ -16,9 +16,13 @@ import {DataProvider} from "./context/DataProviderContext.tsx"
 import Events from './pages/Events.tsx';
 import EventResult from './pages/EventResult.tsx';
 import TeacherEvents from "./pages/user/faculty/Events/TeacherEvents.tsx"
-import AddEvents from './pages/user/faculty/Events/addEvents.tsx';
+import ClassMain from "./pages/user/classes/ClassMain.tsx"
+ import AllRegisterations from './pages/user/dashboard/DashBoardComponents/AllRegisterations.tsx';
+import EventRegisterations from './pages/user/dashboard/DashBoardComponents/EventRegisterations.tsx';
+import AddEvents from './pages/user/dashboard/AddEvents.tsx';
+import ViewEvents from './pages/user/dashboard/VIewEvents.tsx';
 
-
+ 
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,13 +38,22 @@ const router = createBrowserRouter([
         element: <User_Dashboard />,
         children: [
           { path: "faculties", element: <FacultyManageMain /> },
+          { path: "addEvent", element: <AddEvents /> },
+          {path:"events",element:<ViewEvents/>},
           {
             path:"registerEvent",
             element:<TeacherEvents/>
+           },
+          {
+            path:"class",
+            element:<ClassMain/>
+           },{
+            path: "allRegisterations",
+            element:<AllRegisterations/>
           },{
-            path:"addEvent",
-            element:<AddEvents/>
-          }
+            path:"category/:eventId/:name",
+            element:<EventRegisterations/>
+           }
         ],
       },
     ],

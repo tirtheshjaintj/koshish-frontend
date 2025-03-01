@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
+import { useData } from "../../../../context/DataProviderContext.tsx";
 import { motion } from "framer-motion";
 import ModalWrapper from "../../../../components/common/ModalWrapper";
 import RegisterForEvent from "../../dashboard/DashBoardComponents/RegisterForEvent.tsx";
 import UpdateRegisterationForEvent from "../../dashboard/DashBoardComponents/UpdateRegisterations.tsx";
 import axiosInstance from "../../../../config/axiosConfig.ts";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-const Events = () => {
+const AllEvents = () => {
   // const events = useData().allEvents;
   const [events, setevents] = useState([])
   const [search, setSearch] = useState("");
@@ -20,23 +22,21 @@ const Events = () => {
   const [updatingEvent, setupdatingEvent] = useState(null)
   const [registerEvent, setRegisterEvent] = useState(null);
   const user = useSelector((state:any)=>state.user);
-
+  const navigate = useNavigate();
 
   
   const fetchEvents = async()=>{
     try {
       const response = await axiosInstance(`/event/class/${user._id}`);
       console.log("d : "  , response)
-      console.log("Response",response);
       if(response.data){
-        setevents(response.data.data);
+        setevents(response.data.result);
       }
     } catch (error) {
       console.log("error : " ,error)
     }
   }
-
-  console.log({user})
+  
 
   // Filtered events based on search and type
   const filteredEvents = events.filter(
@@ -69,10 +69,9 @@ const Events = () => {
   
 
   useEffect(() => {
-     if(!user)
-      return;
-    fetchEvents()
- 
+    if(user){
+      fetchEvents()
+    }
   }, [user])
   
 
@@ -136,37 +135,28 @@ const Events = () => {
               whileTap={{ scale: 0.95 }}
               className="relative p-6 transition duration-300 border shadow-lg cursor-pointer bg-white/30 backdrop-blur-lg rounded-xl hover:shadow-xl border-white/20"
             >
-              <h2 className="text-2xl font-semibold text-gray-800">{event.name}</h2>
-              <p className="mt-2 text-gray-600">
-                <strong>Type:</strong> {event.type}
-              </p>
-              <p className="mt-2 text-sm text-gray-500">
-                <strong>Location:</strong> {event.location}
-              </p>
-              <div className="flex items-center justify-between mt-4">
-                <button
-                  className="px-4 py-2 text-white transition bg-blue-500 rounded-lg hover:bg-blue-600"
-                  onClick={() => setSelectedEvent(event)}
-                >
-                  Details
-                </button>
-                {/* {event.regi/ster?.toString()} */}
-                {
-                  event.register !== null ? <><button
-                  className="px-4 py-2 bg-[#9B1C1C] text-white rounded-lg  transition"
-                    onClick={()=>setupdatingEvent(event)}
-                >
-                  
-                  Update
-                </button></>:<><button
-                  className="px-4 py-2 bg-[#9B1C1C] text-white rounded-lg  transition"
-                  onClick={() => setRegisterEvent(event)}
-                >
-                  Register
-                </button></>
-                }
+              
+            <div className="bg-white shadow-lg rounded-lg p-5 w-80 border border-gray-200">
+                <div className="flex justify-between items-center mb-2">
+                    <h2 className="text-xl font-semibold text-gray-900">{event.name}</h2>
+                    <span className="bg-red-800 text-white text-sm px-3 py-1 rounded-md">{event.type}</span>
+                </div>
+
+                <div className="flex gap-2 mb-3">
+                    <span className="bg-gray-200 text-gray-900 text-sm px-3 py-1 rounded-md">{event.part_type}</span>
+                    <span className="bg-gray-200 text-gray-900 text-sm px-3 py-1 rounded-md">{event.minStudents} - {event.maxStudents} Students</span>
+                </div>
                 
-              </div>
+                <p className="text-gray-900 font-medium"><span className="text-gray-500">Location:</span>{event.location}</p>
+                <p className="text-gray-900 font-medium"><span className="text-gray-500">Points:</span>{event.points.join(", ")}</p>
+
+                <div className="flex justify-between mt-4">
+                    <button className="border border-red-800 text-red-900 px-4 py-2 rounded-md hover:bg-red-50" onClick={()=>{setSelectedEvent(event)}} >Details</button>
+                    <button onClick={()=>{
+                      navigate(`/user/dashboard/category/${event._id}/${event.name}`);
+                    }} className="bg-red-800 text-white px-4 py-2 rounded-md hover:bg-red-700">Registerations</button>
+                </div>
+            </div>
             </motion.div>
           ))}
         </motion.div>
@@ -207,28 +197,16 @@ const Events = () => {
                   >
                     Close
                   </button>
-                  <button
-                    className="px-4 py-2 text-white transition bg-green-500 rounded-lg hover:bg-green-600"
-                  >
-                    Results
-                  </button>
+                  
                 </div>
               </>
             )}
           </motion.div>
         </ModalWrapper>
 
-        <ModalWrapper open={openRegisterModal} setOpenModal={setopenRegisterModal} >
-            <RegisterForEvent setRegisterEvent={setRegisterEvent} event={registerEvent} fetchAllEvents={fetchEvents} />
-        </ModalWrapper>
-
-        <ModalWrapper  open={openUpdateRegiter} setOpenModal={setopenUpdateRegiter}  >
-
-        <UpdateRegisterationForEvent setRegisterEvent={setupdatingEvent} event={updatingEvent} fetchAllEvents={fetchEvents} />
-        </ModalWrapper>
       </div>
     </>
   );
 };
 
-export default Events;
+export default AllEvents;

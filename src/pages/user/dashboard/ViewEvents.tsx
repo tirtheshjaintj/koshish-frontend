@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useData } from "../context/DataProviderContext";
-import Navbar from "../components/Navbar";
+import { useData } from "../../../context/DataProviderContext";
 import { motion } from "framer-motion";
-import ModalWrapper from "../components/common/ModalWrapper";
+import ModalWrapper from "../../../components/common/ModalWrapper";
 import { Link } from "react-router-dom";
+import { FaPlus } from "react-icons/fa";
+import UpdateEvent from "./UpdateEvent";
+
 interface EventData {
   _id:string;
   name: string;
@@ -16,13 +18,14 @@ interface EventData {
   location: string;
   points: number[];
 }
-const Events = () => {
+const ViewEvents = () => {
   const events = useData().allEvents;
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("");
   const [partFilterType, setPartFilterType] = useState("");
   const [selectedEvent, setSelectedEvent] = useState<EventData|null>(null);
   const [openModal, setOpenModal] = useState(false);
+  const [updatedEvent,setUpdatedEvent]=useState<EventData|null>(null);
 
   // Filtered events based on search and type
   const filteredEvents = events.filter(
@@ -40,9 +43,9 @@ const Events = () => {
     setOpenModal(selectedEvent?true:false);
   },[selectedEvent]);
 
+if(!updatedEvent){
   return (
     <>
-      <Navbar />
       <div className="container mx-auto p-6">
         {/* Search and Filter Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
@@ -72,7 +75,10 @@ const Events = () => {
             <option value="Group">Group</option>
             <option value="Solo">Solo</option>
           </select>
+          <Link to={`/user/dashboard/addEvent`} className="text-white bg-[#9B1C1C] px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-md"><span className="flex justify-center items-center">Add Event <FaPlus/></span></Link>
+
           </div>
+        
         </div>
         
 
@@ -105,11 +111,12 @@ const Events = () => {
                 >
                   Details 
                 </button>
-                <Link to={`/events/${event._id}`}
-                  className="px-4 py-2 bg-[#9B1C1C] text-white rounded-lg  transition"
-                >
-                  Results
-                </Link>
+                <button
+                    className="px-4 py-2  text-white rounded-lg bg-[#9B1C1C] transition"
+                    onClick={()=>{setUpdatedEvent(event)}}
+                  >
+                    Update
+                  </button>
               </div>
             </motion.div>
           ))}
@@ -164,6 +171,13 @@ const Events = () => {
       </div>
     </>
   );
+}else{
+    return (
+        <>
+        <UpdateEvent event={updatedEvent}/>
+        </>
+    )
+}
 };
 
-export default Events;
+export default ViewEvents;
