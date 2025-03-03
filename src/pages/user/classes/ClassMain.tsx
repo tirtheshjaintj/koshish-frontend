@@ -48,9 +48,9 @@ export default function FacultyManageMain() {
   }, []);
 
   const filteredClasses = allClasses.filter((classItem: Class) => {
-    const matchesSearch = classItem.name.toLowerCase().includes(searchQuery.toLowerCase())
-    || classItem.incharge?.name.toLowerCase().includes(searchQuery.toLowerCase())
-    || classItem.incharge?.email.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = classItem?.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    || classItem.incharge?.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    || classItem.incharge?.email?.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesType = classType ? classItem.type.includes(classType) : true;
     return matchesSearch && matchesType;
   });
