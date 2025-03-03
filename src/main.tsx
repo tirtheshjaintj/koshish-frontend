@@ -20,7 +20,7 @@ import ClassMain from "./pages/user/classes/ClassMain.tsx"
  import AllRegisterations from './pages/user/dashboard/DashBoardComponents/AllRegisterations.tsx';
 import EventRegisterations from './pages/user/dashboard/DashBoardComponents/EventRegisterations.tsx';
 import AddEvents from './pages/user/dashboard/AddEvents.tsx';
-import ViewEvents from './pages/user/dashboard/VIewEvents.tsx';
+import ViewEvents from './pages/user/dashboard/ViewEvents.tsx';
 
  
 const router = createBrowserRouter([

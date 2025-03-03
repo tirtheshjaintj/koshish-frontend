@@ -38,8 +38,14 @@ const ViewEvents = () => {
   useEffect(() => {
     console.log("Hello", events);
   }, [events]);
+  
+    const closeModal = ()=>{
+      setUpdatedEvent(null);
+      setSelectedEvent(null);
+    }
 
   useEffect(()=>{
+    console.log("selectedEvent : " , selectedEvent)
     setOpenModal(selectedEvent?true:false);
   },[selectedEvent]);
 
@@ -174,7 +180,7 @@ if(!updatedEvent){
 }else{
     return (
         <>
-        <UpdateEvent event={updatedEvent}/>
+        <UpdateEvent event={updatedEvent} closeModal={closeModal} />
         </>
     )
 }

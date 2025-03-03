@@ -3,7 +3,8 @@ import axiosInstance from "../../../config/axiosConfig";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import { FaMinus, FaPlus } from "react-icons/fa";
-
+import { MdDeleteForever } from "react-icons/md";
+import { useData } from "../../../context/DataProviderContext";
 interface EventData {
   _id: string;
   name: string;
@@ -19,11 +20,17 @@ interface EventData {
 
 interface UpdateEventProps {
   event: EventData;
+  closeModal: () => void;
 }
 
-const UpdateEvent: React.FC<UpdateEventProps> = ({ event }) => {
+const UpdateEvent: React.FC<UpdateEventProps> = ({ event , closeModal }) => {
   const [eventData, setEventData] = useState<EventData>(event);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDeletingEvent, setisDeletingEvent] = useState(false);
+
+  const toggleIsDeletingEvent = () => setisDeletingEvent(!isDeletingEvent);
+  const {fetchAllEvents} = useData();
+  
 
   useEffect(() => {
     const pointValues: Record<string, number[]> = {
@@ -58,6 +65,20 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event }) => {
     }
   };
 
+
+  const deleteEvent = async () => {
+    try {
+      await axiosInstance.delete(`/event/delete/${eventData._id}`);
+      fetchAllEvents();
+      Swal.fire("Success", "Event deleted successfully!", "success");
+      closeModal();
+    } catch (error) {
+      console.error("Error deleting event:", error);
+      Swal.fire("Error", "Failed to delete event", "error");
+    }
+  };
+
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!eventData.name || !eventData.type || !eventData.part_type || !eventData.description || !eventData.location || !eventData.maxStudents || !eventData.minStudents) {
@@ -76,6 +97,7 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event }) => {
     try {
       await axiosInstance.put(`/event/update/${eventData._id}`, { ...eventData, rules: eventData.rules.filter(rule => rule.trim() !== "") });
       Swal.fire("Success", "Event updated successfully!", "success");
+      closeModal();
     } catch (error) {
       console.error("Error updating event:", error);
       Swal.fire("Error", "Failed to update event", "error");
@@ -86,6 +108,9 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event }) => {
 
   return (
     <motion.div className="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-lg" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+      <div className="flex justify-end mb-3 " > <div className="flex items-center justify-center  w-10 h-10 rounded-2xl  cursor-pointer   border-2 border-red-500 " onClick={toggleIsDeletingEvent} >
+      <MdDeleteForever size={20} color="red" />
+        </div> </div>
       <form onSubmit={handleSubmit} className="space-y-6">
         <input name="name" placeholder="Event Name" value={eventData.name} onChange={handleChange} className="w-full p-3 border rounded-lg" required />
          
@@ -121,10 +146,48 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event }) => {
         
         <input name="location" placeholder="Location" value={eventData.location} onChange={handleChange} className="w-full p-3 border rounded-lg" required />
 
-        <motion.button type="submit" className="w-full bg-blue-600 text-white py-3 rounded-lg text-lg font-semibold shadow-md flex justify-center items-center" whileTap={{ scale: 0.95 }} disabled={isLoading}>
-          {isLoading ? <motion.div className="w-5 h-5 border-4 border-white border-t-transparent rounded-full animate-spin" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} /> : "Update Event"}
-        </motion.button>
+
+         
+        
       </form>
+
+      <div className="flex gap-4 flex-col sm:flex-row" >
+          <motion.button onClick={closeModal} className="w-full bg-gray-600 text-white py-3 rounded-lg text-lg font-semibold shadow-md flex justify-center items-center" whileTap={{ scale: 0.95 }} disabled={isLoading}>
+            {"Cancel"}
+          </motion.button>
+
+
+          <motion.button onClick={handleSubmit} type="submit" className="w-full bg-red-800 hover:bg-red-700 text-white py-3 rounded-lg text-lg font-semibold shadow-md flex justify-center items-center" whileTap={{ scale: 0.95 }} disabled={isLoading}>
+            {isLoading ? <motion.div className="w-5 h-5 border-4 border-white border-t-transparent rounded-full animate-spin" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} /> : "Update Event"}
+          </motion.button>
+          </div>
+          
+
+
+          {isDeletingEvent && (
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+      <p className="text-lg font-semibold mb-4">Do you want to delete this event?</p>
+      <div className="flex justify-center gap-4">
+        <button 
+          className="px-4 py-2 bg-red-800 text-white rounded hover:bg-red-700"
+          onClick={deleteEvent}
+        >
+          Delete
+        </button>
+        <button 
+          className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+          onClick={toggleIsDeletingEvent}
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
+
+
     </motion.div>
   );
 };
