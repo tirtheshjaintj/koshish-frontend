@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useData } from "../../../../context/DataProviderContext.tsx";
 import { motion } from "framer-motion";
 import ModalWrapper from "../../../../components/common/ModalWrapper";
 import RegisterForEvent from "../../dashboard/DashBoardComponents/RegisterForEvent.tsx";
@@ -22,13 +21,15 @@ const Events = () => {
   const [registerEvent, setRegisterEvent] = useState(null);
   const user = useSelector((state:any)=>state.user);
 
+
   
   const fetchEvents = async()=>{
     try {
       const response = await axiosInstance(`/event/class/${user._id}`);
       console.log("d : "  , response)
+      console.log("Response",response);
       if(response.data){
-        setevents(response.data.result);
+        setevents(response.data.data);
       }
     } catch (error) {
       console.log("error : " ,error)

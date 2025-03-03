@@ -29,6 +29,11 @@ const listData = [
         link: "/user/dashboard/class",
     }, 
     {
+        name: "Events",
+        icon: <SiGoogleclassroom size={20} />,
+        link: "/user/dashboard/events",
+    },
+    {
         name: "Register for Event",
         icon: <PiStudent size={20} />,
         link: "/user/dashboard/registerEvent",

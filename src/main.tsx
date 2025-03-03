@@ -10,8 +10,8 @@ import Login from "./pages/Login.tsx";
 import User_Dashboard from "./pages/user/dashboard/User_Dashboard.tsx";
 import Forgot_Password from './pages/Forgot_Password.tsx';
 import FacultyManageMain from './pages/user/faculty/FacultyMain.tsx';
-import RegisterForEvent from './pages/user/dashboard/DashBoardComponents/RegisterForEvent.tsx';
-import DashboardContent from './pages/user/dashboard/Dashboard.tsx';
+// import RegisterForEvent from './pages/user/dashboard/DashBoardComponents/RegisterForEvent.tsx';
+// import DashboardContent from './pages/user/dashboard/Dashboard.tsx';
 import {DataProvider} from "./context/DataProviderContext.tsx"
 import Events from './pages/Events.tsx';
 import EventResult from './pages/EventResult.tsx';
@@ -19,6 +19,8 @@ import TeacherEvents from "./pages/user/faculty/Events/TeacherEvents.tsx"
 import ClassMain from "./pages/user/classes/ClassMain.tsx"
  import AllRegisterations from './pages/user/dashboard/DashBoardComponents/AllRegisterations.tsx';
 import EventRegisterations from './pages/user/dashboard/DashBoardComponents/EventRegisterations.tsx';
+import AddEvents from './pages/user/dashboard/AddEvents.tsx';
+import ViewEvents from './pages/user/dashboard/VIewEvents.tsx';
 
  
 const router = createBrowserRouter([
@@ -36,6 +38,8 @@ const router = createBrowserRouter([
         element: <User_Dashboard />,
         children: [
           { path: "faculties", element: <FacultyManageMain /> },
+          { path: "addEvent", element: <AddEvents /> },
+          {path:"events",element:<ViewEvents/>},
           {
             path:"registerEvent",
             element:<TeacherEvents/>
@@ -62,10 +66,10 @@ createRoot(document.getElementById('root')!).render(
     
     <Provider store={store}>
     <DataProvider>
-      
       <RouterProvider router={router} />
     </DataProvider>
     </Provider>
+
   </GoogleOAuthProvider>
 );
 

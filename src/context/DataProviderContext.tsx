@@ -131,6 +131,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         allClasses,
         allEvents,
         classRegisterations,
+        fetchAllEvents,
         fetchAllFaculties,
       }}
     >
