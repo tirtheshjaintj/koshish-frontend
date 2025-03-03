@@ -6,11 +6,13 @@ import ClassCardView from "./ClassCardView";
 import ModalWrapper from "../../../components/common/ModalWrapper";
 import { getAllClasses } from "../../../queries/class/class";
 import ClassForm from "./ClassForm";
+import { Faculty } from "../faculty/FacultyMain";
 
 export interface Class {
   _id?: string;
   name: string;
   password?: string;
+  incharge?:Faculty;
   is_active?: boolean;
   type: string;
 }
@@ -22,7 +24,6 @@ export default function FacultyManageMain() {
     null
   );
   const [loading, setLoading] = useState<boolean>(false);
-  const [tableView, setTableView] = useState(false);
   const [outLoading, setOutLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [classType, setClassType] = useState<string>("");
@@ -47,13 +48,15 @@ export default function FacultyManageMain() {
   }, []);
 
   const filteredClasses = allClasses.filter((classItem: Class) => {
-    const matchesSearch = classItem.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = classItem?.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    || classItem.incharge?.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    || classItem.incharge?.email?.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesType = classType ? classItem.type.includes(classType) : true;
     return matchesSearch && matchesType;
   });
   
   const onChangeHandler = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       setData({ ...data, [e.target.name]: e.target.value });
     },
     [data, setData]
@@ -102,7 +105,7 @@ export default function FacultyManageMain() {
           return;
         }
         const response = await axiosInstance.put(
-          `/user/update/${editClassId}`,
+          `/class/${editClassId}`,
           data
         );
         console.log(response);
@@ -111,7 +114,7 @@ export default function FacultyManageMain() {
         handleCancel();
         fetchClasses();
       } else {
-        const response = await axiosInstance.post(`/class/add`, data);
+        const response = await axiosInstance.post(`/class`, data);
         toast.success(response?.data?.message || "Added Successfully");
       }
       setOpenModal(false);
