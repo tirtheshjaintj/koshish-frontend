@@ -96,7 +96,11 @@ if(!updatedEvent){
               key={event._id}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+<<<<<<< HEAD
               className="bg-white/30  backdrop-blur-lg shadow-lg rounded-xl p-6 cursor-pointer transition duration-300 hover:shadow-xl border border-white/20 relative"
+=======
+              className="bg-white/30 backdrop-blur-lg flex flex-col justify-between shadow-lg rounded-xl p-6 cursor-pointer transition duration-300 hover:shadow-xl border border-white/20 relative"
+>>>>>>> 9ebcc3f8749d06679fa989f4f2c96365010bc340
             >
             
               <span className="absolute top-3 right-3 " onClick={()=>{setUpdatedEvent(event)}} ><FaEdit size={18}/></span>

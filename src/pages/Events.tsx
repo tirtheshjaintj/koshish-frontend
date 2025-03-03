@@ -45,7 +45,7 @@ const Events = () => {
       <Navbar />
       <div className="container mx-auto p-6">
         {/* Search and Filter Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+        <div className="flex flex-col justify-between md:flex-row justify-between items-center gap-4 mb-6">
           <input
             type="text"
             placeholder="Search event..."
