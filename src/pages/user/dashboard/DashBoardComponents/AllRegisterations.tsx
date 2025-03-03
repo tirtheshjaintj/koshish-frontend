@@ -24,7 +24,7 @@ const AllEvents = () => {
   const user = useSelector((state:any)=>state.user);
   const navigate = useNavigate();
 
-  
+  console.log({user})
   const fetchEvents = async()=>{
     try {
       const response = await axiosInstance(`/event/class/${user._id}`);

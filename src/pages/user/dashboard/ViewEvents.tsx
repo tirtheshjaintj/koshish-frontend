@@ -36,7 +36,7 @@ const ViewEvents = () => {
   );
 
   useEffect(() => {
-    console.log("Hello", events);
+    
   }, [events]);
   
     const closeModal = ()=>{
