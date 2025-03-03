@@ -12,7 +12,8 @@ export interface Class {
   _id?: string;
   name: string;
   password?: string;
-  incharge?:Faculty;
+  email?: string;
+  username?:string;
   is_active?: boolean;
   type: string;
 }
@@ -49,8 +50,8 @@ export default function FacultyManageMain() {
 
   const filteredClasses = allClasses.filter((classItem: Class) => {
     const matchesSearch = classItem?.name?.toLowerCase().includes(searchQuery.toLowerCase())
-    || classItem.incharge?.name?.toLowerCase().includes(searchQuery.toLowerCase())
-    || classItem.incharge?.email?.toLowerCase().includes(searchQuery.toLowerCase());
+    || classItem?.username?.toLowerCase().includes(searchQuery.toLowerCase())
+    || classItem?.email?.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesType = classType ? classItem.type.includes(classType) : true;
     return matchesSearch && matchesType;
   });
