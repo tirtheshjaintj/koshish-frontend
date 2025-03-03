@@ -3,8 +3,8 @@ import axiosInstance from "../../../config/axiosConfig";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import { FaMinus, FaPlus } from "react-icons/fa";
-import { MdDeleteForever } from "react-icons/md";
 import { useData } from "../../../context/DataProviderContext";
+
 interface EventData {
   _id: string;
   name: string;
@@ -108,9 +108,7 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event , closeModal }) => {
 
   return (
     <motion.div className="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-lg" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-      <div className="flex justify-end mb-3 " > <div className="flex items-center justify-center  w-10 h-10 rounded-2xl  cursor-pointer   border-2 border-red-500 " onClick={toggleIsDeletingEvent} >
-      <MdDeleteForever size={20} color="red" />
-        </div> </div>
+
       <form onSubmit={handleSubmit} className="space-y-6">
         <input name="name" placeholder="Event Name" value={eventData.name} onChange={handleChange} className="w-full p-3 border rounded-lg" required />
          
@@ -126,7 +124,7 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event , closeModal }) => {
           </select>
         </div>
 
-        <textarea name="description" placeholder="Description" value={eventData.description} onChange={handleChange} className="w-full p-3 border rounded-lg" required />
+        <textarea name="description" rows={5} placeholder="Description" value={eventData.description} onChange={handleChange} className="w-full p-3 border rounded-lg" required />
         
         <div>
           <label className="block font-semibold">Rules:</label>
