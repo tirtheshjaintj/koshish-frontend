@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import { motion } from "framer-motion";
 import ModalWrapper from "../components/common/ModalWrapper";
 import { Link } from "react-router-dom";
+
 interface EventData {
   _id:string;
   name: string;
@@ -15,7 +16,8 @@ interface EventData {
   minStudents: string;
   location: string;
   points: number[];
-}
+};
+
 const Events = () => {
   const events = useData().allEvents;
   const [search, setSearch] = useState("");
@@ -45,7 +47,7 @@ const Events = () => {
       <Navbar />
       <div className="container mx-auto p-6">
         {/* Search and Filter Section */}
-        <div className="flex flex-col justify-between md:flex-row justify-between items-center gap-4 mb-6">
+        <div className="flex flex-col justify-between md:flex-row items-center gap-4 mb-6">
           <input
             type="text"
             placeholder="Search event..."
