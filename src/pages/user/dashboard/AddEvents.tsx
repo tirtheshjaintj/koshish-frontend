@@ -3,6 +3,8 @@ import axiosInstance from "../../../config/axiosConfig";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { useData } from "../../../context/DataProviderContext";
 
 interface EventData {
   name: string;
@@ -29,7 +31,10 @@ const AddEvents: React.FC = () => {
     points: [15, 10, 6],
   });
 
+  const {fetchAllEvents} = useData();
+
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const pointValues: Record<string, number[]> = {
@@ -81,6 +86,9 @@ const AddEvents: React.FC = () => {
     setIsLoading(true);
     try {
       await axiosInstance.post("/event/create", { ...eventData, rules: eventData.rules.filter(rule => rule.trim() !== "") });
+      
+      fetchAllEvents();
+
       Swal.fire("Success", "Event created successfully!", "success");
       
       // Reset form after successful submission
@@ -95,6 +103,11 @@ const AddEvents: React.FC = () => {
         location: "",
         points: [15, 10, 6],
       });
+
+
+      navigate("/user/dashboard/events");
+
+
       
     } catch (error) {
       console.error("Error creating event:", error);
@@ -155,22 +168,34 @@ const AddEvents: React.FC = () => {
           </div>
         </div>
 
-        <motion.button 
-          type="submit" 
-          className="w-full bg-blue-600 text-white py-3 rounded-lg text-lg font-semibold shadow-md flex justify-center items-center"
-          whileTap={{ scale: 0.95 }}
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <motion.div
-              className="w-5 h-5 border-4 border-white border-t-transparent rounded-full animate-spin"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-          ) : "Create Event"}
-        </motion.button>
+        
       </form>
+      <div className="flex gap-4 flex-col sm:flex-row mt-3">
+        
+      <Link to="/user/dashboard/events"
+                className="w-full bg-gray-600 text-white py-3 rounded-lg text-lg font-semibold shadow-md flex justify-center items-center"
+              >
+                {"Cancel"}
+              </Link>
+
+            <motion.button 
+                onClick={handleSubmit}
+                className="w-full bg-red-800 hover:bg-red-600 text-white py-3 rounded-lg text-lg font-semibold shadow-md flex justify-center items-center"
+                whileTap={{ scale: 0.95 }}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <motion.div
+                    className="w-5 h-5 border-4 border-white border-t-transparent rounded-full animate-spin"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                ) : "Create Event"}
+              </motion.button>
+
+      </div>
+
     </motion.div>
   );
 };

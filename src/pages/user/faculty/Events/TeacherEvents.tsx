@@ -26,17 +26,16 @@ const Events = () => {
   const fetchEvents = async()=>{
     try {
       const response = await axiosInstance(`/event/class/${user._id}`);
-      console.log("d : "  , response)
-      console.log("Response",response);
+      
       if(response.data){
-        setevents(response.data.data);
+        setevents(response.data.result);
       }
     } catch (error) {
       console.log("error : " ,error)
     }
   }
 
-  console.log({user})
+  
 
   // Filtered events based on search and type
   const filteredEvents = events.filter(

@@ -33,7 +33,7 @@ interface DataProviderProps {
 
  
 export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
-  const user = useSelector((state: RootState) => state.user);
+  const user : any = useSelector((state: RootState) => state.user);
  
   const [faculties, setFaculties] = useState([]);
 
