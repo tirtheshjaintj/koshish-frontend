@@ -124,42 +124,66 @@ const AllEvents = () => {
 
         {/* Events List */}
         <motion.div
-          layout
-          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
-        >
-          {filteredEvents.map((event: any) => (
-            <motion.div
-              key={event._id}
-              layout
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative p-6 transition duration-300 border shadow-lg cursor-pointer bg-white/30 backdrop-blur-lg rounded-xl hover:shadow-xl border-white/20"
-            >
-              
-            <div className="bg-white shadow-lg rounded-lg p-5 w-80 border border-gray-200">
-                <div className="flex justify-between items-center mb-2">
-                    <h2 className="text-xl font-semibold text-gray-900">{event.name}</h2>
-                    <span className="bg-red-800 text-white text-sm px-3 py-1 rounded-md">{event.type}</span>
-                </div>
+  layout
+  className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+>
+  {filteredEvents.map((event: any) => (
+    <motion.div
+      key={event._id}
+      layout
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      className="relative p-4 transition duration-300 border shadow-lg cursor-pointer bg-white/30 backdrop-blur-lg rounded-xl hover:shadow-xl border-white/20"
+    >
+      <div className="bg-white shadow-lg rounded-lg p-5 w-full border border-gray-200">
+        <div className="flex justify-between items-center mb-2">
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
+            {event.name}
+          </h2>
+          <span className="bg-red-800 text-white text-xs sm:text-sm px-3 py-1 rounded-md">
+            {event.type}
+          </span>
+        </div>
 
-                <div className="flex gap-2 mb-3">
-                    <span className="bg-gray-200 text-gray-900 text-sm px-3 py-1 rounded-md">{event.part_type}</span>
-                    <span className="bg-gray-200 text-gray-900 text-sm px-3 py-1 rounded-md">{event.minStudents} - {event.maxStudents} Students</span>
-                </div>
-                
-                <p className="text-gray-900 font-medium"><span className="text-gray-500">Location:</span>{event.location}</p>
-                <p className="text-gray-900 font-medium"><span className="text-gray-500">Points:</span>{event.points.join(", ")}</p>
+        <div className="flex flex-wrap gap-2 mb-3">
+          <span className="bg-gray-200 text-gray-900 text-xs sm:text-sm px-3 py-1 rounded-md">
+            {event.part_type}
+          </span>
+          <span className="bg-gray-200 text-gray-900 text-xs sm:text-sm px-3 py-1 rounded-md">
+            {event.minStudents} - {event.maxStudents} Students
+          </span>
+        </div>
 
-                <div className="flex justify-between mt-4">
-                    <button className="border border-red-800 text-red-900 px-4 py-2 rounded-md hover:bg-red-50" onClick={()=>{setSelectedEvent(event)}} >Details</button>
-                    <button onClick={()=>{
-                      navigate(`/user/dashboard/category/${event._id}/${event.name}`);
-                    }} className="bg-red-800 text-white px-4 py-2 rounded-md hover:bg-red-700">Registerations</button>
-                </div>
-            </div>
-            </motion.div>
-          ))}
-        </motion.div>
+        <p className="text-gray-900 font-medium">
+          <span className="text-gray-500">Location:</span> {event.location}
+        </p>
+        <p className="text-gray-900 font-medium">
+          <span className="text-gray-500">Points:</span> {event.points.join(", ")}
+        </p>
+
+        <div className="flex flex-wrap justify-between mt-4 gap-2">
+          <button
+            className="border border-red-800 text-red-900 px-4 py-2 rounded-md hover:bg-red-50 w-full sm:w-auto"
+            onClick={() => {
+              setSelectedEvent(event);
+            }}
+          >
+            Details
+          </button>
+          <button
+            onClick={() => {
+              navigate(`/user/dashboard/category/${event._id}/${event.name}`);
+            }}
+            className="bg-red-800 text-white px-4 py-2 rounded-md hover:bg-red-700 w-full sm:w-auto"
+          >
+            Registrations
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  ))}
+</motion.div>
+
 
         {/* Modal for Event Details */}
         <ModalWrapper open={openModal} setOpenModal={setOpenModal}>

@@ -5,6 +5,7 @@ import ModalWrapper from "../../../components/common/ModalWrapper";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import UpdateEvent from "./UpdateEvent";
+import { FaEdit } from "react-icons/fa";
 
 interface EventData {
   _id:string;
@@ -34,10 +35,7 @@ const ViewEvents = () => {
       (filterType === "" || event.type === filterType) &&
       (partFilterType === "" || event.part_type === partFilterType)
   );
-
-  useEffect(() => {
-    
-  }, [events]);
+  
   
     const closeModal = ()=>{
       setUpdatedEvent(null);
@@ -98,8 +96,10 @@ if(!updatedEvent){
               key={event._id}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white/30 backdrop-blur-lg shadow-lg rounded-xl p-6 cursor-pointer transition duration-300 hover:shadow-xl border border-white/20 relative"
+              className="bg-white/30  backdrop-blur-lg shadow-lg rounded-xl p-6 cursor-pointer transition duration-300 hover:shadow-xl border border-white/20 relative"
             >
+            
+              <span className="absolute top-3 right-3 " onClick={()=>{setUpdatedEvent(event)}} ><FaEdit size={18}/></span>
               <h2 className="text-2xl font-semibold text-gray-800">{event.name}</h2>
               <p className="text-gray-600 mt-2">
                 <strong>Type:</strong> {event.type}
@@ -119,9 +119,9 @@ if(!updatedEvent){
                 </button>
                 <button
                     className="px-4 py-2  text-white rounded-lg bg-[#9B1C1C] transition"
-                    onClick={()=>{setUpdatedEvent(event)}}
+                    
                   >
-                    Update
+                    Result
                   </button>
               </div>
             </motion.div>
