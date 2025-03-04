@@ -88,7 +88,7 @@ const Events = () => {
               key={event._id}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white/30 backdrop-blur-lg shadow-lg rounded-xl p-6 cursor-pointer transition duration-300 hover:shadow-xl border border-white/20 relative"
+              className="bg-white/30 backdrop-blur-lg shadow-lg flex flex-col justify-between rounded-xl p-6 cursor-pointer transition duration-300 hover:shadow-xl border border-white/20 relative"
             >
               <h2 className="text-2xl font-semibold text-gray-800">{event.name}</h2>
               <p className="text-gray-600 mt-2">
@@ -123,7 +123,7 @@ const Events = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
-            className="bg-white rounded-lg shadow-lg p-8 w-full max-w-lg text-gray-800"
+            className="bg-white rounded-lg flex flex-col min-w-[60%] shadow-lg p-8  max-w-lg text-gray-800"
           >
             {selectedEvent && (
               <>

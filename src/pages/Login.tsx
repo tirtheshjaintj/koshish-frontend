@@ -47,6 +47,7 @@ function Login() {
 
             const response = await axiosInstance.post(endpoint, payload);
             dispatch(addUser(response.data.data));
+            console.log(response.data);
             toast.success("Logged In Successfully");
             const token = response?.data?.token;
             if (token) {
