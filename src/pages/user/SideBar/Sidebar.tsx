@@ -1,75 +1,85 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdDashboard } from 'react-icons/md'
 import { GrLogout } from "react-icons/gr";
 import { FaBars } from "react-icons/fa";
 import { PiChalkboardTeacherFill, PiStudent } from "react-icons/pi";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { SiGoogleclassroom } from "react-icons/si";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../../../store/userSlice';
-// import DeleteConfirmation from '../../common/DeleteConfirmation';
-// import ModalWrapper from '../../common/ModalWrapper';
 import Cookies from "universal-cookie";
 
 const listData = [
     {
         name: "Dashboard",
+        type: ["Admin"],
         icon: <MdDashboard size={20} />,
         link: "/user/dashboard",
     },
-
     {
         name: "Faculty",
+        type: ["Admin"],
         icon: <PiChalkboardTeacherFill size={20} />,
         link: "/user/dashboard/faculties",
-    }, 
+    },
     {
         name: "Class",
+        type: ["Admin"],
         icon: <SiGoogleclassroom size={20} />,
         link: "/user/dashboard/class",
-    }, 
+    },
     {
         name: "Events",
+        type: ["Admin", "Convenor"],
         icon: <SiGoogleclassroom size={20} />,
         link: "/user/dashboard/events",
     },
     {
         name: "Register for Event",
+        type: ["Class"],
         icon: <PiStudent size={20} />,
         link: "/user/dashboard/registerEvent",
-    },{
+    },
+    {
         name: "All Registerations",
-        icon : <PiStudent size={20} />,
-        link : "/user/dashboard/allRegisterations"
+        type: ["Admin", "Convenor","Class"], // Added possible user types here
+        icon: <PiStudent size={20} />,
+        link: "/user/dashboard/allRegisterations",
     }
 ];
 
-
 interface SidebarProps {
     open: boolean;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Sidebar({ open, setOpen }: SidebarProps) {
-    // const [open] = useRecoilState(openSideBar);
-
-    // const [currUser, setCurrUser] = useRecoilState(userData);
-    const [openModal, setOpenModal] = useState(false);
+    const [filteredListData, setFilteredListData] = useState(listData); // state to store filtered list
     const location = useLocation();
     const dispatch = useDispatch();
     const cookie = new Cookies();
     const navigate = useNavigate();
+    const user = useSelector((state: any) => state.user);
 
     const signOut = () => {
         cookie.remove('user_token', { path: '/' });
         navigate("/user/login");
         dispatch(addUser(null));
     };
+    
+    useEffect(() => {
+        if (user) {
+            const filteredData = listData.filter(item => 
+                item.type.includes(user.user_type) 
+            )
+            setFilteredListData(filteredData); 
+        }
+        console.log("User",user);
+    }, [user]); // Only re-run the effect if the `user` changes
 
     return (
-        <div className='relative min-h-full text-stone-700 '>
-            <div className='relative flex items-center gap-4
-             py-4 text-2xl font-bold border-b border-zinc-700 border-opacity-30'>
+        <div className='relative min-h-full text-stone-700'>
+            <div className='relative flex items-center gap-4 py-4 text-2xl font-bold border-b border-zinc-700 border-opacity-30'>
                 <FaBars
                     size={20}
                     onClick={() => setOpen((prev: boolean) => !prev)}
@@ -84,11 +94,10 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
             </div>
 
             <div className='flex flex-col gap-2 mt-5'>
-                {listData.map((item, index) => (
+                {filteredListData.map((item, index) => (
                     <Link
                         to={item.link}
                         key={index}
-                        // onClick={() => setTab(item?.name)}
                         className={` 
                             ${item.link === location.pathname && "bg-red-800 text-white"}
                             rounded-md
@@ -121,10 +130,6 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
                 <GrLogout size={20} className='text-red-700' />
                 {open && "Log Out"}
             </div>
-
-            {/* <ModalWrapper open={openModal} setOpen={setOpenModal}>
-                <DeleteConfirmation handler={logoutHandler} setOpenModal={setOpenModal} />
-            </ModalWrapper> */}
         </div>
     );
 }

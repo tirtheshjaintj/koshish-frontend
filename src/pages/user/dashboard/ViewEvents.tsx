@@ -215,7 +215,10 @@ const ViewEvents = () => {
           {/* Events List */}
           <motion.div
             layout
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            className="bg-white rounded-lg min-w-[60%] shadow-lg p-8 w-full max-w-lg text-gray-800 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             {filteredEvents.map((event: EventData) => (
               <motion.div

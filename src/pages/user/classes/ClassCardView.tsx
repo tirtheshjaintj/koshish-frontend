@@ -26,10 +26,10 @@ export default function ClassCardView({ value, handleEdit }: ClassCardProps) {
         <div className="min-h-[1px] bg-gray-300 my-2 w-full" />
         <div className="text-sm font-semibold text-stone-800">
           <p className=" font-semibold  text-gray-700 flex items-center gap-2 tracking-wide">
-            <FaRegUserCircle /> {value?.incharge?.name}
+            <FaRegUserCircle /> {value?.username}
           </p>
           <p className=" font-semibold text-gray-700  flex items-center gap-2 tracking-wide">
-            <MdMailOutline /> {value?.incharge?.email}
+            <MdMailOutline /> {value?.email}
           </p>
         </div>
       </div>

@@ -12,7 +12,6 @@ const AllEvents = () => {
   // const events = useData().allEvents;
   const [events, setevents] = useState([])
   const [search, setSearch] = useState("");
-  // const [filterType, setFilterType] = useState("");
   const [partFilterType, setPartFilterType] = useState("");
   const [registerFilter, setregisterFilter] = useState("")
   const [selectedEvent, setSelectedEvent] = useState<any>(null);

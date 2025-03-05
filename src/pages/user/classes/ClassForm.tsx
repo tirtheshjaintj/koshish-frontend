@@ -13,7 +13,7 @@ interface FacultyFormProps {
     name?: string;
     password?: string;
     type?: string;
-    inchargeId? :string;
+    email? :string;
     is_active?: boolean;
   };
   isEditing: boolean;
@@ -107,15 +107,15 @@ const ClassForm: FC<FacultyFormProps> = ({
 
         <div>
           <label
-            htmlFor="user_type"
+            htmlFor="type"
             className="block text-xs font-medium text-stone-700 "
           >
             Type <RequiredStar />
           </label>
           <select
-            id="user_type"
+            id="type"
             required
-            name="user_type"
+            name="type"
             className="w-full mt-1 p-2 rounded-md border border-stone-300 dark:border-stone-700 bg-white  text-stone-800  focus:outline-none focus:ring-1 focus:ring-red-800"
             value={data?.type}
             onChange={(e) => onChangeHandler(e)}
@@ -133,31 +133,29 @@ const ClassForm: FC<FacultyFormProps> = ({
       </div>
 
 
-      <div>
+     
+
+      {!isEditing && (
+        <div className="relative">
           <label
-            htmlFor="incharge"
+            htmlFor="email"
             className="block text-xs font-medium text-stone-700 "
           >
-            Teacher <RequiredStar />
+            Email <RequiredStar />
           </label>
-          <select
-            id="incharge"
+          <input
+            type="email"
+            id="email"
+            name="email"
             required
-            name="incharge"
-            className="w-full mt-1 p-2 rounded-md border border-stone-300 dark:border-stone-700 bg-white  text-stone-800  focus:outline-none focus:ring-1 focus:ring-red-800"
-            value={data?.inchargeId}
-            onChange={(e)=>onChangeHandler(e)}
-          >
-            <option value="" disabled>
-              Select User Type
-            </option>
-            {["Arti", "Shairy"].map((item,idx) => (
-              <option key={idx} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
+            placeholder="Temporary Email"
+            className="w-full mt-1 pr-10 p-2 rounded-md border border-stone-300 dark:border-stone-700 bg-white  text-stone-800  focus:outline-none focus:ring-1 focus:ring-red-800"
+            value={data?.email}
+            onChange={onChangeHandler}
+          />
+         
         </div>
+      )}
 
       {!isEditing && (
         <div className="relative">
