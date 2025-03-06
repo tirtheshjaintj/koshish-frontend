@@ -6,6 +6,8 @@ import ClassCardView from "./ClassCardView";
 import ModalWrapper from "../../../components/common/ModalWrapper";
 import ClassForm from "./ClassForm";
 import { Class, useData } from "../../../context/DataProviderContext";
+import Limit from "./Limit";
+import Pagination from "./Pagination";
 
 export default function FacultyManageMain() {
   const [openModal, setOpenModal] = useState(false);
@@ -48,12 +50,11 @@ export default function FacultyManageMain() {
     ? allClasses.filter((item) => item.type === classType)
     : allClasses;
 
-  const onChangeHandler = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-      setData({ ...data, [e.target.name]: e.target.value });
-    },
-    [data, setData]
-  );
+  const onChangeHandler = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
 
   // Edit Handler
   const handleEdit = useCallback(
@@ -129,6 +130,13 @@ export default function FacultyManageMain() {
     }
   };
 
+  const handlePageAndLimitChange = () => {
+    fetchAllClasses(page, limit, debouncedQuery);
+  };
+  useEffect(() => {
+    handlePageAndLimitChange();
+  }, [limit, page, debouncedQuery]);
+
   return (
     <div>
       <ModalWrapper
@@ -161,9 +169,12 @@ export default function FacultyManageMain() {
       </div>
 
       <div>
-        <h2 className="text-xl px-4 font-semibold text-stone-800">
-          All Classes
-        </h2>
+        <div className="flex items-center gap-3">
+          <h2 className="text-xl px-4 font-semibold text-stone-800">
+            All Classes
+          </h2>
+          <p className="px-4">Total Classes: {classData?.totalClasses}</p>
+        </div>
 
         {loading ? (
           <div className="flex items-center justify-center min-h-60 w-full">
@@ -180,10 +191,16 @@ export default function FacultyManageMain() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
 
-              <div>
+              <div className="flex items-center gap-4">
                 {/* Pagination */}
-                
+                <Pagination
+                  currentPage={page}
+                  setPage={setPage}
+                  totalPages={classData?.totalPages || 1}
+                />
                 {/* Limit */}
+
+                <Limit limit={limit} setLimit={setLimit} />
 
                 <select
                   name="type"
