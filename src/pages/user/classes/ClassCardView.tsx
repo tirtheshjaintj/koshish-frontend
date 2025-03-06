@@ -1,9 +1,8 @@
 import { FaRegPenToSquare, FaCircleCheck } from "react-icons/fa6";
-import { Class } from "./ClassMain";
-import { FaRegUserCircle } from "react-icons/fa";
+ import { FaRegUserCircle } from "react-icons/fa";
 import { MdMailOutline } from "react-icons/md";
-import { FaSquareMinus } from "react-icons/fa6";
-
+import { Class } from "../../../context/DataProviderContext";
+ 
 interface ClassCardProps {
   value: Class;
   handleEdit: (value: Class) => void;
@@ -42,10 +41,7 @@ export default function ClassCardView({ value, handleEdit }: ClassCardProps) {
           title="Edit"
           className="text-stone-800 cursor-pointer hover:scale-110 transition-transform duration-200"
         />
-        <FaSquareMinus
-          title="Delete Class"
-          className="text-red-800 hover:text-red-500 cursor-pointer"
-        />
+       
       </div>
 
       <div className="absolute bottom-4 right-4">

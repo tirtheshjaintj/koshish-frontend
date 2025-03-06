@@ -51,7 +51,12 @@ interface DataContextType {
   allEvents: Event[];
   loading: boolean;
   classRegisterations: Registration[];
-  classData: object | null;
+  classData: {
+    totalPages: number;
+    currentPage: number;
+    classes: Class[];
+    totalClasses: number;
+  } | null;
 
   // Setters
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
