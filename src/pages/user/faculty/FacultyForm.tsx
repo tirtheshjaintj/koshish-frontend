@@ -18,17 +18,18 @@ interface FacultyFormProps {
   };
   isEditing: boolean;
   setIsEditing: Dispatch<SetStateAction<boolean>>;
-  setData: Dispatch<SetStateAction<{
-    name?: string;
-    email?: string;
-    password?: string;
-    user_type: string;
-    is_active?: boolean;
-    phone_number?: string;
-  }>>;
+  setData: Dispatch<
+    SetStateAction<{
+      name?: string;
+      email?: string;
+      password?: string;
+      user_type: string;
+      is_active?: boolean;
+      phone_number?: string;
+    }>
+  >;
   handleCancel: () => void;
 }
-
 
 const FacultyForm: FC<FacultyFormProps> = ({
   handleSubmit,
@@ -53,27 +54,25 @@ const FacultyForm: FC<FacultyFormProps> = ({
         {isEditing ? "Edit Details" : "Add Faculty"}
       </h2>
 
-
       {/* is Active */}
-{
-     isEditing && <div className='flex px-2 items-center my-2 justify-end gap-2 '>
-
-        {
-          data?.is_active ? <>
-            <p className="font-semibold">Active </p> <FaToggleOn
-              title='Active'
-              onClick={
-                () => {
+      {isEditing && (
+        <div className="flex px-2 items-center my-2 justify-end gap-2 ">
+          {data?.is_active ? (
+            <>
+              <p className="font-semibold">Active </p>{" "}
+              <FaToggleOn
+                title="Active"
+                onClick={() => {
                   if (!confirm("Are you sure to Deactivate the account?")) {
                     return;
                   }
-                  setData((prev) => ({ ...prev, is_active: false }))
-                }
-              }
-              size={25}
-              className='text-green-500   ' />
-          </>
-            :
+                  setData((prev) => ({ ...prev, is_active: false }));
+                }}
+                size={25}
+                className="text-green-500   "
+              />
+            </>
+          ) : (
             <>
               <p className="font-semibold">Not Active </p>
               <FaToggleOff
@@ -82,15 +81,15 @@ const FacultyForm: FC<FacultyFormProps> = ({
                   if (!confirm("Are you sure to Active the account?")) {
                     return;
                   }
-                  setData((prev) => ({ ...prev, is_active: true }))
-                }
-                }
-                title='Inactive'
-                className='text-red-500   ' />
+                  setData((prev) => ({ ...prev, is_active: true }));
+                }}
+                title="Inactive"
+                className="text-red-500   "
+              />
             </>
-        }
-      </div>
-}
+          )}
+        </div>
+      )}
 
       {/* Name and User Type */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -128,19 +127,23 @@ const FacultyForm: FC<FacultyFormProps> = ({
             value={data?.user_type}
             onChange={(e) => onChangeHandler(e)}
           >
-            <option value="" disabled>Select User Type</option>
+            <option value="" disabled>
+              Select User Type
+            </option>
             {["Teacher", "Convenor"].map((userType) => (
               <option key={userType} value={userType}>
                 {userType}
               </option>
-            ))
-            }
+            ))}
           </select>
-
         </div>
       </div>
       {/* Email and Pass */}
-      <div className={`grid grid-cols-1  md:grid-cols-${isEditing ? "1" : "2"} gap-4`}>
+      <div
+        className={`grid grid-cols-1  md:grid-cols-${
+          isEditing ? "1" : "2"
+        } gap-4`}
+      >
         <div>
           <label
             htmlFor="email"
@@ -161,8 +164,8 @@ const FacultyForm: FC<FacultyFormProps> = ({
             onChange={onChangeHandler}
           />
         </div>
-        {
-          !isEditing && <div className="relative">
+        {!isEditing && (
+          <div className="relative">
             <label
               htmlFor="password"
               className="block text-xs font-medium text-stone-700 "
@@ -188,7 +191,7 @@ const FacultyForm: FC<FacultyFormProps> = ({
               {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
             </button>
           </div>
-        }
+        )}
       </div>
 
       {/* Phone Number */}
@@ -213,9 +216,6 @@ const FacultyForm: FC<FacultyFormProps> = ({
         />
       </div>
 
-
-
-
       {/* Buttons */}
       <div className="flex items-center justify-between">
         <button
@@ -230,8 +230,7 @@ const FacultyForm: FC<FacultyFormProps> = ({
           onClick={() => {
             setIsEditing(false);
             setOpenModal(false);
-            handleCancel()
-
+            handleCancel();
           }}
           className="w-full md:w-auto px-6 py-2 bg-stone-800 text-white font-medium rounded-md shadow hover:bg-stone-600  focus:outline-none focus:ring-2 focus:ring-red-700"
         >
