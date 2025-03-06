@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import Loader from "../../../components/common/Loader";
 import axiosInstance from "../../../config/axiosConfig";
 import ClassCardView from "./ClassCardView";
@@ -96,10 +96,12 @@ export default function FacultyManageMain() {
     try {
       if (isEditing) {
         if (!confirm("Are you sure you want to update this details?")) return;
+        
         if (data.name === "" || data.type === "" || data.email === "") {
           toast.error("Fill all required the fields");
           return;
         }
+
         console.log(data);
         const updatedData = { ...data, password: updatedPassword };
         const response = await axiosInstance.put(

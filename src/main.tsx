@@ -21,6 +21,7 @@ import AllRegisterations from "./pages/user/dashboard/DashBoardComponents/AllReg
 import EventRegisterations from "./pages/user/dashboard/DashBoardComponents/EventRegisterations.tsx";
 import AddEvents from "./pages/user/dashboard/AddEvents.tsx";
 import ViewEvents from "./pages/user/dashboard/ViewEvents.tsx";
+import FinalResult from "./pages/FinalResult.tsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "", element: <Home /> },
+      {path:"results",element:<FinalResult/>},
       { path: "user/login", element: <Login /> },
       { path: "user/forgot", element: <Forgot_Password /> },
       { path: "events", element: <Events /> },

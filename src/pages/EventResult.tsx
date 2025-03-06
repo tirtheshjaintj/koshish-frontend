@@ -51,7 +51,7 @@ function EventResult() {
     } catch (error:any) {
       setError(true);
       setResult([]);
-      const eventFromList = events.find((event: EventDetails) => event._id === event_id);
+      const eventFromList = events.find((event: any) => event._id === event_id);
       if (eventFromList) {
         setEventDetails(eventFromList);
       }else{
