@@ -6,7 +6,7 @@ import ClassCardView from "./ClassCardView";
 import ModalWrapper from "../../../components/common/ModalWrapper";
 import ClassForm from "./ClassForm";
 import { Class, useData } from "../../../context/DataProviderContext";
- 
+
 export default function FacultyManageMain() {
   const [openModal, setOpenModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -22,7 +22,7 @@ export default function FacultyManageMain() {
   const [classType, setClassType] = useState<string>("");
   const { allClasses, classData, setAllClasses, fetchAllClasses } = useData();
   const [updatedPassword, setUpdatedPassword] = useState<string>("");
-
+  console.log(allClasses);
   const [data, setData] = useState<Class>({
     name: "",
     type: "",
@@ -44,9 +44,9 @@ export default function FacultyManageMain() {
     fetchAllClasses(page, limit, debouncedQuery);
   }, [debouncedQuery, page, limit]);
 
-  const filteredClasses = allClasses.filter((item) => {
-    return item.type === classType;
-  });
+  const filteredClasses = classType
+    ? allClasses.filter((item) => item.type === classType)
+    : allClasses;
 
   const onChangeHandler = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -182,9 +182,8 @@ export default function FacultyManageMain() {
 
               <div>
                 {/* Pagination */}
-          
+                
                 {/* Limit */}
-
 
                 <select
                   name="type"
