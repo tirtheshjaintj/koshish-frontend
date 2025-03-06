@@ -4,20 +4,9 @@ import Loader from "../../../components/common/Loader";
 import axiosInstance from "../../../config/axiosConfig";
 import ClassCardView from "./ClassCardView";
 import ModalWrapper from "../../../components/common/ModalWrapper";
-import { getAllClasses } from "../../../queries/class/class";
 import ClassForm from "./ClassForm";
-import { Faculty } from "../faculty/FacultyMain";
-
-export interface Class {
-  _id?: string;
-  name: string;
-  password?: string;
-  email?: string;
-  username?:string;
-  is_active?: boolean;
-  type: string;
-}
-
+import { Class, useData } from "../../../context/DataProviderContext";
+ 
 export default function FacultyManageMain() {
   const [openModal, setOpenModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -27,46 +16,44 @@ export default function FacultyManageMain() {
   const [loading, setLoading] = useState<boolean>(false);
   const [outLoading, setOutLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [debouncedQuery, setDebouncedQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [limit, setLimit] = useState<number>(10);
   const [classType, setClassType] = useState<string>("");
-  const [allClasses, setAllClasses] = useState<Class[]>([]);
+  const { allClasses, classData, setAllClasses, fetchAllClasses } = useData();
+  const [updatedPassword, setUpdatedPassword] = useState<string>("");
 
   const [data, setData] = useState<Class>({
     name: "",
     type: "",
+    email: "",
     password: "",
     is_active: true,
   });
 
-  const fetchClasses = async () => {
-    const classes = await getAllClasses(setLoading);
-    if (Array.isArray(classes)) {
-      setAllClasses(classes);
-    }
-  };
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 300);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchQuery]);
 
   useEffect(() => {
-    fetchClasses();
-  }, []);
+    fetchAllClasses(page, limit, debouncedQuery);
+  }, [debouncedQuery, page, limit]);
 
-  const filteredClasses = allClasses.filter((classItem: Class) => {
-    const matchesSearch = classItem?.name?.toLowerCase().includes(searchQuery.toLowerCase())
-    || classItem?.username?.toLowerCase().includes(searchQuery.toLowerCase())
-    || classItem?.email?.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesType = classType ? classItem.type.includes(classType) : true;
-    return matchesSearch && matchesType;
+  const filteredClasses = allClasses.filter((item) => {
+    return item.type === classType;
   });
-  
+
   const onChangeHandler = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       setData({ ...data, [e.target.name]: e.target.value });
     },
     [data, setData]
   );
-
-  //  Temporary
-  const handleToggleAccess = async (id: string): Promise<void> => {
-    console.log(id);
-  };
 
   // Edit Handler
   const handleEdit = useCallback(
@@ -90,8 +77,15 @@ export default function FacultyManageMain() {
     setData({
       name: "",
       type: "",
+      email: "",
       password: "",
     });
+  };
+
+  const handleClassDataUpdate = (data: Class) => {
+    setAllClasses(
+      allClasses.map((item) => (item._id === data._id ? data : item))
+    );
   };
 
   // Submit Handler
@@ -101,19 +95,21 @@ export default function FacultyManageMain() {
     try {
       if (isEditing) {
         if (!confirm("Are you sure you want to update this details?")) return;
-        if (data.name === "" || data.type === "") {
-          toast.error("Email and Type are required");
+        if (data.name === "" || data.type === "" || data.email === "") {
+          toast.error("Fill all required the fields");
           return;
         }
+        console.log(data);
+        const updatedData = { ...data, password: updatedPassword };
         const response = await axiosInstance.put(
           `/class/${editClassId}`,
-          data
+          updatedData
         );
         console.log(response);
         alert(response?.data?.message);
         toast.success(response?.data?.message || "Updated Successfully");
         handleCancel();
-        fetchClasses();
+        handleClassDataUpdate(response?.data?.class);
       } else {
         const response = await axiosInstance.post(`/class`, data);
         toast.success(response?.data?.message || "Added Successfully");
@@ -122,6 +118,7 @@ export default function FacultyManageMain() {
       setData({
         name: "",
         type: "",
+        email: "",
         password: "",
       });
     } catch (error: unknown) {
@@ -144,6 +141,8 @@ export default function FacultyManageMain() {
           data={data}
           isEditing={isEditing}
           setIsEditing={setIsEditing}
+          updatedPassword={updatedPassword}
+          setUpdatedPassword={setUpdatedPassword}
           setOpenModal={setOpenModal}
           handleSubmit={handleSubmit}
           handleCancel={handleCancel}
@@ -181,12 +180,17 @@ export default function FacultyManageMain() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
 
-              <div >
+              <div>
+                {/* Pagination */}
+          
+                {/* Limit */}
+
+
                 <select
                   name="type"
                   className="outline-none rounded-md text-xs"
                   onChange={(e) => {
-                   setClassType(e.target.value)
+                    setClassType(e.target.value);
                   }}
                 >
                   <option value="">All</option>
@@ -194,7 +198,6 @@ export default function FacultyManageMain() {
                   <option value="Junior">Junior</option>
                 </select>
               </div>
- 
             </div>
 
             {/* Main Content */}

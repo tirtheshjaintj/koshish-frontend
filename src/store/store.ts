@@ -1,6 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./userSlice";
 
+export interface UserState {
+    id: string;
+    name: string;
+    email: string;
+    user_type: "Admin" | "Convenor" | "Class";  
+  }
+  
+
 const store = configureStore({
     reducer: {
         user: userReducer
