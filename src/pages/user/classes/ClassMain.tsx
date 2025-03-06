@@ -9,6 +9,7 @@ import { Class, useData } from "../../../context/DataProviderContext";
 import Limit from "./Limit";
 import Pagination from "./Pagination";
 
+
 export default function FacultyManageMain() {
   const [openModal, setOpenModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -24,7 +25,7 @@ export default function FacultyManageMain() {
   const [classType, setClassType] = useState<string>("");
   const { allClasses, classData, setAllClasses, fetchAllClasses } = useData();
   const [updatedPassword, setUpdatedPassword] = useState<string>("");
-  console.log(allClasses);
+
   const [data, setData] = useState<Class>({
     name: "",
     type: "",
@@ -101,15 +102,17 @@ export default function FacultyManageMain() {
           toast.error("Fill all required the fields");
           return;
         }
+<<<<<<< HEAD
 
         console.log(data);
+=======
+        // console.log(data);
+>>>>>>> 2a706603ed50d0c970a87ddc9e886259d2af14f6
         const updatedData = { ...data, password: updatedPassword };
         const response = await axiosInstance.put(
           `/class/${editClassId}`,
           updatedData
         );
-        console.log(response);
-        alert(response?.data?.message);
         toast.success(response?.data?.message || "Updated Successfully");
         handleCancel();
         handleClassDataUpdate(response?.data?.class);
@@ -131,7 +134,7 @@ export default function FacultyManageMain() {
       setLoading(false);
     }
   };
-
+console.log(data)
   const handlePageAndLimitChange = () => {
     fetchAllClasses(page, limit, debouncedQuery);
   };
