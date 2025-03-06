@@ -7,118 +7,175 @@ import React, {
 } from "react";
 import axiosInstance from "../config/axiosConfig";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { RootState, UserState } from "../store/store";
 
+// Define Class interface
+export interface Class {
+  _id?: string;
+  name: string;
+  password?: string;
+  username?: string;
+  type: string;
+  email: string;
+  is_active?: boolean;
+}
+
+// Define Registration interface
+interface Registration {
+  _id: string;
+  user: string;
+  classId: string;
+}
+
+// Define Event interface
+interface Event {
+  _id: string;
+  title: string;
+  date: string;
+  description: string;
+}
+
+// Define Faculty interface
+interface Faculty {
+  _id: string;
+  name: string;
+  department: string;
+}
+
+// Define Context Type
 interface DataContextType {
-  // Define the shape of the context value here
-  faculties: Array<any>;
-  allRegisterations: Array<any>;
-  allClasses: Array<any>;
-  allEvents: Array<any>;
-  classRegisterations: Array<any>;
+  // States
+  faculties: Faculty[];
+  allRegisterations: Registration[];
+  allClasses: Class[];
+  allEvents: Event[];
+  loading: boolean;
+  classRegisterations: Registration[];
+  classData:object;
+
+  // Setters
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setAllClasses: React.Dispatch<React.SetStateAction<Class[]>>;
+
+  // Functions
   fetchAllFaculties: () => Promise<void>;
   fetchAllRegisterations: () => Promise<void>;
-  fetchAllClasses: () => Promise<void>;
+  fetchAllClasses: (
+    page: number,
+    limit: number,
+    searchQuery: string
+  ) => Promise<void>;
   fetchAllEvents: () => Promise<void>;
   fetchClassRegisterations: () => Promise<void>;
 }
 
-// Create Context
 const DataContext = createContext<DataContextType | null>(null);
 
-// Data Provider Component
 interface DataProviderProps {
   children: ReactNode;
 }
 
- 
 export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
-  const user : any = useSelector((state: RootState) => state.user);
- 
-  const [faculties, setFaculties] = useState([]);
+  const user = useSelector(
+    (state: RootState) => state.user
+  ) as UserState | null;
 
-  const [allRegisterations, setAllRegisterations] = useState([]);
-  const [allClasses, setAllClasses] = useState([]);
-  const [allEvents, setAllEvents] = useState([]);
-  const [classRegisterations, setClassRegisterations] = useState([]);
+  const [faculties, setFaculties] = useState<Faculty[]>([]);
+  const [allRegisterations, setAllRegisterations] = useState<Registration[]>(
+    []
+  );
+  const [allEvents, setAllEvents] = useState<Event[]>([]);
+  const [classRegisterations, setClassRegisterations] = useState<
+    Registration[]
+  >([]);
+  const [allClasses, setAllClasses] = useState<Class[]>([]);
+  const [classData,setClassData]=useState({});
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchAllFaculties = async () => {
     try {
-      const response = await axiosInstance.get("/user/getFaculty");
+      const response = await axiosInstance.get<{
+        status: boolean;
+        data: Faculty[];
+      }>("/user/getFaculty");
       if (response.data.status) {
-        // console.log("faculties : ", response.data.data);
         setFaculties(response.data.data);
-        console.log(response.data.data);
       }
     } catch (error) {
-      console.log("error : ", error);
+      console.error("Error fetching faculties:", error);
     }
   };
 
   const fetchClassRegisterations = async () => {
     try {
-      const response = await axiosInstance.get(
-        "/registrations/classRegistrations"
-      );
+      const response = await axiosInstance.get<{
+        status: boolean;
+        registrations: Registration[];
+      }>("/registrations/classRegistrations");
       if (response?.data?.status) {
-        console.log("fetclassRegisterations : ", response.data.registrations);
         setClassRegisterations(response.data.registrations);
       }
     } catch (error) {
-      console.log("error : ", error);
+      console.error("Error fetching class registrations:", error);
     }
   };
 
-  const getAllRegisterations = async () => {
+  const fetchAllRegisterations = async () => {
     try {
-      const response = await axiosInstance.get("/registrations");
+      const response = await axiosInstance.get<{
+        status: boolean;
+        registrations: Registration[];
+      }>("/registrations");
       if (response?.data?.status) {
-        // console.log("response : " , response?.data?.registrations);
-        setAllRegisterations(response?.data?.registrations);
+        setAllRegisterations(response.data.registrations);
       }
     } catch (error) {
-      console.log("error : ", error);
+      console.error("Error fetching registrations:", error);
     }
   };
 
-  const fetchAllClasses = async () => {
+  const fetchAllClasses = async (
+    page: number,
+    limit: number,
+    searchQuery: string
+  ) => {
     try {
-      const response = await axiosInstance.get("/class");
+      const response = await axiosInstance.get<{
+        status: boolean;
+        classes: Class[];
+      }>(`/class?page=${page}&limit=${limit}&search=${searchQuery}`);
       if (response?.data?.status) {
-        // console.log("classes : " , response?.data?.classes);
-        setAllClasses(response?.data?.classes);
+        setAllClasses(response.data.classes);
+        setClassData(response?.data)
       }
     } catch (error) {
-      console.log("error :  ", error);
+      console.error("Error fetching classes:", error);
     }
   };
 
   const fetchAllEvents = async () => {
     try {
-      const response = await axiosInstance.get("/event");
+      const response = await axiosInstance.get<{
+        status: boolean;
+        events: Event[];
+      }>("/event");
       if (response?.data?.status) {
-        // console.log("events : " , response?.data?.events);
-        setAllEvents(response?.data?.events);
+        setAllEvents(response.data.events);
       }
     } catch (error) {
-      console.log("error :", error);
+      console.error("Error fetching events:", error);
     }
   };
 
   useEffect(() => {
     if (user?.user_type === "Admin") {
       fetchAllFaculties();
-      getAllRegisterations();
-      fetchAllClasses();
-      // faculties
-      // registrations
-      // classes
-    } else if (user?.user_type === "Teacher") {
-      // registration of this class only
+      fetchAllRegisterations();
+      fetchAllClasses(1, 10, "");
+    } else if (user?.user_type === "Class") {
       fetchClassRegisterations();
     } else if (user?.user_type === "Convenor") {
-      // registrations
-      getAllRegisterations();
+      fetchAllRegisterations();
     }
     fetchAllEvents();
   }, [user]);
@@ -130,9 +187,16 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         allRegisterations,
         allClasses,
         allEvents,
+        loading,
+        classData,
+        setLoading,
+        setAllClasses,
         classRegisterations,
         fetchAllEvents,
         fetchAllFaculties,
+        fetchAllRegisterations,
+        fetchAllClasses,
+        fetchClassRegisterations,
       }}
     >
       {children}
@@ -140,8 +204,8 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   );
 };
 
-// Custom hook to use the DataContext
-export const useData = (): any => {
+// Custom Hook for using DataContext
+export const useData = (): DataContextType => {
   const context = useContext(DataContext);
   if (!context) {
     throw new Error("useData must be used within a DataProvider");
