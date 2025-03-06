@@ -51,7 +51,7 @@ interface DataContextType {
   allEvents: Event[];
   loading: boolean;
   classRegisterations: Registration[];
-  classData:object;
+  classData: object | null;
 
   // Setters
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -89,7 +89,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     Registration[]
   >([]);
   const [allClasses, setAllClasses] = useState<Class[]>([]);
-  const [classData,setClassData]=useState({});
+  const [classData, setClassData] = useState<object | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchAllFaculties = async () => {
@@ -146,7 +146,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       }>(`/class?page=${page}&limit=${limit}&search=${searchQuery}`);
       if (response?.data?.status) {
         setAllClasses(response.data.classes);
-        setClassData(response?.data)
+        setClassData(response?.data);
       }
     } catch (error) {
       console.error("Error fetching classes:", error);
