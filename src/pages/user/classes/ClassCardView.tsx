@@ -1,8 +1,8 @@
 import { FaRegPenToSquare, FaCircleCheck } from "react-icons/fa6";
- import { FaRegUserCircle } from "react-icons/fa";
+import { FaRegUserCircle } from "react-icons/fa";
 import { MdMailOutline } from "react-icons/md";
 import { Class } from "../../../context/DataProviderContext";
- 
+
 interface ClassCardProps {
   value: Class;
   handleEdit: (value: Class) => void;
@@ -35,18 +35,18 @@ export default function ClassCardView({ value, handleEdit }: ClassCardProps) {
 
       {/* Icons Section */}
       <div className="flex text-xl gap-2 absolute right-4 top-4">
-     
         <FaRegPenToSquare
           onClick={() => handleEdit(value)}
           title="Edit"
           className="text-stone-800 cursor-pointer hover:scale-110 transition-transform duration-200"
         />
-       
       </div>
 
       <div className="absolute bottom-4 right-4">
-      {value?.is_active && (
+        {value?.is_active ? (
           <FaCircleCheck title="Active" className="text-green-500" />
+        ) : (
+          <FaCircleCheck title="Active" className="text-red-800" />
         )}
       </div>
     </div>

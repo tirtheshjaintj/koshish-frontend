@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import Loader from "../../../components/common/Loader";
 import axiosInstance from "../../../config/axiosConfig";
 import ClassCardView from "./ClassCardView";
@@ -8,6 +8,7 @@ import ClassForm from "./ClassForm";
 import { Class, useData } from "../../../context/DataProviderContext";
 import Limit from "./Limit";
 import Pagination from "./Pagination";
+
 
 export default function FacultyManageMain() {
   const [openModal, setOpenModal] = useState(false);
@@ -24,7 +25,7 @@ export default function FacultyManageMain() {
   const [classType, setClassType] = useState<string>("");
   const { allClasses, classData, setAllClasses, fetchAllClasses } = useData();
   const [updatedPassword, setUpdatedPassword] = useState<string>("");
-  console.log(allClasses);
+
   const [data, setData] = useState<Class>({
     name: "",
     type: "",
@@ -100,14 +101,12 @@ export default function FacultyManageMain() {
           toast.error("Fill all required the fields");
           return;
         }
-        console.log(data);
+        // console.log(data);
         const updatedData = { ...data, password: updatedPassword };
         const response = await axiosInstance.put(
           `/class/${editClassId}`,
           updatedData
         );
-        console.log(response);
-        alert(response?.data?.message);
         toast.success(response?.data?.message || "Updated Successfully");
         handleCancel();
         handleClassDataUpdate(response?.data?.class);
@@ -129,7 +128,7 @@ export default function FacultyManageMain() {
       setLoading(false);
     }
   };
-
+console.log(data)
   const handlePageAndLimitChange = () => {
     fetchAllClasses(page, limit, debouncedQuery);
   };
