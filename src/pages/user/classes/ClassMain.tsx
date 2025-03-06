@@ -50,12 +50,11 @@ export default function FacultyManageMain() {
     ? allClasses.filter((item) => item.type === classType)
     : allClasses;
 
-  const onChangeHandler = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-      setData({ ...data, [e.target.name]: e.target.value });
-    },
-    [data, setData]
-  );
+  const onChangeHandler = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
 
   // Edit Handler
   const handleEdit = useCallback(

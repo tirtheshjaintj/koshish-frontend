@@ -9,7 +9,7 @@ interface FacultyFormProps {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   loading: boolean;
   updatedPassword: string;
-  onChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeHandler: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   setOpenModal: (open: boolean) => void;
 
   data: {
@@ -122,10 +122,10 @@ const ClassForm: FC<FacultyFormProps> = ({
             name="type"
             className="w-full mt-1 p-2 rounded-md border border-stone-300 dark:border-stone-700 bg-white  text-stone-800  focus:outline-none focus:ring-1 focus:ring-red-800"
             value={data?.type}
-            onChange={(e) => onChangeHandler(e)}
+            onChange={onChangeHandler}
           >
             <option value="" disabled>
-              Select User Type
+              Select Class Type
             </option>
             {["Senior", "Junior"].map((userType) => (
               <option key={userType} value={userType}>
