@@ -2,32 +2,26 @@ import React, { SetStateAction, Dispatch, useState, FC } from "react";
 import { FaEye, FaEyeSlash, FaToggleOff, FaToggleOn } from "react-icons/fa";
 import Loader from "../../../components/common/Loader";
 import RequiredStar from "../../../components/common/RequiredStar";
+import { Faculty } from "../../../context/DataProviderContext";
 
 interface FacultyFormProps {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   loading: boolean;
-  onChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeHandler: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
   setOpenModal: (open: boolean) => void;
   data: {
     name?: string;
     email?: string;
-    password?: string;
+    password: string;
     user_type: string;
     is_active?: boolean;
     phone_number?: string;
   };
   isEditing: boolean;
   setIsEditing: Dispatch<SetStateAction<boolean>>;
-  setData: Dispatch<
-    SetStateAction<{
-      name?: string;
-      email?: string;
-      password?: string;
-      user_type: string;
-      is_active?: boolean;
-      phone_number?: string;
-    }>
-  >;
+  setData: Dispatch<SetStateAction<Faculty>>;
   handleCancel: () => void;
 }
 
@@ -125,7 +119,7 @@ const FacultyForm: FC<FacultyFormProps> = ({
             name="user_type"
             className="w-full mt-1 p-2 rounded-md border border-stone-300 dark:border-stone-700 bg-white  text-stone-800  focus:outline-none focus:ring-1 focus:ring-red-800"
             value={data?.user_type}
-            onChange={(e) => onChangeHandler(e)}
+            onChange={onChangeHandler}
           >
             <option value="" disabled>
               Select User Type
@@ -164,34 +158,39 @@ const FacultyForm: FC<FacultyFormProps> = ({
             onChange={onChangeHandler}
           />
         </div>
-        {!isEditing && (
-          <div className="relative">
-            <label
-              htmlFor="password"
-              className="block text-xs font-medium text-stone-700 "
-            >
-              Password <RequiredStar />
-            </label>
-            <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              name="password"
-              required
-              placeholder="Temporary Password"
-              className="w-full mt-1 pr-10 p-2 rounded-md border border-stone-300 dark:border-stone-700 bg-white  text-stone-800  focus:outline-none focus:ring-1 focus:ring-red-800"
-              value={data?.password}
-              onChange={onChangeHandler}
-            />
-            {/* Toggle Password Visibility Icon */}
-            <button
-              type="button"
-              className="absolute inset-y-0 top-5 right-3 flex items-center text-stone-500  focus:outline-none"
-              onClick={() => setShowPassword((prev) => !prev)}
-            >
-              {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
-            </button>
-          </div>
-        )}
+
+        <div className="relative">
+          <label
+            htmlFor="password"
+            className="block text-xs font-medium text-stone-700 "
+          >
+            {isEditing ? (
+              "Update Password (optional)"
+            ) : (
+              <>
+                Password <RequiredStar />
+              </>
+            )}
+          </label>
+          <input
+            type={showPassword ? "text" : "password"}
+            id="password"
+            name="password"
+            required={!isEditing}
+            placeholder="Temporary Password"
+            className="w-full mt-1 pr-10 p-2 rounded-md border border-stone-300 dark:border-stone-700 bg-white  text-stone-800  focus:outline-none focus:ring-1 focus:ring-red-800"
+            value={data?.password}
+            onChange={onChangeHandler}
+          />
+          {/* Toggle Password Visibility Icon */}
+          <button
+            type="button"
+            className="absolute inset-y-0 top-5 right-3 flex items-center text-stone-500  focus:outline-none"
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+          </button>
+        </div>
       </div>
 
       {/* Phone Number */}
@@ -210,14 +209,14 @@ const FacultyForm: FC<FacultyFormProps> = ({
           required
           maxLength={10}
           placeholder="10 digit phone number"
-          className="w-full mt-1 p-2 rounded-md border border-stone-300 dark:border-stone-700 bg-white  text-stone-800  focus:outline-none focus:ring-1 focus:ring-red-800"
+          className="w-full mt-1 p-2 text-sm rounded-md border border-stone-300 dark:border-stone-700 bg-white  text-stone-800  focus:outline-none focus:ring-1 focus:ring-red-800"
           value={data?.phone_number}
           onChange={onChangeHandler}
         />
       </div>
 
       {/* Buttons */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center flex-wrap gap-4 justify-between">
         <button
           type="submit"
           className="w-full md:w-auto px-6 py-2 bg-red-800 text-white font-medium rounded-md shadow hover:bg-red-600
