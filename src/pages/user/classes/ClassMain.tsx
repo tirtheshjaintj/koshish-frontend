@@ -102,12 +102,7 @@ export default function FacultyManageMain() {
           toast.error("Fill all required the fields");
           return;
         }
-<<<<<<< HEAD
 
-        console.log(data);
-=======
-        // console.log(data);
->>>>>>> 2a706603ed50d0c970a87ddc9e886259d2af14f6
         const updatedData = { ...data, password: updatedPassword };
         const response = await axiosInstance.put(
           `/class/${editClassId}`,

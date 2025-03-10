@@ -19,7 +19,7 @@ interface EventData {
 };
 
 const Events = () => {
-  const events = useData().allEvents;
+  const events: EventData[] = useData().allEvents;
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("");
   const [partFilterType, setPartFilterType] = useState("");

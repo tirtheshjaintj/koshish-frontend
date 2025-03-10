@@ -29,10 +29,16 @@ interface Registration {
 
 // Define Event interface
 interface Event {
-  _id: string;
-  title: string;
-  date: string;
+  _id:string;
+  name: string;
+  type: string;
+  part_type: string;
   description: string;
+  rules: string[];
+  maxStudents: string;
+  minStudents: string;
+  location: string;
+  points: number[];
 }
 
 // Define Faculty interface
@@ -51,12 +57,7 @@ interface DataContextType {
   allEvents: Event[];
   loading: boolean;
   classRegisterations: Registration[];
-  classData: {
-    totalPages: number;
-    currentPage: number;
-    classes: Class[];
-    totalClasses: number;
-  } | null;
+  classData: any | null;
 
   // Setters
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
