@@ -35,7 +35,7 @@ const Events = () => {
   );
 
   useEffect(() => {
-    console.log("Hello", events);
+    
   }, [events]);
 
   useEffect(()=>{
