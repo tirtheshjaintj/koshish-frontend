@@ -37,8 +37,8 @@ export default function FacultyCardView({ value, handleEdit }:
                 className='text-stone-800 absolute top-2 right-2 cursor-pointer hover:stroke-neutral-600' />
 
             <FaCircleCheck
-                title='Active'
-                className='text-green-500 absolute right-2 bottom-2 ' />
+                title={value?.is_active? "Active" :"Not Active"}
+                className={`${value?.is_active ? "text-green-500" : "text-red-500"} absolute right-2 bottom-2 `} />
         </div>
     )
 }
