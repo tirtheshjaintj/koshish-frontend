@@ -15,6 +15,7 @@ const EventRegistrations = () => {
             try {
                 const response = await axiosInstance.get(`/registrations/category/${eventId}`);
                 if (response.data) {
+                    console.log("first : " , response.data.registrations)
                     setRegistrations(response.data.registrations);
                     setFilteredRegistrations(response.data.registrations);
                 }

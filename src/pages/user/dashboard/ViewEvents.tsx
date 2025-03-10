@@ -3,11 +3,12 @@ import { useData } from "../../../context/DataProviderContext";
 import { motion } from "framer-motion";
 import ModalWrapper from "../../../components/common/ModalWrapper";
 import { Link } from "react-router-dom";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaSpinner } from "react-icons/fa";
 import UpdateEvent from "./UpdateEvent";
 import { FaEdit } from "react-icons/fa";
 import axiosInstance from "../../../config/axiosConfig";
 import Loader from "../../../components/common/Loader";
+import { useSelector } from "react-redux";
 
 interface EventData {
   _id: string;
@@ -23,7 +24,7 @@ interface EventData {
 }
 
 export interface IClass {
-  _id?: string;
+  _id: string;
   name: string;
   username: string;
   email: string;
@@ -48,40 +49,24 @@ const ViewEvents = () => {
   const { allClasses } = useData();
   const [selectedResultEvent, setselectedResultEvent] = useState<EventData | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
-
-
   const [selected, setSelected] = useState<IClass[]>([]);
   const [inputValue, setInputValue] = useState("");
 
 
-  const addResult = async () => {
+  const handleSubmit = async () => {
     try {
       setIsSubmitting(true)
-      const response = await axiosInstance.post('/result/add' ,{ eventId : selectedResultEvent?._id, result : selected });
-      if(response.data){
+      const response = await axiosInstance.post('/result/add', { eventId: selectedResultEvent?._id, result: [selected[0]._id, selected[1]._id, selected[2]._id] });
+      if (response.data) {
         closeResultModal();
       }
     } catch (error) {
-      console.log("erro : " , error)
-    }finally{
+      console.log("error : ", error)
+    } finally {
       setIsSubmitting(false);
     }
   }
 
-  const updateResult = async () => {
-    try {
-      setIsSubmitting(true);
-      const response = await axiosInstance.put(`/result/update/${result._id}` ,{ result : selected });
-      if(response.data){
-        closeResultModal();
-      }
-    } catch (error) {
-      console.log("erro : " , error)
-    }finally{
-      setIsSubmitting(false);
-    }
-  }
 
 
 
@@ -95,7 +80,7 @@ const ViewEvents = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  
+
 
   const closeResultModal = () => {
     setResult(null);
@@ -118,10 +103,11 @@ const ViewEvents = () => {
     setSelected(selected.filter((item) => item !== value));
   };
 
+
   const filteredOptions = allClasses.filter(
-    (option: IClass) => option.name.toLowerCase().includes(inputValue.toLowerCase()) && !selected.includes(option)
+    (option: IClass) => option.name.toLowerCase().includes(inputValue.toLowerCase()) && selectedResultEvent?.type === option.type
   );
-  
+
   // Filtered events based on search and type
   const filteredEvents = events.filter(
     (event: any) =>
@@ -130,19 +116,29 @@ const ViewEvents = () => {
       (partFilterType === "" || event.part_type === partFilterType)
   );
 
-  console.log({formData})
+
 
 
   const fetchResult = async (eventId: string) => {
     try {
-      const response = await axiosInstance.get(`/result/get/${eventId}`);
+
+      setIsResultModalOpen(true);
+      const response = await axiosInstance.get(`/result/get/${eventId}`, {
+        params: {
+          year: new Date().getFullYear()
+        }
+      });
       if (response.data) {
         console.log("response.data :", response.data);
-        setResult(response.data.data);
-        setSelected([response.data.data.result[0].classId , response.data.data.result[1].classId , response.data.data.result[2].classId]);
+        if(response.data?.data?.result.length !== 0){
+          setResult(response.data.data);
+          setSelected([response.data.data.result[0], response.data.data.result[1], response.data.data.result[2]]);
+        }
       }
     } catch (error) {
       console.log("error : ", error);
+    }finally{
+      setIsResultLoading(false);
     }
   }
 
@@ -151,12 +147,9 @@ const ViewEvents = () => {
       setIsResultLoading(true);
       setselectedResultEvent(event);
       await fetchResult(event._id);
-      setIsResultModalOpen(true);
     } catch (error) {
       console.log("error : ", error);
-    } finally {
-      setIsResultLoading(false);
-    }
+    } 
   }
 
   useEffect(() => {
@@ -212,13 +205,14 @@ const ViewEvents = () => {
           </div>
 
 
+
           {/* Events List */}
           <motion.div
             layout
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
-            className="bg-white rounded-lg min-w-[60%] shadow-lg p-8 w-full max-w-lg text-gray-800 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="bg-white rounded-lg shadow-lg p-6 sm:p-8 w-full max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-4 sm:gap-6 lg:gap-8"
           >
             {filteredEvents.map((event: EventData) => (
               <motion.div
@@ -227,8 +221,11 @@ const ViewEvents = () => {
                 whileTap={{ scale: 0.95 }}
                 className="bg-white/30 backdrop-blur-lg flex flex-col justify-between shadow-lg rounded-xl p-6 cursor-pointer transition duration-300 hover:shadow-xl border border-white/20 relative"
               >
-                <span className="absolute top-3 right-3" onClick={() => { setUpdatedEvent(event) }} ><FaEdit size={18} /></span>
-                <h2 className="text-2xl font-semibold text-gray-800">{event.name}</h2>
+                <span className="absolute top-3 right-3" onClick={() => setUpdatedEvent(event)}>
+                  <FaEdit size={18} />
+                </span>
+                <h2 className="text-2xl font-semibold text-gray-800">{event
+                  .name}</h2>
                 <p className="text-gray-600 mt-2">
                   <strong>Type:</strong> {event.type}
                 </p>
@@ -246,7 +243,7 @@ const ViewEvents = () => {
                     Details
                   </button>
                   <button
-                    className="px-4 py-2  text-white rounded-lg bg-[#9B1C1C] transition"
+                    className="px-4 py-2 text-white rounded-lg bg-[#9B1C1C] transition"
                     onClick={() => openResultModal(event)}
                   >
                     Result
@@ -255,6 +252,7 @@ const ViewEvents = () => {
               </motion.div>
             ))}
           </motion.div>
+
 
           {/* Modal for Event Details */}
           <ModalWrapper open={openModal} setOpenModal={setOpenModal}>
@@ -303,86 +301,84 @@ const ViewEvents = () => {
             </motion.div>
           </ModalWrapper>
 
+
+          {/* result modal */}
           <ModalWrapper open={isResultModalOpen} setOpenModal={setIsResultModalOpen} >
 
-            
+
 
             <div className="md:w-[80%] min-w-[300px] mx-auto p-6 bg-white shadow-lg rounded-lg">
 
-            {isResultLoading ? <Loader /> : <>
-            
-            
-                <h2 className="text-lg font-semibold mb-4">
-                  {
-                    result === null ? "Add Result" : "Update Result"
-                  }
-                </h2>
+              {isResultLoading ?
 
-                {/* Selected Values */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {selected.map((value, index) => (
-                    <div key={index} className="flex items-center gap-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-lg">
-                      <span className="capitalize">{index === 0 ? "First" : index === 1 ? "Second" : "Third"}: {value.name}</span>
-                      <button onClick={() => handleRemove(value)} className="text-red-600 hover:text-red-800">✖</button>
-                    </div>
-                  ))}
-                </div>
+                <div className="flex justify-center">
 
-                {/* Input Field */}
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    placeholder="Type to search..."
-                    className="w-full p-2 border rounded-md"
-                  />
-                  {inputValue && filteredOptions.length > 0 && (
-                    <ul className="absolute z-10 w-full bg-white border mt-1 shadow-lg rounded-md">
-                      {filteredOptions.map((option: IClass) => (
-                        <li
-                          key={option._id}
-                          onClick={() => handleSelect(option)}
-                          className="p-2 hover:bg-gray-100 cursor-pointer"
-                        >
-                          {option.name}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                <FaSpinner className="animate-spin" size={48} />
                 </div>
+                : <>
 
-                {/* Buttons */}
-                <div className="flex gap-4 flex-col md:flex-row mt-4">
-                  <button
-                    onClick={closeResultModal}
-                    className="w-full bg-gray-600 text-white py-2 rounded-md hover:bg-gray-700 transition"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    disabled={selected.length !== 3}
-                    className={`w-full text-white py-2 rounded-md transition ${selected.length === 3 ? "bg-red-800 hover:bg-ed-700" : "bg-gray-400 cursor-not-allowed"
-                      }`}
-                    onClick={()=>{
-                      if(result === null){
-                        addResult()
-                      }else{
-                        updateResult()
-                      }
-                    }}
-                      
-                  >
-                    {isSubmitting ? "Submitting..." : "Submit"}
-                  </button>
-                </div>
-            
-            </>}
+
+                  <h2 className="text-lg font-semibold mb-4">
+                    {
+                      result === null ? "Add Result" : "Update Result"
+                    }
+                  </h2>
+
+                  {/* Selected Values */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {selected.map((value, index) => (
+                      <div key={index} className="flex items-center gap-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-lg">
+                        <span className="capitalize">{index === 0 ? "First" : index === 1 ? "Second" : "Third"}: {value.name}</span>
+                        <button onClick={() => handleRemove(value)} className="text-red-600 hover:text-red-800">✖</button>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Input Field */}
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      placeholder="Type to search..."
+                      className="w-full p-2 border rounded-md"
+                    />
+                    {inputValue && filteredOptions.length > 0 && (
+                      <ul className="absolute z-10 w-full bg-white border mt-1 shadow-lg rounded-md">
+                        {filteredOptions.map((option: IClass) => (
+                          <li
+                            key={option._id}
+                            onClick={() => handleSelect(option)}
+                            className="p-2 hover:bg-gray-100 cursor-pointer"
+                          >
+                            {option?.name}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+
+                  {/* Buttons */}
+                  <div className="flex gap-4 flex-col md:flex-row mt-4">
+                    <button
+                      onClick={closeResultModal}
+                      className="w-full bg-gray-600 text-white py-2 rounded-md hover:bg-gray-700 transition"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      disabled={selected.length !== 3}
+                      className={`w-full text-white py-2 rounded-md transition ${selected.length === 3 ? "bg-red-800 hover:bg-ed-700" : "bg-gray-400 cursor-not-allowed"
+                        }`}
+                      onClick={handleSubmit}
+                    >
+                      {isSubmitting ? "Submitting..." : "Submit"}
+                    </button>
+                  </div>
+
+                </>}
             </div>
           </ModalWrapper>
-
-
-
         </div>
       </>
     );
