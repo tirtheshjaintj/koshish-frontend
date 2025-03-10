@@ -35,8 +35,8 @@ function App() {
       } else {
         cookie.remove('user_token');
       }
-    } catch (error: unknown) {
-      if (!error?.response?.data?.status) {
+    } catch (error: any) {
+      if (!error.response?.data?.status) {
         cookie.remove('user_token');
       }
     }

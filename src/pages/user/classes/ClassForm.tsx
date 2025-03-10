@@ -2,25 +2,27 @@ import React, { SetStateAction, Dispatch, useState, FC } from "react";
 import { FaEye, FaEyeSlash, FaToggleOff, FaToggleOn } from "react-icons/fa";
 import Loader from "../../../components/common/Loader";
 import RequiredStar from "../../../components/common/RequiredStar";
-import { Class } from "./ClassMain";
+import { Class } from "../../../context/DataProviderContext";
+
 
 interface FacultyFormProps {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   loading: boolean;
-  onChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  updatedPassword: string;
+  onChangeHandler: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   setOpenModal: (open: boolean) => void;
+
   data: {
     name?: string;
     password?: string;
     type?: string;
-    email? :string;
+    email?: string;
     is_active?: boolean;
   };
   isEditing: boolean;
   setIsEditing: Dispatch<SetStateAction<boolean>>;
-  setData: Dispatch<
-    SetStateAction<Class>
-  >;
+  setUpdatedPassword: Dispatch<SetStateAction<string>>;
+  setData: Dispatch<SetStateAction<Class>>;
   handleCancel: () => void;
 }
 
@@ -31,6 +33,8 @@ const ClassForm: FC<FacultyFormProps> = ({
   setOpenModal,
   isEditing,
   setData,
+  updatedPassword,
+  setUpdatedPassword,
   setIsEditing,
   handleCancel,
   data,
@@ -59,10 +63,10 @@ const ClassForm: FC<FacultyFormProps> = ({
                   if (!confirm("Are you sure to Deactivate the account?")) {
                     return;
                   }
-                  setData((prev) => ({ ...prev, is_active: false }));
+                  setData((prev:Class) => ({ ...prev, is_active: false }));
                 }}
                 size={25}
-                className="text-green-500   "
+                className="text-green-500 cursor-pointer"
               />
             </>
           ) : (
@@ -74,10 +78,10 @@ const ClassForm: FC<FacultyFormProps> = ({
                   if (!confirm("Are you sure to Active the account?")) {
                     return;
                   }
-                  setData((prev) => ({ ...prev, is_active: true }));
+                  setData((prev:Class) => ({ ...prev, is_active: true }));
                 }}
                 title="Inactive"
-                className="text-red-500   "
+                className="text-red-500 cursor-pointer"
               />
             </>
           )}
@@ -118,10 +122,10 @@ const ClassForm: FC<FacultyFormProps> = ({
             name="type"
             className="w-full mt-1 p-2 rounded-md border border-stone-300 dark:border-stone-700 bg-white  text-stone-800  focus:outline-none focus:ring-1 focus:ring-red-800"
             value={data?.type}
-            onChange={(e) => onChangeHandler(e)}
+            onChange={onChangeHandler}
           >
             <option value="" disabled>
-              Select User Type
+              Select Class Type
             </option>
             {["Senior", "Junior"].map((userType) => (
               <option key={userType} value={userType}>
@@ -132,30 +136,30 @@ const ClassForm: FC<FacultyFormProps> = ({
         </div>
       </div>
 
-
-     
-
-      {!isEditing && (
-        <div className="relative">
-          <label
-            htmlFor="email"
-            className="block text-xs font-medium text-stone-700 "
-          >
-            Email <RequiredStar />
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            placeholder="Temporary Email"
-            className="w-full mt-1 pr-10 p-2 rounded-md border border-stone-300 dark:border-stone-700 bg-white  text-stone-800  focus:outline-none focus:ring-1 focus:ring-red-800"
-            value={data?.email}
-            onChange={onChangeHandler}
-          />
-         
-        </div>
-      )}
+      <div className="relative">
+        <label
+          htmlFor="email"
+          className="block text-xs font-medium text-stone-700 "
+        >
+          {isEditing ? (
+            "Update Email (optional)"
+          ) : (
+            <>
+              Email <RequiredStar />
+            </>
+          )}
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="Temporary Email"
+          className="w-full mt-1 pr-10 p-2 rounded-md border border-stone-300 dark:border-stone-700 bg-white  text-stone-800  focus:outline-none focus:ring-1 focus:ring-red-800"
+          value={data?.email}
+          onChange={onChangeHandler}
+        />
+      </div>
 
       {!isEditing && (
         <div className="relative">
@@ -185,8 +189,35 @@ const ClassForm: FC<FacultyFormProps> = ({
           </button>
         </div>
       )}
+      {isEditing && (
+        <div className="relative">
+          <label
+            htmlFor="password"
+            className="block text-xs font-medium text-stone-700 "
+          >
+            Update Password (Optional)
+          </label>
+          <input
+            type={showPassword ? "text" : "password"}
+            id="password"
+            name="password"
+            required
+            placeholder="Temporary Password"
+            className="w-full mt-1 pr-10 p-2 rounded-md border border-stone-300 dark:border-stone-700 bg-white  text-stone-800  focus:outline-none focus:ring-1 focus:ring-red-800"
+            value={updatedPassword}
+            onChange={(e) => setUpdatedPassword(e.target.value)}
+          />
 
-
+          {/* Toggle Password Visibility Icon */}
+          <button
+            type="button"
+            className="absolute inset-y-0 top-5 right-3 flex items-center text-stone-500  focus:outline-none"
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+          </button>
+        </div>
+      )}
 
       {/* Buttons */}
       <div className="flex items-center justify-between gap-4 flex-wrap">
