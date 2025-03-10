@@ -103,7 +103,6 @@ export default function FacultyManageMain() {
           return;
         }
 
-        // console.log(data);
         const updatedData = { ...data, password: updatedPassword };
         const response = await axiosInstance.put(
           `/class/${editClassId}`,

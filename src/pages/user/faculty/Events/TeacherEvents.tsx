@@ -25,7 +25,7 @@ const Events = () => {
   
   const fetchEvents = async()=>{
     try {
-      const response = await axiosInstance(`/event/class/${user._id}`);
+      const response = await axiosInstance(`/event/class`);
       
       if(response.data){
         setevents(response.data.result);

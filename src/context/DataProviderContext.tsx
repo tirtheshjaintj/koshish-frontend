@@ -29,10 +29,16 @@ interface Registration {
 
 // Define Event interface
 interface Event {
-  _id: string;
-  title: string;
-  date: string;
+  _id:string;
+  name: string;
+  type: string;
+  part_type: string;
   description: string;
+  rules: string[];
+  maxStudents: string;
+  minStudents: string;
+  location: string;
+  points: number[];
 }
 
 export interface Faculty {

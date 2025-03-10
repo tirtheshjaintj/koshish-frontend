@@ -2,10 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axiosInstance from '../../../../config/axiosConfig';
 
+interface Event{
+    name : string,
+    type : string
+}
+
 const EventRegistrations = () => {
-    const { eventId ,  name} = useParams();
+    const { eventId } = useParams();
     const [registrations, setRegistrations] = useState([]);
     const [filteredRegistrations, setFilteredRegistrations] = useState([]);
+    const [event, setEvent] = useState<Event | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [classFilter, setClassFilter] = useState('');
@@ -15,8 +21,10 @@ const EventRegistrations = () => {
             try {
                 const response = await axiosInstance.get(`/registrations/category/${eventId}`);
                 if (response.data) {
+                    console.log("first : " , response.data.registrations)
                     setRegistrations(response.data.registrations);
                     setFilteredRegistrations(response.data.registrations);
+                    setEvent(response.data.event)
                 }
             } catch (error) {
                 setError('Failed to fetch registrations');
@@ -40,7 +48,8 @@ const EventRegistrations = () => {
 
     return (
         <div className="bg-white text-black p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
-            <h1 className="text-4xl font-bold mb-4 text-gray-900">{name}</h1>
+            <h1 className="text-4xl font-bold mb-4 text-gray-900">
+                {loading && "Loading..."}{event?.name} - {event?.type} </h1>
         <h2 className="text-2xl font-semibold mb-6 text-gray-700 border-b-2 border-gray-300 pb-2">
             Event Registrations
         </h2>

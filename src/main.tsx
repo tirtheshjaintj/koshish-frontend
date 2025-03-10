@@ -10,8 +10,6 @@ import Login from "./pages/Login.tsx";
 import User_Dashboard from "./pages/user/dashboard/User_Dashboard.tsx";
 import Forgot_Password from "./pages/Forgot_Password.tsx";
 import FacultyManageMain from "./pages/user/faculty/FacultyMain.tsx";
-// import RegisterForEvent from './pages/user/dashboard/DashBoardComponents/RegisterForEvent.tsx';
-// import DashboardContent from './pages/user/dashboard/Dashboard.tsx';
 import { DataProvider } from "./context/DataProviderContext.tsx";
 import Events from "./pages/Events.tsx";
 import EventResult from "./pages/EventResult.tsx";
@@ -54,7 +52,7 @@ const router = createBrowserRouter([
             element: <AllRegisterations />,
           },
           {
-            path: "category/:eventId/:name",
+            path: "category/:eventId",
             element: <EventRegisterations />,
           },
         ],
@@ -73,14 +71,15 @@ createRoot(document.getElementById("root")!).render(
   </GoogleOAuthProvider>
 );
 
-// if ('serviceWorker' in navigator) {
-//   window.addEventListener('load', () => {
-//     navigator.serviceWorker.register('serviceWorker.js')
-//       .then(registration => {
-//         console.log('Service Worker registered with scope:', registration.scope);
-//       })
-//       .catch(err => {
-//         console.error('Service Worker registration failed:', err);
-//       });
-//   });
-// }
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('serviceWorker.js')
+      .then(registration => {
+        console.log('Service Worker registered with scope:', registration.scope);
+      })
+      .catch(err => {
+        console.log(err);
+        // console.error('Service Worker registration failed:', err);
+      });
+  });
+}
