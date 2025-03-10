@@ -184,7 +184,7 @@ const AllEvents = () => {
                 </button>
                 <button
                   onClick={() =>
-                    navigate(`/user/dashboard/category/${event._id}/${event.name}`)
+                    navigate(`/user/dashboard/category/${event._id}`)
                   }
                   className="bg-red-800 text-white px-4 py-2 rounded-md hover:bg-red-700 w-full sm:w-auto"
                 >
