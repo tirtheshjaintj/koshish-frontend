@@ -35,13 +35,22 @@ interface Event {
   description: string;
 }
 
-// Define Faculty interface
-interface Faculty {
-  _id: string;
+export interface Faculty {
+  _id?: string;
   name: string;
-  department: string;
+  email: string;
+  password: string;
+  is_active: boolean;
+  phone_number: string;
+  user_type: string;
 }
 
+interface ClassData {
+    totalPages: number;
+    currentPage: number;
+    classes: Class[];
+    totalClasses: number;
+}
 // Define Context Type
 interface DataContextType {
   // States
@@ -51,16 +60,12 @@ interface DataContextType {
   allEvents: Event[];
   loading: boolean;
   classRegisterations: Registration[];
-  classData: {
-    totalPages: number;
-    currentPage: number;
-    classes: Class[];
-    totalClasses: number;
-  } | null;
+  classData: ClassData | null;
 
   // Setters
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setAllClasses: React.Dispatch<React.SetStateAction<Class[]>>;
+  setFaculties:React.Dispatch<React.SetStateAction<Faculty[]>>;
 
   // Functions
   fetchAllFaculties: () => Promise<void>;
@@ -94,7 +99,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     Registration[]
   >([]);
   const [allClasses, setAllClasses] = useState<Class[]>([]);
-  const [classData, setClassData] = useState<object | null>(null);
+  const [classData, setClassData] = useState<ClassData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchAllFaculties = async () => {
@@ -104,7 +109,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         data: Faculty[];
       }>("/user/getFaculty");
       if (response.data.status) {
-        setFaculties(response.data.data);
+        setFaculties(response.data.data || []);
       }
     } catch (error) {
       console.error("Error fetching faculties:", error);
@@ -148,10 +153,21 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       const response = await axiosInstance.get<{
         status: boolean;
         classes: Class[];
+        totalPages?: number;
+        currentPage?: number;
+        totalClasses?: number;
       }>(`/class?page=${page}&limit=${limit}&search=${searchQuery}`);
+
       if (response?.data?.status) {
         setAllClasses(response.data.classes);
-        setClassData(response?.data);
+
+        setClassData({
+            totalPages: response.data.totalPages || 1,
+            currentPage: response.data.currentPage || 1,
+            classes: response.data.classes,
+            totalClasses:
+              response.data.totalClasses || response.data.classes.length,
+        });
       }
     } catch (error) {
       console.error("Error fetching classes:", error);
@@ -196,6 +212,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         classData,
         setLoading,
         setAllClasses,
+        setFaculties,
         classRegisterations,
         fetchAllEvents,
         fetchAllFaculties,
