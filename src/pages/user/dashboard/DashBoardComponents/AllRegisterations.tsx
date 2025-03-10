@@ -208,7 +208,7 @@ const AllEvents = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
-            className="w-full max-w-lg p-8 text-gray-800 bg-white rounded-lg shadow-lg"
+            className="w-full max-w-lg p-8 min-w-[60%] text-gray-800 bg-white rounded-lg shadow-lg"
           >
             {selectedEvent && (
               <>
