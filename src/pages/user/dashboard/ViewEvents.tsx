@@ -258,7 +258,7 @@ const ViewEvents = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
-              className="bg-white rounded-lg min-w-[60%] shadow-lg p-8 w-full max-w-lg text-gray-800"
+              className="bg-white rounded-lg shadow-lg p-8 w-full max-w-lg text-gray-800"
             >
               {selectedEvent && (
                 <>

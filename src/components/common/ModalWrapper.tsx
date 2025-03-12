@@ -10,16 +10,12 @@ interface ModalWrapperProps {
 
 const ModalWrapper: React.FC<ModalWrapperProps> = ({
   children,
-  open,
-  setOpenModal,
-  outsideClickClose = true,
+  open
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const closeModal = (e: React.MouseEvent<HTMLDivElement>) => {
-    // if (modalRef.current === e.target && outsideClickClose) {
-    //   setOpenModal(false);
-    // }
+    console.log(e);
   };
 
   if (!open) return null;

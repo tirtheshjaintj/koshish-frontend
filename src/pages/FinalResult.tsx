@@ -69,10 +69,10 @@ function FinalResult() {
         </div>
 
         {/* Bar Chart */}
-        <div className="p-6 bg-white rounded-lg shadow-md mb-6">
+        <div className="bg-white p-3 rounded-lg shadow-md mb-6">
           <h2 className="text-lg font-semibold mb-4">Top 10 Classes</h2>
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={results.slice(0, 10)}>
+            <BarChart data={results.slice(0,10)}>
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />

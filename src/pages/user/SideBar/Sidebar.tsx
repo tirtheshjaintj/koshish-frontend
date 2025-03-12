@@ -42,7 +42,7 @@ const listData = [
     },
     {
         name: "All Registerations",
-        type: ["Admin", "Convenor","Class"], // Added possible user types here
+        type: ["Admin", "Convenor"], // Added possible user types here
         icon: <PiStudent size={20} />,
         link: "/user/dashboard/allRegisterations",
     }

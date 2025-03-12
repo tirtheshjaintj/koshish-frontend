@@ -5,12 +5,11 @@ import RegisterForEvent from "../../dashboard/DashBoardComponents/RegisterForEve
 import UpdateRegisterationForEvent from "../../dashboard/DashBoardComponents/UpdateRegisterations.tsx";
 import axiosInstance from "../../../../config/axiosConfig.ts";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Events = () => {
-  // const events = useData().allEvents;
   const [events, setevents] = useState([])
   const [search, setSearch] = useState("");
-  // const [filterType, setFilterType] = useState("");
   const [partFilterType, setPartFilterType] = useState("");
   const [registerFilter, setregisterFilter] = useState("")
   const [selectedEvent, setSelectedEvent] = useState<any>(null);
@@ -206,11 +205,13 @@ const Events = () => {
                   >
                     Close
                   </button>
-                  <button
+                  <Link
+                   to={`/events/${selectedEvent._id}`}
                     className="px-4 py-2 text-white transition bg-green-500 rounded-lg hover:bg-green-600"
+
                   >
                     Results
-                  </button>
+                  </Link>
                 </div>
               </>
             )}
