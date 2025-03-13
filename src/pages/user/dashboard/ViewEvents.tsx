@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Class, useData , EventData } from "../../../context/DataProviderContext";
+import { Class, useData , EventData, ResultData } from "../../../context/DataProviderContext";
 import { motion } from "framer-motion";
 import ModalWrapper from "../../../components/common/ModalWrapper";
 import { Link } from "react-router-dom";
@@ -22,7 +22,7 @@ const ViewEvents = () => {
   const [openModal, setOpenModal] = useState(false);
   const [updatedEvent, setUpdatedEvent] = useState<EventData | null>(null);
   const [isResultModalOpen, setIsResultModalOpen] = useState(false);
-  const [result, setResult] = useState<any>(null)
+  const [result, setResult] = useState<ResultData | null>(null)
   const [isResultLoading, setIsResultLoading] = useState(false);
   const { allClasses } = useData();
   const [selectedResultEvent, setselectedResultEvent] = useState<EventData | null>(null)
@@ -88,7 +88,7 @@ const ViewEvents = () => {
 
   // Filtered events based on search and type
   const filteredEvents = events.filter(
-    (event: any) =>
+    (event: EventData) =>
       event.name.toLowerCase().includes(search.toLowerCase()) &&
       (filterType === "" || event.type === filterType) &&
       (partFilterType === "" || event.part_type === partFilterType)

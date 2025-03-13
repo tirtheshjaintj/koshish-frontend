@@ -4,15 +4,8 @@ import axiosInstance from "../config/axiosConfig";
 import { useParams } from "react-router-dom";
 import { BiTrophy } from "react-icons/bi";
 import { useData } from "../context/DataProviderContext";
+import { EventData } from "../context/DataProviderContext";
 
-interface EventDetails {
-  _id:string;
-  name: string;
-  type: string;
-  location: string;
-  part_type: string;
-  points: number[];
-}
 
 interface ResultItem {
 
@@ -23,13 +16,13 @@ interface ResultItem {
 interface ApiResponse {
   success: boolean;
   data: {
-    eventId: EventDetails;
+    eventId: EventData;
     result: ResultItem[];
   };
 }
 
 function EventResult() {
-  const [eventDetails, setEventDetails] = useState<EventDetails | null>(null);
+  const [eventDetails, setEventDetails] = useState<EventData | null>(null);
   const [result, setResult] = useState<ResultItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
@@ -51,7 +44,7 @@ function EventResult() {
     } catch (error:any) {
       setError(true);
       setResult([]);
-      const eventFromList = events.find((event: any) => event._id === event_id);
+      const eventFromList = events.find((event: EventData) => event._id === event_id);
       if (eventFromList) {
         setEventDetails(eventFromList);
       }else{

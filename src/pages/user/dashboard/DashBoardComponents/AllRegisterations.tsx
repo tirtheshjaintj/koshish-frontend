@@ -4,6 +4,7 @@ import ModalWrapper from "../../../../components/common/ModalWrapper";
 import axiosInstance from "../../../../config/axiosConfig.ts";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { EventData } from "../../../../context/DataProviderContext.tsx";
 
 const AllEvents = () => {
   // const events = useData().allEvents;
@@ -11,7 +12,7 @@ const AllEvents = () => {
   const [search, setSearch] = useState("");
   const [partFilterType, setPartFilterType] = useState("");
   const [typeFilter, setTypeFilter] = useState("")
-  const [selectedEvent, setSelectedEvent] = useState<any>(null);
+  const [selectedEvent, setSelectedEvent] = useState<EventData | null>(null);
   const [openModal, setOpenModal] = useState(false);
   const [openRegisterModal, setopenRegisterModal] = useState(false);
   const [openUpdateRegiter, setopenUpdateRegiter] = useState(false);
@@ -40,7 +41,7 @@ const AllEvents = () => {
 
   // Filtered events based on search and type
   const filteredEvents = events.filter(
-    (event: any) =>
+    (event: EventData) =>
       event.name.toLowerCase().includes(search.toLowerCase()) &&
       // (filterType === "" || event.type === filterType) &&
       (partFilterType === "" || event.part_type === partFilterType) &&
@@ -125,7 +126,7 @@ const AllEvents = () => {
           layout
           className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {filteredEvents.map((event: any) => (
+          {filteredEvents.map((event: EventData) => (
           <motion.div
             key={event._id}
             layout

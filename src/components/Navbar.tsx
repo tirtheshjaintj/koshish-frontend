@@ -24,18 +24,18 @@ export default function Nav() {
     };
 
     useEffect(() => {
-        const handleBeforeInstallPrompt = (e: any) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            setIsInstallable(true);
+        const handleBeforeInstallPrompt = (e: Event) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          setIsInstallable(true);
         };
-
+      
         window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-
+      
         return () => {
-            window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+          window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
         };
-    }, []);
+      }, []);
 
     const install = async () => {
         if (deferredPrompt) {

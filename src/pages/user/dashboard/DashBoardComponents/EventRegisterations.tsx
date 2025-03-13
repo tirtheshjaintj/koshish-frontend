@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axiosInstance from '../../../../config/axiosConfig';
+import { EventData, Registration } from '../../../../context/DataProviderContext';
 
-interface Event{
-    name : string,
-    type : string
-}
+
+
+
 
 const EventRegistrations = () => {
     const { eventId } = useParams();
-    const [registrations, setRegistrations] = useState([]);
-    const [filteredRegistrations, setFilteredRegistrations] = useState([]);
-    const [event, setEvent] = useState<Event | null>(null);
+    const [registrations, setRegistrations] = useState<Registration[]>([]);
+    const [filteredRegistrations, setFilteredRegistrations] = useState<Registration[]>([]);
+    const [event, setEvent] = useState<EventData | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [classFilter, setClassFilter] = useState('');
@@ -39,7 +39,8 @@ const EventRegistrations = () => {
         const selectedClass = e.target.value;
         setClassFilter(selectedClass);
         if (selectedClass) {
-            setFilteredRegistrations(registrations.filter((reg: any) => reg.classId?.name === selectedClass));
+            const filteredRegistrations = registrations.filter((reg: Registration) => reg.classId?.name === selectedClass);
+            setFilteredRegistrations(filteredRegistrations);
 
         } else {
             setFilteredRegistrations(registrations);

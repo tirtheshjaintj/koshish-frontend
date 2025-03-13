@@ -4,19 +4,7 @@ import Navbar from "../components/Navbar";
 import { motion } from "framer-motion";
 import ModalWrapper from "../components/common/ModalWrapper";
 import { Link } from "react-router-dom";
-
-interface EventData {
-  _id:string;
-  name: string;
-  type: string;
-  part_type: string;
-  description: string;
-  rules: string[];
-  maxStudents: string;
-  minStudents: string;
-  location: string;
-  points: number[];
-};
+import { EventData } from "../context/DataProviderContext";
 
 const Events = () => {
   const events: EventData[] = useData().allEvents;
@@ -28,7 +16,7 @@ const Events = () => {
 
   // Filtered events based on search and type
   const filteredEvents = events.filter(
-    (event:any) =>
+    (event:EventData) =>
       event.name.toLowerCase().includes(search.toLowerCase()) &&
       (filterType === "" || event.type === filterType) &&
       (partFilterType === "" || event.part_type === partFilterType)
