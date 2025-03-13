@@ -20,11 +20,11 @@ export interface Class {
   is_active?: boolean;
 }
 
-export interface ResultData{
-  _id?:string;
-  eventId: EventData | string | null; 
+export interface ResultData {
+  _id?: string;
+  eventId: EventData | string | null;
   year: number;
-  result: string[]; 
+  result: string[];
   is_active: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -34,7 +34,7 @@ export interface ResultData{
 export interface Registration {
   _id: string;
   user: string;
-  classId: Class  | null;
+  classId: Class | null;
   students: string[];
 }
 export interface EventData {
@@ -52,7 +52,7 @@ export interface EventData {
 }
 // Define Event interface
 interface Event {
-  _id:string;
+  _id: string;
   name: string;
   type: string;
   part_type: string;
@@ -76,10 +76,10 @@ export interface Faculty {
 }
 
 interface ClassData {
-    totalPages: number;
-    currentPage: number;
-    classes: Class[];
-    totalClasses: number;
+  totalPages: number;
+  currentPage: number;
+  classes: Class[];
+  totalClasses: number;
 }
 // Define Context Type
 interface DataContextType {
@@ -95,7 +95,7 @@ interface DataContextType {
   // Setters
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setAllClasses: React.Dispatch<React.SetStateAction<Class[]>>;
-  setFaculties:React.Dispatch<React.SetStateAction<Faculty[]>>;
+  setFaculties: React.Dispatch<React.SetStateAction<Faculty[]>>;
 
   // Functions
   fetchAllFaculties: () => Promise<void>;
@@ -192,11 +192,11 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         setAllClasses(response.data.classes);
 
         setClassData({
-            totalPages: response.data.totalPages || 1,
-            currentPage: response.data.currentPage || 1,
-            classes: response.data.classes,
-            totalClasses:
-              response.data.totalClasses || response.data.classes.length,
+          totalPages: response.data.totalPages || 1,
+          currentPage: response.data.currentPage || 1,
+          classes: response.data.classes,
+          totalClasses:
+            response.data.totalClasses || response.data.classes.length,
         });
       }
     } catch (error) {

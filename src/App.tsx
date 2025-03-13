@@ -5,6 +5,7 @@ import Cookie from "universal-cookie";
 import { addUser } from './store/userSlice';
 import axiosInstance from './config/axiosConfig';
 import { useEffect } from 'react';
+import { DataProvider } from './context/DataProviderContext';
 
 
 
@@ -42,13 +43,15 @@ function App() {
     }
   };
   useEffect(() => {
-    document.title="PCTE Koshish App";
+    document.title = "PCTE Koshish App";
     window.scrollTo(0, 0);
   }, []);
   return (
     <>
       <Toaster position="bottom-right" />
-      <Outlet />
+      <DataProvider>
+        <Outlet />
+      </DataProvider>
 
     </>
   )

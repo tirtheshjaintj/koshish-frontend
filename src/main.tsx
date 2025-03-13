@@ -10,7 +10,6 @@ import Login from "./pages/Login.tsx";
 import User_Dashboard from "./pages/user/dashboard/User_Dashboard.tsx";
 import Forgot_Password from "./pages/Forgot_Password.tsx";
 import FacultyManageMain from "./pages/user/faculty/FacultyMain.tsx";
-import { DataProvider } from "./context/DataProviderContext.tsx";
 import Events from "./pages/Events.tsx";
 import EventResult from "./pages/EventResult.tsx";
 import TeacherEvents from "./pages/user/faculty/Events/TeacherEvents.tsx";
@@ -27,7 +26,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "", element: <Home /> },
-      {path:"results",element:<FinalResult/>},
+      { path: "results", element: <FinalResult /> },
       { path: "user/login", element: <Login /> },
       { path: "user/forgot", element: <Forgot_Password /> },
       { path: "events", element: <Events /> },
@@ -64,9 +63,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")!).render(
   <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_ID}>
     <Provider store={store}>
-      <DataProvider>
-        <RouterProvider router={router} />
-      </DataProvider>
+      <RouterProvider router={router} />
     </Provider>
   </GoogleOAuthProvider>
 );
