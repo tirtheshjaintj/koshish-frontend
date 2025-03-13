@@ -20,11 +20,22 @@ export interface Class {
   is_active?: boolean;
 }
 
+export interface ResultData{
+  _id?:string;
+  eventId: EventData | string | null; 
+  year: number;
+  result: string[]; 
+  is_active: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 // Define Registration interface
 export interface Registration {
   _id: string;
   user: string;
-  classId: string;
+  classId: Class  | null;
+  students: string[];
 }
 export interface EventData {
   _id: string;
@@ -37,6 +48,7 @@ export interface EventData {
   minStudents: string;
   location: string;
   points: number[];
+  register?: Registration | null;
 }
 // Define Event interface
 interface Event {
@@ -75,7 +87,7 @@ interface DataContextType {
   faculties: Faculty[];
   allRegisterations: Registration[];
   allClasses: Class[];
-  allEvents: Event[];
+  allEvents: EventData[];
   loading: boolean;
   classRegisterations: Registration[];
   classData: ClassData | null;
