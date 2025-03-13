@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-import { useData } from "../../../../context/DataProviderContext.tsx";
 import { motion } from "framer-motion";
 import ModalWrapper from "../../../../components/common/ModalWrapper";
-import RegisterForEvent from "../../dashboard/DashBoardComponents/RegisterForEvent.tsx";
-import UpdateRegisterationForEvent from "../../dashboard/DashBoardComponents/UpdateRegisterations.tsx";
 import axiosInstance from "../../../../config/axiosConfig.ts";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -93,15 +90,6 @@ const AllEvents = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
           <div className="flex gap-1 flex-wrap justify-center">
-            {/* <select
-              className="px-4 py-3 transition border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={filterType}
-              onChange={(e) => setFilterType(e.target.value)}
-            >
-              <option value="">All Types</option>
-              <option value="Junior">Junior</option>
-              <option value="Senior">Senior</option>
-            </select> */}
             <select
               className="px-4 py-3 transition border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={partFilterType}
@@ -208,7 +196,7 @@ const AllEvents = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
-            className="w-full max-w-lg p-8 text-gray-800 bg-white rounded-lg shadow-lg"
+            className="w-full max-w-lg p-8 min-w-[60%] text-gray-800 bg-white rounded-lg shadow-lg"
           >
             {selectedEvent && (
               <>

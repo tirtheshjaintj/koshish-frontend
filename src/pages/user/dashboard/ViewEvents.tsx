@@ -7,8 +7,6 @@ import { FaPlus, FaSpinner } from "react-icons/fa";
 import UpdateEvent from "./UpdateEvent";
 import { FaEdit } from "react-icons/fa";
 import axiosInstance from "../../../config/axiosConfig";
-import Loader from "../../../components/common/Loader";
-import { useSelector } from "react-redux";
 
 
 

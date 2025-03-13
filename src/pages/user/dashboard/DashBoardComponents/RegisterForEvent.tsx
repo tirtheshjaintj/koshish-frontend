@@ -1,20 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import { TiTick } from "react-icons/ti";
 import { motion, AnimatePresence } from "framer-motion"
 import axiosInstance from "../../../../config/axiosConfig";
 import toast from "react-hot-toast";
 const RegisterForEvent: React.FC<any> = ({ setRegisterEvent , event , fetchAllEvents }) => {
-  // const event = {
-  //   _id: 1,
-  //   name: "Debate",
-  //   minStudents: 3,
-  //   maxStudents: 4,
-  //   rules: ["dummy data point 1", "dummy data point 2", "dummy data point 3"],
-  // };
-
   const [students, setStudents] = useState<string[]>([]);
   const [newStudent, setNewStudent] = useState(""); // State for input field
   const [loading, setLoading] = useState(false);
@@ -167,7 +157,7 @@ const RegisterForEvent: React.FC<any> = ({ setRegisterEvent , event , fetchAllEv
             <button
               onClick={() => setRegisterEvent(null)}
               className=" px-3 py-1 bg-gray-500 hover:bg-gray-400 text-white rounded-md text-lg m-3 mx-auto">
-              close
+                Close
             </button>
           </div>
 

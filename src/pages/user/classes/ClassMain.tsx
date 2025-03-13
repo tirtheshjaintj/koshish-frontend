@@ -129,8 +129,8 @@ export default function FacultyManageMain() {
       setLoading(false);
     }
   };
-console.log(data)
-  const handlePageAndLimitChange = () => {
+ 
+ const handlePageAndLimitChange = () => {
     fetchAllClasses(page, limit, debouncedQuery);
   };
   useEffect(() => {
