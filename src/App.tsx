@@ -5,6 +5,7 @@ import Cookie from "universal-cookie";
 import { addUser } from './store/userSlice';
 import axiosInstance from './config/axiosConfig';
 import { useEffect } from 'react';
+import { DataProvider } from './context/DataProviderContext';
 
 
 
@@ -48,7 +49,9 @@ function App() {
   return (
     <>
       <Toaster position="bottom-right" />
+      <DataProvider>
       <Outlet />
+      </DataProvider>
 
     </>
   )

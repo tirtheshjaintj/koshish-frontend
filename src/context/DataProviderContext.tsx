@@ -66,7 +66,7 @@ interface Event {
 
 // Define Faculty interface
 export interface Faculty {
-  _id: string;
+  _id?: string;
   name: string;
   email: string;
   password: string;
