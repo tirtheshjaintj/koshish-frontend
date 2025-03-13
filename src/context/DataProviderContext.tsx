@@ -21,12 +21,23 @@ export interface Class {
 }
 
 // Define Registration interface
-interface Registration {
+export interface Registration {
   _id: string;
   user: string;
   classId: string;
 }
-
+export interface EventData {
+  _id: string;
+  name: string;
+  type: string;
+  part_type: string;
+  description: string;
+  rules: string[];
+  maxStudents: string;
+  minStudents: string;
+  location: string;
+  points: number[];
+}
 // Define Event interface
 interface Event {
   _id:string;
@@ -41,8 +52,9 @@ interface Event {
   points: number[];
 }
 
+// Define Faculty interface
 export interface Faculty {
-  _id?: string;
+  _id: string;
   name: string;
   email: string;
   password: string;

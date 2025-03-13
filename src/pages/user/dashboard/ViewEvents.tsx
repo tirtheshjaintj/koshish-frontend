@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useData } from "../../../context/DataProviderContext";
+import { Class, useData , EventData } from "../../../context/DataProviderContext";
 import { motion } from "framer-motion";
 import ModalWrapper from "../../../components/common/ModalWrapper";
 import { Link } from "react-router-dom";
@@ -8,30 +8,10 @@ import UpdateEvent from "./UpdateEvent";
 import { FaEdit } from "react-icons/fa";
 import axiosInstance from "../../../config/axiosConfig";
 
-interface EventData {
-  _id: string;
-  name: string;
-  type: string;
-  part_type: string;
-  description: string;
-  rules: string[];
-  maxStudents: string;
-  minStudents: string;
-  location: string;
-  points: number[];
-}
 
-export interface IClass {
-  _id: string;
-  name: string;
-  username: string;
-  email: string;
-  password: string;
-  type: "Senior" | "Junior";
-  is_active: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-}
+
+
+
 
 const ViewEvents = () => {
   const events = useData().allEvents;
@@ -47,7 +27,7 @@ const ViewEvents = () => {
   const { allClasses } = useData();
   const [selectedResultEvent, setselectedResultEvent] = useState<EventData | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [selected, setSelected] = useState<IClass[]>([]);
+  const [selected, setSelected] = useState<Class[]>([]);
   const [inputValue, setInputValue] = useState("");
 
 
@@ -90,20 +70,20 @@ const ViewEvents = () => {
   }
 
 
-  const handleSelect = (value: IClass) => {
+  const handleSelect = (value: Class) => {
     if (selected.length < 3 && !selected.includes(value)) {
       setSelected([...selected, value]);
       setInputValue("");
     }
   };
 
-  const handleRemove = (value: IClass) => {
+  const handleRemove = (value: Class) => {
     setSelected(selected.filter((item) => item !== value));
   };
 
 
   const filteredOptions = allClasses.filter(
-    (option: IClass) => option.name.toLowerCase().includes(inputValue.toLowerCase()) && selectedResultEvent?.type === option.type
+    (option: Class) => option.name.toLowerCase().includes(inputValue.toLowerCase())  && selectedResultEvent?.type === option.type
   );
 
   // Filtered events based on search and type
@@ -343,7 +323,7 @@ const ViewEvents = () => {
                     />
                     {inputValue && filteredOptions.length > 0 && (
                       <ul className="absolute z-10 w-full bg-white border mt-1 shadow-lg rounded-md">
-                        {filteredOptions.map((option: IClass) => (
+                        {filteredOptions.map((option: Class) => (
                           <li
                             key={option._id}
                             onClick={() => handleSelect(option)}
