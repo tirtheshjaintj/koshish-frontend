@@ -3,7 +3,7 @@ import "./index.css";
 import App from "./App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import Home from "./pages/Home.tsx";
+import Home from "./pages/Home/Home.tsx";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import Login from "./pages/Login.tsx";
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "", element: <Home /> },
-      {path:"results",element:<FinalResult/>},
+      { path: "results", element: <FinalResult /> },
       { path: "user/login", element: <Login /> },
       { path: "user/forgot", element: <Forgot_Password /> },
       { path: "events", element: <Events /> },
@@ -71,13 +71,17 @@ createRoot(document.getElementById("root")!).render(
   </GoogleOAuthProvider>
 );
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('serviceWorker.js')
-      .then(registration => {
-        console.log('Service Worker registered with scope:', registration.scope);
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("serviceWorker.js")
+      .then((registration) => {
+        console.log(
+          "Service Worker registered with scope:",
+          registration.scope
+        );
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         // console.error('Service Worker registration failed:', err);
       });
