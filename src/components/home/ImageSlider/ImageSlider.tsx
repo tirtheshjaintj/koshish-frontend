@@ -60,7 +60,7 @@ const ImageSlider: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full my-10 py-6   px-20 flex flex-col items-center">
+    <div className="relative w-full my-10 py-6   md:px-20 flex flex-col items-center">
       {/* Scrollable container */}
       <div
         className="flex overflow-x-auto scroll-smooth  px-4 snap-x snap-mandatory  w-full gap-2"
