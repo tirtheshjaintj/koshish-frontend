@@ -182,7 +182,7 @@ console.log(classData)
           </div>
         ) : (
           <>
-            <div className="flex items-center my-5 justify-between gap-2 md:px-4 ">
+            <div className="flex flex-col items-center my-5 justify-between gap-2 md:px-4 ">
               <input
                 type="text"
                 placeholder="Search..."
@@ -191,7 +191,7 @@ console.log(classData)
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
 
-              <div className="flex items-center gap-4">
+              <div className="flex  items-center gap-4">
                 {/* Pagination */}
                 <Pagination
                   currentPage={page}

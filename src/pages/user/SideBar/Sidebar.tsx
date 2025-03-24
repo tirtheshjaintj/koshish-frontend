@@ -11,12 +11,6 @@ import Cookies from "universal-cookie";
 
 const listData = [
     {
-        name: "Dashboard",
-        type: ["Admin"],
-        icon: <MdDashboard size={20} />,
-        link: "/user/dashboard",
-    },
-    {
         name: "Faculty",
         type: ["Admin"],
         icon: <PiChalkboardTeacherFill size={20} />,
@@ -85,12 +79,15 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
                     onClick={() => setOpen((prev: boolean) => !prev)}
                     className='sticky cursor-pointer md:hidden bottom-2 hover:text-slate-500'
                 />
+                <Link to={"/"} className="flex">
                 <img
                     src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0chhs7PCMWtuhOLg8yYBynOz2qsPmX_ydmCJwci-rkpfXh47lW_2YRRgT7skeD8INGrA&usqp=CAU"}
                     alt="pcte"
                     className='object-cover w-8 h-8 rounded-'
+                
                 />
                 {open && "Koshish"}
+                </Link>
             </div>
 
             <div className='flex flex-col gap-2 mt-5'>
