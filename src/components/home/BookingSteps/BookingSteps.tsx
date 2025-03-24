@@ -80,7 +80,7 @@ export default function BookingSteps() {
   const handlePause = () => setIsPlaying(false);
 
   return (
-    <section className="bg-gradient-to-r bg-stone-900  mt-15 lg:px-24 md:px-15 md:py-20 py-15 relative z-10">
+    <section className="bg-gradient-to-r bg-stone-900  mt-15 lg:px-24 md:px-15 pt-20 relative z-10">
       <div className="max-w-md md:hidden max-sm:px-4">
         <Header />
       </div>
