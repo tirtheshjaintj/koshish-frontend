@@ -17,7 +17,7 @@ export default function Upcomings() {
       <div className="mt-2 text-light-gray max-sm:hidden text-xl flex-wrap flex justify-center items-center gap-4">
         <p>Participate in Events of Koshish, Win prizes and Extra internals</p>
         <Link
-          to={"/enents"}
+          to={"/events"}
           className="text-purple-600  hover:text-pink-600  flex items-center gap-1 font-medium"
         >
           View All Events <ArrowRight />

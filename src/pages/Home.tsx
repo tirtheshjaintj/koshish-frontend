@@ -1,19 +1,8 @@
-import Chatbot from "../components/ChatBot";
-import Navbar from "../components/Navbar";
+import Nav from "../components/home/StaticNavbar";
 
 function Home() {
-
-
     return (
-        <>
-
-            <Navbar />
-            <div className="min-h-screen pt-10 bg-transparent">
-                <Chatbot />
-             
-            </div>
-        </>
-
+        <Nav />     
     );
 }
 
