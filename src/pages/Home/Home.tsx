@@ -5,8 +5,14 @@ import Featured from "../../components/home/Featured/Featured";
 import Upcomings from "../../components/home/Upcoming/Upcomings";
 import Footer from "../../components/Footer";
 import BookingSteps from "../../components/home/BookingSteps/BookingSteps";
+import { useEffect } from "react";
 
 export default function Home() {
+  
+  useEffect(()=>{
+      window.scrollTo(0,0);
+  },[]);
+    
   return (
     <div className="">
       <StaticNavbar />

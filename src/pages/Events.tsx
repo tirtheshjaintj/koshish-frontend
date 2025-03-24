@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useData } from "../context/DataProviderContext";
-import Navbar from "../components/Navbar";
 import { motion } from "framer-motion";
 import ModalWrapper from "../components/common/ModalWrapper";
 import { Link } from "react-router-dom";
 import UpcomingCard from "../components/home/Upcoming/UpcomingCard";
 import { EventData } from "../context/DataProviderContext";
+import Nav from "../components/home/StaticNavbar";
 
 const Events = () => {
   const events: EventData[] = useData().allEvents;
@@ -23,17 +23,18 @@ const Events = () => {
       (partFilterType === "" || event.part_type === partFilterType)
   );
 
-  useEffect(() => {
-    
-  }, [events]);
 
   useEffect(()=>{
     setOpenModal(selectedEvent?true:false);
   },[selectedEvent]);
 
+  useEffect(()=>{
+    window.scrollTo(0,0);
+  },[]);
+
   return (
     <>
-      <Navbar />
+      <Nav />
       <div className="container mx-auto p-6">
         {/* Search and Filter Section */}
         <div className="flex flex-col justify-between md:flex-row items-center gap-4 mb-6">

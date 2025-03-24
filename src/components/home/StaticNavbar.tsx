@@ -29,10 +29,10 @@ type User = {
 };
 
 export default function Nav() {
+  
   const navigate = useNavigate();
   const cookie = new Cookies();
   const dispatch = useDispatch();
-  
   
   const user: User | null = useSelector((state: RootState) => state.user);
   
@@ -94,26 +94,6 @@ export default function Nav() {
     }
   };
 
-  // Handle click outside for closing profile dropdown
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        profileRef.current &&
-        event.target instanceof Node &&
-        !profileRef.current.contains(event.target)
-      ) {
-        setIsProfileOpen(false);
-      }
-    };
-
-    if (isProfileOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isProfileOpen]);
 
   return (
     <header
@@ -183,11 +163,20 @@ export default function Nav() {
                   {user?.name || "Guest"}
                 </span>
                 <Link
-                  to="/user/dashboard"
-                  className="block px-4 border-t py-2 hover:bg-gray-100"
-                >
-                  Dashboard
-                </Link>
+  to={
+    user?.user_type === "Admin"
+      ? "/user/dashboard/faculties"
+      : user?.user_type === "Convenor"
+      ? "/user/dashboard/events"
+      : user?.user_type === "Class"
+      ? "/user/dashboard/registerEvent"
+      : "/user/dashboard"
+  }
+  onClick={() => setIsProfileOpen(false)}
+  className="block px-4 border-t py-2 hover:bg-gray-100"
+>
+  Dashboard
+</Link>
                 <div className="border-t my-2"></div>
                 <div
                   onClick={signOut}
@@ -199,11 +188,12 @@ export default function Nav() {
               </>
             ) : (
               <Link
-                to="/user/login"
-                className="block px-4 py-2 hover:bg-gray-100"
-              >
-                Become User
-              </Link>
+              to="/user/login"
+              onClick={() => setIsProfileOpen(false)}
+              className="block px-4 py-2 hover:bg-gray-100"
+            >
+              Become User
+            </Link>
             )}
           </div>
         )}

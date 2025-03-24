@@ -6,9 +6,18 @@ import toast from 'react-hot-toast';
 import Cookie from "universal-cookie";
 import Navbar from "../components/Navbar";
 import GoogleBox from "../components/GoogleBox";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUser } from '../store/userSlice';
+import { RootState } from "../store/store";
+import Nav from "../components/home/StaticNavbar";
+type User = {
+    user_type?: string;
+    avatar?: string;
+    name?: string;
+    email?: string;
+  };
 
+  
 function Login() {
     const [activeTab, setActiveTab] = useState<'class' | 'faculty'>('faculty');
     const [credentials, setCredentials] = useState({ email: "", password: "", username: "" });
@@ -17,6 +26,8 @@ function Login() {
     const navigate = useNavigate();
     const cookie = new Cookie();
     const dispatch = useDispatch();
+    const user: User | null = useSelector((state: RootState) => state.user);
+    
 
     useEffect(() => {
         document.title = "PCTE User Login";
@@ -52,7 +63,15 @@ function Login() {
             const token = response?.data?.token;
             if (token) {
                 cookie.set("user_token", token, { path: "/", expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) });
-                navigate("/user/dashboard");
+                const user_type=response.data.data.user_type;
+                if(user_type=="Admin"){
+                navigate("/user/dashboard/faculties");
+                }else if(user_type=="Convenor"){
+                navigate("/user/dashboard/events");   
+                }else{
+                 navigate("/user/dashboard/registerEvent");
+                }
+
             }
         } catch (error: any) {
             const error_msg = error.response?.data?.message || "An error occurred";
@@ -64,7 +83,7 @@ function Login() {
 
     return (
         <>
-            <Navbar />
+            <Nav />
             <div className="flex flex-col items-center justify-center min-h-screen mx-auto">
                 <div className="w-full rounded-lg shadow-lg bg-slate-100 dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
