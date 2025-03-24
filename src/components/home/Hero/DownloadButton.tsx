@@ -21,12 +21,13 @@ py-2 md:px-6 px-4 hover:shadow-md  transition-all min-w-fit"
       <div className="w-[1px] md:h-6 h-4 bg-blue-prime" />
 
       <img
-        src={"/assets/images/home/hero/playstore.png"}
-        width={24}
-        height={24}
-        alt="Play Store"
-        className="w-6 h-6 "
-      />
+  src=""
+  width={24}
+  height={24}
+  alt="App Store"
+  className="w-6 h-6"
+/>
+
 
       <p className="min-w-fit">Download App</p>
     </Link>

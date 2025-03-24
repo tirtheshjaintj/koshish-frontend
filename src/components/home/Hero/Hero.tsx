@@ -7,7 +7,7 @@ export default function Hero() {
       {/* Info */}
       <div className="md:my-20 my-10">
         <div className="flex w-fit relative items-center gap-1 px-3  py-1.5  text-sm font-semibold text-gray-prime-10 border rounded-lg border-red-800">
-          🎉 50+ Events to win
+          🎉 70+ Events to win
         </div>
 
         <h1
@@ -15,16 +15,13 @@ export default function Hero() {
           lg:text-5xl md:text-3xl text-2xl  break-words  
          font-poppins"
         >
-          Participate in Events of Koshish
+          Koshish Fest – Unleash Your Talent
         </h1>
         <p className="text-text_secondary_dark max-w-2xl md:text-xl text-sm">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim aliquid
-          quasi praesentium dolorum modi, cum accusamus. Dicta expedita eius
-          culpa aperiam perferendis dolorem ut, repellendus, id optio vero,
-          ducimus officiis.
+        Koshish is our college’s annual fest, featuring a dynamic mix of cultural and literary events. It provides a platform for students to showcase their talents in music, dance, drama, debates, poetry, and more. With a blend of creativity and intellect, Koshish celebrates expression, competition, and excellence.
         </p>
 
-        <div className="flex items-center gap-2 md:gap-4 my-5 max-sm:text-sm">
+        {/* <div className="flex items-center gap-2 md:gap-4 my-5 max-sm:text-sm">
           <div
             className="flex border-[1px] rounded-xl border-gray-prime
            items-center gap-1 font-poppins font-bold text-blue-prime py-2 px-2 md:px-3  min-w-fit"
@@ -67,7 +64,7 @@ export default function Hero() {
             ></img>
             <p>Authentic Prasad</p>
           </div>
-        </div>
+        </div> */}
 
         <div className="flex items-center gap-2 max-sm:flex-wrap md:gap-4 lg:gap-6 my-5 md:mt-14 mt-8 max-sm:text-sm">
           <Link
