@@ -4,17 +4,19 @@ import { BsLinkedin } from "react-icons/bs";
 
 export default function Footer() {
   return (
-    <div className='bg-black06 max-sm:text-sm pt-24 px-5 md:px-32 text-gray60 links-container'>
+    <div className='bg-stone-900 text-white max-sm:text-sm  px-5 md:px-32  links-container'>
 
-      <div className='grid grid-cols-2 md:grid-cols-3 gap-4 lg:grid-cols-6  mb-10'>
+      {/* <div className='grid grid-cols-2 md:grid-cols-3 gap-4 lg:grid-cols-6  mb-10'>
 
         <div className='flex flex-col gap-4 '>
           <h2 className='text-white  md:text-xl text-md font-bold '>Home</h2>
-          <a href='#' className=''>Categories</a>
-          <a href='#' className=''>Devices</a>
-          <a href='#' className=''>Pricing</a>
-          <a href='#' className=''>FAQ</a>
+          <a href='#' className='0161 -2888500'></a>
+          <a href='#' className=''>Campus-1, Baddowal, Ferozepur Road, Ludhiana-142021, Punjab, India</a>
+          <a href='#' className=''> Campus-2,Near Baddowal Cantt, Ferozepur Road, Ludhiana-142021, Punjab, India</a>
+          <a href='#' className=''>info@pcte.edu.in</a>
         </div>
+
+        
         <div className='flex flex-col gap-4'>
           <h2 className='text-white md:text-xl text-md font-bold'>Movies</h2>
           <a href='#' className=''>Genres</a>
@@ -56,10 +58,10 @@ export default function Footer() {
         </div>
 
 
-      </div>
+      </div> */}
 
    
-      <div className='flex items-center flex-wrap gap-2  border-t-[1px] border-black15 justify-between py-8'>
+      <div className='flex items-center flex-wrap gap-2   justify-between py-8'>
         <p>@2025 Cavius, All Rights Reserved</p>
         <div className='flex items-center flex-wrap max-sm:text-xs gap-2'>
           <a href='#' className='min-w-fit'>Terms of Use</a>

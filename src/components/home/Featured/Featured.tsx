@@ -4,40 +4,40 @@ import InfiniteMarquee from "./InfiniteMarquee";
 const demoData = [
   {
     id: 1,
-    src: "https://via.placeholder.com/150x40?text=Logo+1",
+    src: "https://tse1.mm.bing.net/th?id=OIP.4RFya1HIArbOoKomXixZwgHaEK&pid=Api&P=0&h=180",
     alt: "Economics Times",
   },
   {
     id: 2,
-    src: "https://via.placeholder.com/150x40?text=Logo+2",
+    src: "https://tse4.mm.bing.net/th?id=OIP.L-KZAIyHphVjl10qONJkRQHaCy&pid=Api&P=0&h=180",
     alt: "Entrackr",
   },
   {
     id: 3,
-    src: "https://via.placeholder.com/150x40?text=Logo+3",
+    src: "https://tse3.mm.bing.net/th?id=OIP.DQEec4LFcX7qwmnEm_qhBQHaD5&pid=Api&P=0&h=180",
     alt: "Entrepreneur",
   },
   {
     id: 4,
-    src: "https://via.placeholder.com/150x40?text=Logo+4",
+    src: "https://tse4.mm.bing.net/th?id=OIP.1bo3OYV6lGTqd231-INzAAHaE8&pid=Api&P=0&h=180",
     alt: "VCCircle",
   },
   {
     id: 5,
-    src: "https://via.placeholder.com/150x40?text=Logo+5",
+    src: "https://tse3.mm.bing.net/th?id=OIP.DQEec4LFcX7qwmnEm_qhBQHaD5&pid=Api&P=0&h=180",
     alt: "ABP",
   },
   {
     id: 6,
-    src: "https://via.placeholder.com/150x40?text=Logo+6",
+    src: "https://tse1.mm.bing.net/th?id=OIP.4RFya1HIArbOoKomXixZwgHaEK&pid=Api&P=0&h=180",
     alt: "Inc42",
   },
 ];
 
 const Featured: React.FC = () => {
   return (
-    <div className="pt-10 pb-6 font-poppins bg-gradient-to-r bg-stone-900 text-white">
-      <h2 className="md:text-4xl text-2xl font-bold w-full md:text-center px-4">
+    <div className=" bg-stone-900 pt-10 pb-6 font-poppins bg-gradient-to-r bg-stone-900 text-white">
+      <h2 className=" mb-3 md:text-4xl text-2xl font-bold w-full md:text-center px-4">
         Our
         <span className="text-[#FFDC7D]"> Sponsors</span>
       </h2>
@@ -52,7 +52,7 @@ const Featured: React.FC = () => {
             <img
               src={item.src}
               alt={item.alt}
-              className="object-contain max-h-full"
+              className="object-contain w-auto h-auto min-w-full min-h-full  max-h-full"
             />
           </div>
         ))}

@@ -8,7 +8,7 @@ export default function Hero() {
       {/* Info */}
       <div className="md:my-20 my-10">
         <div className="flex w-fit relative items-center gap-1 px-3  py-1.5  text-sm font-semibold text-gray-prime-10 border rounded-lg border-red-800">
-          🎉 50+ Events to win
+          🎉 70+ Events to win
         </div>
 
         <h1
@@ -16,13 +16,10 @@ export default function Hero() {
           lg:text-5xl md:text-3xl text-2xl  break-words  
          font-poppins"
         >
-          Participate in Events of Koshish
+          Koshish Fest – Unleash Your Talent
         </h1>
         <p className="text-text_secondary_dark max-w-2xl md:text-xl text-sm">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim aliquid
-          quasi praesentium dolorum modi, cum accusamus. Dicta expedita eius
-          culpa aperiam perferendis dolorem ut, repellendus, id optio vero,
-          ducimus officiis.
+        Koshish is our college’s annual fest, featuring a dynamic mix of cultural and literary events. It provides a platform for students to showcase their talents in music, dance, drama, debates, poetry, and more. With a blend of creativity and intellect, Koshish celebrates expression, competition, and excellence.
         </p>
 
         

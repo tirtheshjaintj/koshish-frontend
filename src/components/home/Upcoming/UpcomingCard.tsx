@@ -1,8 +1,12 @@
 import { Building2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { TiGroup } from "react-icons/ti";
-
-export default function EventCard({ value }) {
+ 
+interface EventCardProps {
+  value: any;
+  openDetailsHandler: any;
+}
+export default function EventCard({ value, openDetailsHandler }: EventCardProps) {
   return (
     <div
       className="flex-1  hover:drop-shadow-xl border-gray-400 p-2
@@ -56,13 +60,20 @@ export default function EventCard({ value }) {
        
          border-gray-prime py-2 px-2.5 text-light-gray justify-between"
       >
-        <p>34+ Registred</p>
+        <button
+          onClick={()=>openDetailsHandler(value)}
+
+          className="bg-gradient-to-r font-poppins from-purple-600
+          hover:opacity-75 to-blue-600 text-white py-2 px-6 rounded-2xl"
+        >
+          View Details
+        </button>
         <Link
           to={`/events/${value?._id}`}
           className="bg-gradient-to-r font-poppins from-purple-600
           hover:opacity-75 to-pink-600 text-white py-2 px-6 rounded-2xl"
         >
-          Participate
+          View Result
         </Link>
       </div>
     </div>
