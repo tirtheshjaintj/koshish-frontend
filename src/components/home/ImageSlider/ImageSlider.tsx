@@ -2,6 +2,8 @@ import { useRef, useState, useEffect } from "react";
 import sliderImg1 from "/images/sliderImg1.jpg";
 import sliderImg2 from "/images/sliderImg2.jpg";
 import sliderImg3 from "/images/sliderImg3.jpg";
+import sliderImg4 from "/images/sliderImg4.jpg";
+import sliderImg5 from "/images/sliderImg5.jpg";
 
 type ImageData = {
   id: number;
@@ -23,6 +25,14 @@ const ImageSlider: React.FC = () => {
     {
       id: 3,
       image: sliderImg3,
+    },
+    {
+      id: 4,
+      image: sliderImg4,
+    },
+    {
+      id: 5,
+      image: sliderImg5,
     },
   ];
 
@@ -60,10 +70,10 @@ const ImageSlider: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full my-10 py-6   md:px-20 flex flex-col items-center">
+    <div className="relative flex flex-col items-center w-full py-6 my-10 md:px-20">
       {/* Scrollable container */}
       <div
-        className="flex overflow-x-auto scroll-smooth  px-4 snap-x snap-mandatory  w-full gap-2"
+        className="flex w-full gap-2 px-4 overflow-x-auto scroll-smooth snap-x snap-mandatory"
         style={{ scrollbarWidth: "none" }}
         ref={eventImgRef}
       >
@@ -86,11 +96,10 @@ const ImageSlider: React.FC = () => {
         {[...Array(3)].map((_, idx) => (
           <span
             key={idx}
-            className={`h-2 w-2 rounded-full transition-all duration-300 ${
-              currentIndex === idx
-                ? "bg-gradient-to-r from-indigo-500 to-pink-500 w-4"
-                : "bg-gray-300"
-            }`}
+            className={`h-2 w-2 rounded-full transition-all duration-300 ${currentIndex === idx
+              ? "bg-gradient-to-r from-indigo-500 to-pink-500 w-4"
+              : "bg-gray-300"
+              }`}
           />
         ))}
       </div>

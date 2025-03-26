@@ -1,7 +1,7 @@
 import { Building2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { TiGroup } from "react-icons/ti";
- 
+
 interface EventCardProps {
   value: any;
   openDetailsHandler: any;
@@ -14,22 +14,22 @@ export default function EventCard({ value, openDetailsHandler }: EventCardProps)
     >
       {/* Content */}
 
-      <div className="p-2 flex-grow flex flex-col">
-        <h2 className="font-poppins  text-ellipsis overflow-hidden md:line-clamp-1 line-clamp-2  text-xl font-semibold text-blue-prime">
+      <div className="flex flex-col flex-grow p-2">
+        <h2 className="overflow-hidden text-xl font-semibold font-poppins text-ellipsis md:line-clamp-1 line-clamp-2 text-blue-prime">
           {value?.name}
         </h2>
 
-        <div className="text-gray-600 mb-3 mt-2 border-t pt-2">
-          <p className="relative   line-clamp-3 overflow-hidden text-ellipsis ">
+        <div className="pt-2 mt-2 mb-3 text-gray-600 border-t">
+          <p className="relative overflow-hidden line-clamp-3 text-ellipsis ">
             {value?.description || "No description available"}
           </p>
 
-          <div className="flex items-center  gap-2 my-2">
+          <div className="flex items-center gap-2 my-2">
             <TiGroup
               size={24}
               className="min-w-[24px] max-w-[24px] max-h-[24px] min-h-[24px]"
             />
-            <p className="text-ellipsis break-words overflow-hidden  line-clamp-2 md:line-clamp-1">
+            <p className="overflow-hidden break-words text-ellipsis line-clamp-2 md:line-clamp-1">
               {value?.type}, {value?.part_type}
             </p>
           </div>
@@ -39,15 +39,15 @@ export default function EventCard({ value, openDetailsHandler }: EventCardProps)
               <Building2 />
             </span>
 
-            <p className="text-ellipsis overflow-hidden line-clamp-1">
+            <p className="overflow-hidden text-ellipsis line-clamp-1">
               {value?.location}
             </p>
           </div>
           <div className="">
-            <p className="text-ellipsis overflow-hidden line-clamp-1">
+            <p className="overflow-hidden text-ellipsis line-clamp-1">
               Min Participants: {value?.minStudents}
             </p>
-            <p className="text-ellipsis overflow-hidden line-clamp-1">
+            <p className="overflow-hidden text-ellipsis line-clamp-1">
               Max Participants: {value?.maxStudents}
             </p>
           </div>
@@ -61,19 +61,17 @@ export default function EventCard({ value, openDetailsHandler }: EventCardProps)
          border-gray-prime py-2 px-2.5 text-light-gray justify-between"
       >
         <button
-          onClick={()=>openDetailsHandler(value)}
+          onClick={() => openDetailsHandler(value)}
 
-          className="bg-gradient-to-r font-poppins from-purple-600
-          hover:opacity-75 to-blue-600 text-white py-2 px-6 rounded-2xl"
+          className="px-6 py-2 text-white bg-blue-600 font-poppins rounded-xl"
         >
-          View Details
+          Details
         </button>
         <Link
           to={`/events/${value?._id}`}
-          className="bg-gradient-to-r font-poppins from-purple-600
-          hover:opacity-75 to-pink-600 text-white py-2 px-6 rounded-2xl"
+          className="px-6 py-2 text-white bg-[#9B1C1C]   rounded-xl"
         >
-          View Result
+          Result
         </Link>
       </div>
     </div>

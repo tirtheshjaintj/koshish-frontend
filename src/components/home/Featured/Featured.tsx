@@ -36,8 +36,8 @@ const demoData = [
 
 const Featured: React.FC = () => {
   return (
-    <div className=" bg-stone-900 pt-10 pb-6 font-poppins bg-gradient-to-r bg-stone-900 text-white">
-      <h2 className=" mb-3 md:text-4xl text-2xl font-bold w-full md:text-center px-4">
+    <div className=" bg-stone-900  pt-[100px] pb-6 font-poppins bg-gradient-to-r bg-stone-900 text-white">
+      <h2 className="w-full px-4 mb-3 text-2xl font-bold  md:text-4xl md:text-center">
         Our
         <span className="text-[#FFDC7D]"> Sponsors</span>
       </h2>
@@ -52,7 +52,7 @@ const Featured: React.FC = () => {
             <img
               src={item.src}
               alt={item.alt}
-              className="object-contain w-auto h-auto min-w-full min-h-full  max-h-full"
+              className="object-contain w-auto h-auto max-h-full min-w-full min-h-full"
             />
           </div>
         ))}

@@ -29,13 +29,13 @@ type User = {
 };
 
 export default function Nav() {
-  
+
   const navigate = useNavigate();
   const cookie = new Cookies();
   const dispatch = useDispatch();
-  
+
   const user: User | null = useSelector((state: RootState) => state.user);
-  
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isInstallable, setIsInstallable] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -97,16 +97,15 @@ export default function Nav() {
 
   return (
     <header
-      className={`h-16 py-4 px-4 lg:px-24 md:px-10 flex w-full items-center justify-between sticky top-0 z-50 transition-shadow duration-300 ${
-        isScrolled ? "shadow-md bg-white/40 backdrop-blur-xl" : "bg-white"
-      }`}
+      className={`h-16 py-4 px-4 lg:px-24 md:px-10 flex w-full items-center justify-between sticky top-0 z-50 transition-shadow duration-300 ${isScrolled ? "shadow-md bg-white/40 backdrop-blur-xl" : "bg-white"
+        }`}
     >
       {/* Left Section */}
       <div className="flex items-center">
         {/* Mobile Menu Button */}
         <FaBars
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="lg:hidden cursor-pointer"
+          className="cursor-pointer lg:hidden"
         />
       </div>
 
@@ -116,19 +115,18 @@ export default function Nav() {
         className="flex items-center gap-2"
         onClick={isInstallable ? install : undefined}
       >
-        <img src="/pcte.jpeg" className="h-10 w-auto" alt="Logo" />
+        <img src="/pcte.jpeg" className="w-10 h-10" alt="Logo" />
         <h1 className="text-2xl font-semibold">PCTE</h1>
       </Link>
 
       {/* Desktop Navigation */}
-      <nav className="hidden lg:flex flex-1 justify-center items-center gap-8 font-semibold">
+      <nav className="items-center justify-center flex-1 hidden gap-8 font-semibold lg:flex">
         {navListItems.map((item) => (
           <Link
             key={item.url}
             to={item.url}
-            className={`hover:text-red-600 ${
-              pathname === item.url ? "text-red-800" : "text-gray-800"
-            }`}
+            className={`hover:text-red-600 ${pathname === item.url ? "text-red-800" : "text-gray-800"
+              }`}
           >
             {item.name}
           </Link>
@@ -140,11 +138,11 @@ export default function Nav() {
         <div
           ref={profileRef}
           onClick={() => setIsProfileOpen(!isProfileOpen)}
-          className="cursor-pointer flex items-center gap-3"
+          className="flex items-center gap-3 cursor-pointer"
         >
           <img
             alt="Profile"
-            className="w-8 h-8 rounded-full object-cover"
+            className="object-cover w-8 h-8 rounded-full"
             src={
               user?.avatar ||
               "https://variety.com/wp-content/uploads/2020/08/avatar-the-last-airbender-3.jpg"
@@ -156,28 +154,28 @@ export default function Nav() {
         </div>
 
         {isProfileOpen && (
-          <div className="absolute top-12 right-0 w-48 bg-white shadow-lg rounded-lg p-3">
+          <div className="absolute right-0 w-48 p-3 bg-white rounded-lg shadow-lg top-12">
             {user ? (
               <>
-                <span className="block px-4 py-2 text-black font-bold hover:bg-gray-100">
+                <span className="block px-4 py-2 font-bold text-black hover:bg-gray-100">
                   {user?.name || "Guest"}
                 </span>
                 <Link
-  to={
-    user?.user_type === "Admin"
-      ? "/user/dashboard/faculties"
-      : user?.user_type === "Convenor"
-      ? "/user/dashboard/events"
-      : user?.user_type === "Class"
-      ? "/user/dashboard/registerEvent"
-      : "/user/dashboard"
-  }
-  onClick={() => setIsProfileOpen(false)}
-  className="block px-4 border-t py-2 hover:bg-gray-100"
->
-  Dashboard
-</Link>
-                <div className="border-t my-2"></div>
+                  to={
+                    user?.user_type === "Admin"
+                      ? "/user/dashboard/faculties"
+                      : user?.user_type === "Convenor"
+                        ? "/user/dashboard/events"
+                        : user?.user_type === "Class"
+                          ? "/user/dashboard/registerEvent"
+                          : "/user/dashboard"
+                  }
+                  onClick={() => setIsProfileOpen(false)}
+                  className="block px-4 py-2 border-t hover:bg-gray-100"
+                >
+                  Dashboard
+                </Link>
+                <div className="my-2 border-t"></div>
                 <div
                   onClick={signOut}
                   className="flex items-center gap-2 px-4 py-2 text-red-500 cursor-pointer hover:bg-gray-100"
@@ -188,12 +186,12 @@ export default function Nav() {
               </>
             ) : (
               <Link
-              to="/user/login"
-              onClick={() => setIsProfileOpen(false)}
-              className="block px-4 py-2 hover:bg-gray-100"
-            >
-              Become User
-            </Link>
+                to="/user/login"
+                onClick={() => setIsProfileOpen(false)}
+                className="block px-4 py-2 hover:bg-gray-100"
+              >
+                Become User
+              </Link>
             )}
           </div>
         )}
@@ -201,7 +199,7 @@ export default function Nav() {
 
       {/* Mobile Dropdown Menu */}
       {isMobileMenuOpen && (
-        <div className="absolute top-16 left-0 w-full bg-white shadow-md z-50 py-4">
+        <div className="absolute left-0 z-50 w-full py-4 bg-white shadow-md top-16">
           {navListItems.map((item) => (
             <Link
               key={item.url}

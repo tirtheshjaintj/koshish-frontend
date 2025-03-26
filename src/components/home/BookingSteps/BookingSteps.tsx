@@ -15,36 +15,37 @@ type BookingStep = {
 export const bookingSteps: BookingStep[] = [
   {
     id: 0,
-    title: "Register with details",
-    description: "Mention family members' name & gotra for puja offering",
+    title: "Decide Your Event",
+    description: "Choose the event or competition you want to participate in.",
     start: 1,
-    ends: 72,
+    ends: 20,
   },
   {
     id: 1,
-    title: "Get photo / video of your Puja",
+    title: "Give Your Name to Incharge",
     description:
-      "Receive personalized puja photos or videos via Utsav App & on WhatsApp",
-    start: 72,
-    ends: 81,
+      "Submit your name and details to the event incharge for registration.",
+    start: 20,
+    ends: 40,
   },
   {
     id: 2,
-    title: "Receive prasad at home",
+    title: "Incharges Register to Event",
     description:
-      "Your Prasad is packed and shipped directly from the temple to your home",
-    start: 81,
-    ends: 92,
+      "Event incharges will officially register participants for the event.",
+    start: 40,
+    ends: 70,
   },
   {
     id: 3,
-    title: "Share blessings with family",
-    description: "Share blessings & prasad with friends & family",
-    start: 92,
-    ends: 110,
+    title: "Results Out",
+    description: "Final results will be announced for all participants.",
+    start: 70,
+    ends: 100,
   },
 ];
- 
+
+
 export default function BookingSteps() {
   const playerRef = useRef<ReactPlayer>(null);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -80,14 +81,14 @@ export default function BookingSteps() {
   const handlePause = () => setIsPlaying(false);
 
   return (
-    <section className="bg-gradient-to-r bg-stone-900  mt-15 lg:px-24 md:px-15 pt-20 relative z-10">
+    <section className="relative z-10 pt-20 bg-gradient-to-r bg-stone-900 mt-15 lg:px-24 md:px-15">
       <div className="max-w-md md:hidden max-sm:px-4">
         <Header />
       </div>
 
-      <div className="flex gap-6 md:gap-8 lg:gap-16 items-center max-lg:flex-wrap-reverse max-lg:mt-10">
+      <div className="flex items-center gap-6 md:gap-8 lg:gap-16 max-lg:flex-wrap-reverse max-lg:mt-10">
         {/* Steps Section */}
-        <div className="md:flex-1 scrollbar-hidden flex my-7 md:flex-col gap-8 max-sm:px-4 md:max-w-md max-md:overflow-x-auto">
+        <div className="flex gap-8 md:flex-1 scrollbar-hidden my-7 md:flex-col max-sm:px-4 md:max-w-md max-md:overflow-x-auto">
           <div className="max-md:hidden">
             <Header />
           </div>
