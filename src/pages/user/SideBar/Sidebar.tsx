@@ -60,15 +60,15 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
         navigate("/user/login");
         dispatch(addUser(null));
     };
-    
+
     useEffect(() => {
         if (user) {
-            const filteredData = listData.filter(item => 
-                item.type.includes(user.user_type) 
+            const filteredData = listData.filter(item =>
+                item.type.includes(user.user_type)
             )
-            setFilteredListData(filteredData); 
+            setFilteredListData(filteredData);
         }
-        console.log("User",user);
+        console.log("User", user);
     }, [user]); // Only re-run the effect if the `user` changes
 
     return (
@@ -80,13 +80,13 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
                     className='sticky cursor-pointer md:hidden bottom-2 hover:text-slate-500'
                 />
                 <Link to={"/"} className="flex">
-                <img
-                    src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0chhs7PCMWtuhOLg8yYBynOz2qsPmX_ydmCJwci-rkpfXh47lW_2YRRgT7skeD8INGrA&usqp=CAU"}
-                    alt="pcte"
-                    className='object-cover w-8 h-8 rounded-'
-                
-                />
-                {open && "Koshish"}
+                    <img
+                        src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0chhs7PCMWtuhOLg8yYBynOz2qsPmX_ydmCJwci-rkpfXh47lW_2YRRgT7skeD8INGrA&usqp=CAU"}
+                        alt="pcte"
+                        className='object-cover w-8 h-8 rounded-'
+
+                    />
+                    {open && "Koshish"}
                 </Link>
             </div>
 
@@ -95,6 +95,7 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
                     <Link
                         to={item.link}
                         key={index}
+                        onClick={() => setOpen(false)}
                         className={` 
                             ${item.link === location.pathname && "bg-red-800 text-white"}
                             rounded-md
