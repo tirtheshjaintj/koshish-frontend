@@ -10,8 +10,8 @@ interface ClassCardProps {
 
 export default function ClassCardView({ value, handleEdit }: ClassCardProps) {
   return (
-    <div className="relative flex items-center gap-4 p-4 bg-white shadow-md rounded-lg min-w-[280px] max-sm:max-w-[280px] md:min-w-[350px] transition-all hover:shadow-xl">
-      {/* Left Indicator Bar for a subtle touch */}
+<div className="relative flex items-center gap-4 p-4 bg-white shadow-md rounded-lg w-full transition-all hover:shadow-xl">
+{/* Left Indicator Bar for a subtle touch */}
       <div className="w-1 h-full bg-red-800 rounded-l-md"></div>
 
       {/* Content Section */}

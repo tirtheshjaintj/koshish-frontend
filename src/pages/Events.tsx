@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useData } from "../context/DataProviderContext";
-import Navbar from "../components/Navbar";
 import { motion } from "framer-motion";
 import ModalWrapper from "../components/common/ModalWrapper";
 import { Link } from "react-router-dom";
+import UpcomingCard from "../components/home/Upcoming/UpcomingCard";
 import { EventData } from "../context/DataProviderContext";
+import Nav from "../components/home/StaticNavbar";
 
 const Events = () => {
   const events: EventData[] = useData().allEvents;
@@ -22,17 +23,18 @@ const Events = () => {
       (partFilterType === "" || event.part_type === partFilterType)
   );
 
-  useEffect(() => {
-    
-  }, [events]);
 
   useEffect(()=>{
     setOpenModal(selectedEvent?true:false);
   },[selectedEvent]);
 
+  useEffect(()=>{
+    window.scrollTo(0,0);
+  },[]);
+
   return (
     <>
-      <Navbar />
+      <Nav />
       <div className="container mx-auto p-6">
         {/* Search and Filter Section */}
         <div className="flex flex-col justify-between md:flex-row items-center gap-4 mb-6">
@@ -69,16 +71,18 @@ const Events = () => {
         {/* Events List */}
         <motion.div
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:px-15 lg:px-20 p-4 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {filteredEvents.map((event:EventData) => (
             <motion.div
               key={event._id}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white/30 backdrop-blur-lg shadow-lg flex flex-col justify-between rounded-xl p-6 cursor-pointer transition duration-300 hover:shadow-xl border border-white/20 relative"
-            >
-              <h2 className="text-2xl font-semibold text-gray-800">{event.name}</h2>
+             >
+              
+
+              <UpcomingCard value={event} openDetailsHandler={setSelectedEvent} />
+              {/* <h2 className="text-2xl font-semibold text-gray-800">{event.name}</h2>
               <p className="text-gray-600 mt-2">
                 <strong>Type:</strong> {event.type}
               </p>
@@ -99,8 +103,8 @@ const Events = () => {
                   className="px-4 py-2 bg-[#9B1C1C] text-white rounded-lg  transition"
                 >
                   Results
-                </Link>
-              </div>
+                </Link> */}
+              {/* </div> */}
             </motion.div>
           ))}
         </motion.div>

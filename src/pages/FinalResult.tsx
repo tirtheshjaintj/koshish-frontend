@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "../config/axiosConfig";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-import Navbar from "../components/Navbar";
 import { motion } from "framer-motion";
+import Nav from "../components/home/StaticNavbar";
 
 const currentYear = new Date().getFullYear();
 
@@ -31,9 +31,13 @@ function FinalResult() {
     result.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  useEffect(()=>{
+    window.scrollTo(0,0);
+  },[]);
+
   return (
     <>
-      <Navbar />
+      <Nav />
       <div className="p-6 bg-gray-50 min-h-screen">
         <motion.h1
           className="text-4xl font-bold text-center mb-8 text-indigo-600"

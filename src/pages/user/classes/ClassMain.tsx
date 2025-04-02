@@ -25,7 +25,7 @@ export default function FacultyManageMain() {
   const [classType, setClassType] = useState<string>("");
   const { allClasses, classData, setAllClasses, fetchAllClasses } = useData();
   const [updatedPassword, setUpdatedPassword] = useState<string>("");
-
+console.log(classData)
   const [data, setData] = useState<Class>({
     name: "",
     type: "",
@@ -182,7 +182,7 @@ export default function FacultyManageMain() {
           </div>
         ) : (
           <>
-            <div className="flex items-center my-5 justify-between gap-2 md:px-4 ">
+            <div className="flex flex-col items-center my-5 justify-between gap-2 md:px-4 ">
               <input
                 type="text"
                 placeholder="Search..."
@@ -191,7 +191,7 @@ export default function FacultyManageMain() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
 
-              <div className="flex items-center gap-4">
+              <div className="flex  items-center gap-4">
                 {/* Pagination */}
                 <Pagination
                   currentPage={page}

@@ -15,7 +15,7 @@ export default function FacultyCardView({ value, handleEdit }:
     // console.log(value)
     return (
         <div
-            className='p-2 rounded-md max-auto relative min-w-[280px] max-sm:max-w-[280px] gap-4 md:min-w-[350px]   shadow-lg flex items-center  flex-1 bg-white'>
+            className='p-2 rounded-md max-auto relative w-full  shadow-lg flex items-center  flex-1 bg-white'>
             <div className='w-10 h-10 rounded-full overflow-clip'>
                 <img src={"https://cdn-icons-png.flaticon.com/512/3541/3541871.png"}
                     alt={value?.name} className='w-full h-full object-cover' />
@@ -37,8 +37,8 @@ export default function FacultyCardView({ value, handleEdit }:
                 className='text-stone-800 absolute top-2 right-2 cursor-pointer hover:stroke-neutral-600' />
 
             <FaCircleCheck
-                title='Active'
-                className='text-green-500 absolute right-2 bottom-2 ' />
+                title={value?.is_active? "Active" :"Not Active"}
+                className={`${value?.is_active ? "text-green-500" : "text-red-500"} absolute right-2 bottom-2 `} />
         </div>
     )
 }
