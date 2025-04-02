@@ -69,7 +69,7 @@ const EventRegistrations = () => {
                             onChange={handleFilterChange}
                         >
                             <option value="">All Classes</option>
-                            {[...new Set(registrations.map((reg : any)=> reg.classId?.name))].map(className => (
+                            {[...new Set(registrations.map((reg : Registration)=> reg.classId?.name))].map(className => (
                                 <option key={className} value={className}>{className}</option>
                             ))}
                         </select>
@@ -87,7 +87,7 @@ const EventRegistrations = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {filteredRegistrations.map((registration : any)  => (
+                                    {filteredRegistrations.map((registration : Registration)  => (
                                         <tr key={registration._id} className="border border-gray-300 odd:bg-gray-100 even:bg-gray-200 hover:bg-gray-300 transition">
                                             <td className="border border-gray-300 p-3">{registration.classId?.name}</td>
                                             <td className="border border-gray-300 p-3">{registration.students.join(', ')}</td>
