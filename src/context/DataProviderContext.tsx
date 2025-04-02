@@ -189,8 +189,8 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       }>(`/class?page=${page}&limit=${limit}&search=${searchQuery}`);
 
       if (response?.data?.status) {
+        console.log("first : " , response.data.classes)
         setAllClasses(response.data.classes);
-
         setClassData({
           totalPages: response.data.totalPages || 1,
           currentPage: response.data.currentPage || 1,
@@ -225,11 +225,17 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       fetchAllClasses(1, 10, "");
     } else if (user?.user_type === "Class") {
       fetchClassRegisterations();
+      fetchAllClasses(1, 10, "");
     } else if (user?.user_type === "Convenor") {
       fetchAllRegisterations();
     }
     fetchAllEvents();
   }, [user]);
+
+  useEffect(() => {
+    console.log("Classes : "  , allClasses)
+  }, [allClasses])
+  
 
   return (
     <DataContext.Provider

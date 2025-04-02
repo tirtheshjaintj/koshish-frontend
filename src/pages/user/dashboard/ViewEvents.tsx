@@ -24,12 +24,16 @@ const ViewEvents = () => {
   const [isResultModalOpen, setIsResultModalOpen] = useState(false);
   const [result, setResult] = useState<ResultData | null>(null)
   const [isResultLoading, setIsResultLoading] = useState(false);
-  const { allClasses } = useData();
+  const { allClasses , fetchAllClasses} = useData();
   const [selectedResultEvent, setselectedResultEvent] = useState<EventData | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selected, setSelected] = useState<Class[]>([]);
   const [inputValue, setInputValue] = useState("");
+  
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [debouncedQuery, setDebouncedQuery] = useState<string>("");
 
+  console.log({allClasses})
 
   const handleSubmit = async () => {
     try {
@@ -81,10 +85,26 @@ const ViewEvents = () => {
     setSelected(selected.filter((item) => item !== value));
   };
 
+    useEffect(() => {
+      const handler = setTimeout(() => {
+        setDebouncedQuery(searchQuery);
+      }, 300);
+      return () => {
+        clearTimeout(handler);
+      };
+    }, [searchQuery]);
+  
+    useEffect(() => {
+      fetchAllClasses(0, 233, debouncedQuery);
+    }, [debouncedQuery, 0, 233]);
+
+
 
   const filteredOptions = allClasses.filter(
     (option: Class) => option.name.toLowerCase().includes(inputValue.toLowerCase())  && selectedResultEvent?.type === option.type
   );
+
+  console.log({filteredOptions})
 
   // Filtered events based on search and type
   const filteredEvents = events.filter(

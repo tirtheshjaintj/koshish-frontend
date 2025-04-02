@@ -50,11 +50,7 @@ function App() {
     <>
       <Toaster position="bottom-right" />
       <DataProvider>
-<<<<<<< HEAD
-      <Outlet />
-=======
         <Outlet />
->>>>>>> 8508b7caf847f9a39244a881f185fa64d7ce6c6b
       </DataProvider>
 
     </>
