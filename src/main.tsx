@@ -19,7 +19,7 @@ import EventRegisterations from "./pages/user/dashboard/DashBoardComponents/Even
 import AddEvents from "./pages/user/dashboard/AddEvents.tsx";
 import ViewEvents from "./pages/user/dashboard/ViewEvents.tsx";
 import FinalResult from "./pages/FinalResult.tsx";
-
+import ClassProfile from "./pages/user/profile/ClassProfile.tsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -45,6 +45,10 @@ const router = createBrowserRouter([
           {
             path: "class",
             element: <ClassMain />,
+          },
+          {
+            path: "profile",
+            element: <ClassProfile />,
           },
           {
             path: "allRegisterations",

@@ -15,7 +15,7 @@ export default function FacultyCardView({ value, handleEdit }:
     // console.log(value)
     return (
         <div
-            className='p-2 rounded-md max-auto relative w-full  shadow-lg flex items-center  flex-1 bg-white'>
+            className='p-2 rounded-md max-auto relative w-full  shadow-lg flex items-center gap-3  flex-1 bg-white'>
             <div className='w-10 h-10 rounded-full overflow-clip'>
                 <img src={"https://cdn-icons-png.flaticon.com/512/3541/3541871.png"}
                     alt={value?.name} className='w-full h-full object-cover' />
