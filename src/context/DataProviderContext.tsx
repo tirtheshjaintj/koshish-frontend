@@ -36,6 +36,7 @@ export interface Registration {
   user: string;
   classId: Class | null;
   students: string[];
+  isPresent:boolean
 }
 export interface EventData {
   _id: string;
