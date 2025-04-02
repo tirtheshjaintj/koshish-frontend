@@ -75,7 +75,7 @@ const ViewEvents = () => {
 
 
   const handleSelect = (value: Class) => {
-    if (selected.length < 3 && !selected.includes(value)) {
+    if (selected.length < 3 ) {
       setSelected([...selected, value]);
       setInputValue("");
     }
@@ -104,7 +104,7 @@ const ViewEvents = () => {
     (option: Class) => option.name.toLowerCase().includes(inputValue.toLowerCase())  && selectedResultEvent?.type === option.type
   );
 
-  console.log({filteredOptions})
+  
 
   // Filtered events based on search and type
   const filteredEvents = events.filter(
