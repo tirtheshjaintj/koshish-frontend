@@ -17,23 +17,26 @@ function FinalResult() {
   const [type, setType] = useState("Junior");
   const [results, setResults] = useState<Result[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     axiosInstance
       .get(`/result/finalResult?year=${year}&type=${type}`)
       .then((response) => {
         setResults(response.data.topClasses);
       })
-      .catch((error) => console.error("Error fetching results:", error));
+      .catch((error) => console.error("Error fetching results:", error))
+      .finally(() => setLoading(false));
   }, [year, type]);
 
   const filteredTableResults = results.filter((result) =>
     result.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  useEffect(()=>{
-    window.scrollTo(0,0);
-  },[]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -75,14 +78,18 @@ function FinalResult() {
         {/* Bar Chart */}
         <div className="bg-white p-3 rounded-lg shadow-md mb-6">
           <h2 className="text-lg font-semibold mb-4">Top 10 Classes</h2>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={results.slice(0,10)}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="totalPoints" fill="#4F46E5" />
-            </BarChart>
-          </ResponsiveContainer>
+          {loading ? (
+            <div className="w-full h-64 bg-gray-200 animate-pulse rounded-md"></div>
+          ) : (
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={results.slice(0, 10)}>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="totalPoints" fill="#4F46E5" />
+              </BarChart>
+            </ResponsiveContainer>
+          )}
         </div>
 
         {/* Search for Table */}
@@ -99,24 +106,32 @@ function FinalResult() {
         <div className="p-6 bg-white rounded-lg shadow-md">
           <h2 className="text-lg font-semibold mb-4">Final Results</h2>
           <div className="overflow-x-auto">
-            <table className="w-full border-collapse border border-gray-300 text-center">
-              <thead>
-                <tr className="bg-gray-200 text-gray-700">
-                  <th className="border px-4 py-2">Rank</th>
-                  <th className="border px-4 py-2">Class</th>
-                  <th className="border px-4 py-2">Points</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredTableResults.map((result, index) => (
-                  <tr key={result._id} className="odd:bg-gray-100 even:bg-white">
-                    <td className="border px-4 py-2">{index + 1}</td>
-                    <td className="border px-4 py-2">{result.name}</td>
-                    <td className="border px-4 py-2">{result.totalPoints}</td>
-                  </tr>
+            {loading ? (
+              <div className="space-y-3">
+                {[...Array(5)].map((_, i) => (
+                  <div key={i} className="h-10 bg-gray-200 animate-pulse rounded-md"></div>
                 ))}
-              </tbody>
-            </table>
+              </div>
+            ) : (
+              <table className="w-full border-collapse border border-gray-300 text-center">
+                <thead>
+                  <tr className="bg-gray-200 text-gray-700">
+                    <th className="border px-4 py-2">Rank</th>
+                    <th className="border px-4 py-2">Class</th>
+                    <th className="border px-4 py-2">Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredTableResults.map((result, index) => (
+                    <tr key={result._id} className="odd:bg-gray-100 even:bg-white">
+                      <td className="border px-4 py-2">{index + 1}</td>
+                      <td className="border px-4 py-2">{result.name}</td>
+                      <td className="border px-4 py-2">{result.totalPoints}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </div>
         </div>
       </div>
