@@ -6,6 +6,7 @@ import Cookie from "universal-cookie";
 import { addUser } from './store/userSlice';
 import axiosInstance from './config/axiosConfig';
 import { useEffect } from 'react';
+import { DataProvider } from './context/DataProviderContext';
 function App() {
     const cookie = new Cookie();
     const dispatch = useDispatch();
@@ -43,6 +44,6 @@ function App() {
         document.title = "PCTE Koshish App";
         window.scrollTo(0, 0);
     }, []);
-    return (_jsxs(_Fragment, { children: [_jsx(Toaster, { position: "bottom-right" }), _jsx(Outlet, {})] }));
+    return (_jsxs(_Fragment, { children: [_jsx(Toaster, { position: "bottom-right" }), _jsx(DataProvider, { children: _jsx(Outlet, {}) })] }));
 }
 export default App;

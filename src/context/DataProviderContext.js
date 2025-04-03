@@ -49,6 +49,7 @@ export const DataProvider = ({ children }) => {
         try {
             const response = await axiosInstance.get(`/class?page=${page}&limit=${limit}&search=${searchQuery}`);
             if (response?.data?.status) {
+                console.log("first : ", response.data.classes);
                 setAllClasses(response.data.classes);
                 setClassData({
                     totalPages: response.data.totalPages || 1,
@@ -81,12 +82,16 @@ export const DataProvider = ({ children }) => {
         }
         else if (user?.user_type === "Class") {
             fetchClassRegisterations();
+            fetchAllClasses(1, 10, "");
         }
         else if (user?.user_type === "Convenor") {
             fetchAllRegisterations();
         }
         fetchAllEvents();
     }, [user]);
+    useEffect(() => {
+        console.log("Classes : ", allClasses);
+    }, [allClasses]);
     return (_jsx(DataContext.Provider, { value: {
             faculties,
             allRegisterations,

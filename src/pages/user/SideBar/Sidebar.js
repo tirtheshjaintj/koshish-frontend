@@ -1,6 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from 'react';
-import { MdDashboard } from 'react-icons/md';
 import { GrLogout } from "react-icons/gr";
 import { FaBars } from "react-icons/fa";
 import { PiChalkboardTeacherFill, PiStudent } from "react-icons/pi";
@@ -10,12 +9,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../../../store/userSlice';
 import Cookies from "universal-cookie";
 const listData = [
-    {
-        name: "Dashboard",
-        type: ["Admin"],
-        icon: _jsx(MdDashboard, { size: 20 }),
-        link: "/user/dashboard",
-    },
     {
         name: "Faculty",
         type: ["Admin"],
@@ -66,7 +59,7 @@ export default function Sidebar({ open, setOpen }) {
         }
         console.log("User", user);
     }, [user]); // Only re-run the effect if the `user` changes
-    return (_jsxs("div", { className: 'relative min-h-full text-stone-700', children: [_jsxs("div", { className: 'relative flex items-center gap-4 py-4 text-2xl font-bold border-b border-zinc-700 border-opacity-30', children: [_jsx(FaBars, { size: 20, onClick: () => setOpen((prev) => !prev), className: 'sticky cursor-pointer md:hidden bottom-2 hover:text-slate-500' }), _jsx("img", { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0chhs7PCMWtuhOLg8yYBynOz2qsPmX_ydmCJwci-rkpfXh47lW_2YRRgT7skeD8INGrA&usqp=CAU", alt: "pcte", className: 'object-cover w-8 h-8 rounded-' }), open && "Koshish"] }), _jsx("div", { className: 'flex flex-col gap-2 mt-5', children: filteredListData.map((item, index) => (_jsxs(Link, { to: item.link, className: ` 
+    return (_jsxs("div", { className: 'relative min-h-full text-stone-700', children: [_jsxs("div", { className: 'relative flex items-center gap-4 py-4 text-2xl font-bold border-b border-zinc-700 border-opacity-30', children: [_jsx(FaBars, { size: 20, onClick: () => setOpen((prev) => !prev), className: 'sticky cursor-pointer md:hidden bottom-2 hover:text-slate-500' }), _jsxs(Link, { to: "/", className: "flex", children: [_jsx("img", { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0chhs7PCMWtuhOLg8yYBynOz2qsPmX_ydmCJwci-rkpfXh47lW_2YRRgT7skeD8INGrA&usqp=CAU", alt: "pcte", className: 'object-cover w-8 h-8 rounded-' }), open && "Koshish"] })] }), _jsx("div", { className: 'flex flex-col gap-2 mt-5', children: filteredListData.map((item, index) => (_jsxs(Link, { to: item.link, onClick: () => setOpen(false), className: ` 
                             ${item.link === location.pathname && "bg-red-800 text-white"}
                             rounded-md
                             p-2 

@@ -1,7 +1,6 @@
-import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
-import Chatbot from "../components/ChatBot";
-import Navbar from "../components/Navbar";
+import { jsx as _jsx } from "react/jsx-runtime";
+import Nav from "../components/home/StaticNavbar";
 function Home() {
-    return (_jsxs(_Fragment, { children: [_jsx(Navbar, {}), _jsx("div", { className: "min-h-screen pt-10 bg-transparent", children: _jsx(Chatbot, {}) })] }));
+    return (_jsx(Nav, {}));
 }
 export default Home;

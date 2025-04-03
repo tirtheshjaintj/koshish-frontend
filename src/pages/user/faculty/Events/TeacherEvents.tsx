@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import ModalWrapper from "../../../../components/common/ModalWrapper";
-import RegisterForEvent from "../../dashboard/DashBoardComponents/RegisterForEvent.tsx";
-import UpdateRegisterationForEvent from "../../dashboard/DashBoardComponents/UpdateRegisterations.tsx";
-import axiosInstance from "../../../../config/axiosConfig.ts";
+import RegisterForEvent from "../../dashboard/DashBoardComponents/RegisterForEvent";
+import UpdateRegisterationForEvent from "../../dashboard/DashBoardComponents/UpdateRegisterations";
+import axiosInstance from "../../../../config/axiosConfig";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { EventData } from "../../../../context/DataProviderContext.tsx";
+import { EventData } from "../../../../context/DataProviderContext";
 
 const Events = () => {
   const [events, setevents] = useState([])

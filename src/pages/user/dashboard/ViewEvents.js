@@ -19,11 +19,14 @@ const ViewEvents = () => {
     const [isResultModalOpen, setIsResultModalOpen] = useState(false);
     const [result, setResult] = useState(null);
     const [isResultLoading, setIsResultLoading] = useState(false);
-    const { allClasses } = useData();
+    const { allClasses, fetchAllClasses } = useData();
     const [selectedResultEvent, setselectedResultEvent] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [selected, setSelected] = useState([]);
     const [inputValue, setInputValue] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
+    const [debouncedQuery, setDebouncedQuery] = useState("");
+    console.log({ allClasses });
     const handleSubmit = async () => {
         try {
             setIsSubmitting(true);
@@ -56,7 +59,7 @@ const ViewEvents = () => {
         setselectedResultEvent(null);
     };
     const handleSelect = (value) => {
-        if (selected.length < 3 && !selected.includes(value)) {
+        if (selected.length < 3) {
             setSelected([...selected, value]);
             setInputValue("");
         }
@@ -64,6 +67,17 @@ const ViewEvents = () => {
     const handleRemove = (value) => {
         setSelected(selected.filter((item) => item !== value));
     };
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedQuery(searchQuery);
+        }, 300);
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [searchQuery]);
+    useEffect(() => {
+        fetchAllClasses(0, 233, debouncedQuery);
+    }, [debouncedQuery, 0, 233]);
     const filteredOptions = allClasses.filter((option) => option.name.toLowerCase().includes(inputValue.toLowerCase()) && selectedResultEvent?.type === option.type);
     // Filtered events based on search and type
     const filteredEvents = events.filter((event) => event.name.toLowerCase().includes(search.toLowerCase()) &&
