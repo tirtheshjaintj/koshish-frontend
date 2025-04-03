@@ -2,7 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import ModalWrapper from "../../../../components/common/ModalWrapper";
-import axiosInstance from "../../../../config/axiosConfig.ts";
+import axiosInstance from "../../../../config/axiosConfig";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const AllEvents = () => {

@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from 'react';
 import { FaBars } from 'react-icons/fa6';
-import Sidebar from "../SideBar/Sidebar.tsx";
+import Sidebar from "../SideBar/Sidebar";
 import { Outlet } from 'react-router-dom';
 // Student Dashboard
 export default function Dashboard() {

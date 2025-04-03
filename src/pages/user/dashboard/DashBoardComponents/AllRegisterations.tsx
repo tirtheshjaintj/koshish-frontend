@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import ModalWrapper from "../../../../components/common/ModalWrapper";
-import axiosInstance from "../../../../config/axiosConfig.ts";
+import axiosInstance from "../../../../config/axiosConfig";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { EventData } from "../../../../context/DataProviderContext.tsx";
+import { EventData } from "../../../../context/DataProviderContext";
 
 const AllEvents = () => {
   // const events = useData().allEvents;
