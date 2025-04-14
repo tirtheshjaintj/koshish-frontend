@@ -18,30 +18,30 @@ export const bookingSteps: BookingStep[] = [
     title: "Decide Your Event",
     description: "Choose the event or competition you want to participate in.",
     start: 1,
-    ends: 20,
+    ends: 400,
   },
   {
     id: 1,
     title: "Give Your Name to Incharge",
     description:
       "Submit your name and details to the event incharge for registration.",
-    start: 20,
-    ends: 40,
+    start:400,
+    ends: 700,
   },
   {
     id: 2,
     title: "Incharges Register to Event",
     description:
       "Event incharges will officially register participants for the event.",
-    start: 40,
-    ends: 70,
+    start: 700,
+    ends: 900,
   },
   {
     id: 3,
     title: "Results Out",
     description: "Final results will be announced for all participants.",
-    start: 70,
-    ends: 100,
+    start:900,
+    ends: 1100,
   },
 ];
 

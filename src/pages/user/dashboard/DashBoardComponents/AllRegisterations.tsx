@@ -132,7 +132,7 @@ const AllEvents = () => {
             layout
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="relative p-4 transition flex flex-col h-full duration-300 border shadow-lg cursor-pointer bg-white/30 backdrop-blur-lg rounded-xl hover:shadow-xl border-white/20"
+            className="relative p-4 transition flex flex-col h-full"
           >
             <div className="bg-white shadow-lg rounded-lg p-5 w-full border border-gray-200 flex flex-col min-h-[300px] h-full">
               {/* Title and Type */}

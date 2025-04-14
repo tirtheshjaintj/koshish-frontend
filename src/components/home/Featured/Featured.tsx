@@ -36,10 +36,10 @@ const demoData = [
 
 const Featured: React.FC = () => {
   return (
-    <div className=" bg-stone-900  pt-[100px] pb-6 font-poppins bg-gradient-to-r bg-stone-900 text-white">
+    <div className=" font-poppins my-10  text-red-800">
       <h2 className="w-full px-4 mb-3 text-2xl font-bold  md:text-4xl md:text-center">
         Our
-        <span className="text-[#FFDC7D]"> Sponsors</span>
+        <span className="text-stone-800"> Sponsors</span>
       </h2>
 
       {/* Infinite Horizontal Carousel */}
@@ -47,7 +47,7 @@ const Featured: React.FC = () => {
         {demoData.map((item) => (
           <div
             key={item.id}
-            className="rounded-2xl hover:scale-110 transition-all duration-300 min-w-44 px-4 bg-gray-100 mx-2 flex items-center justify-center md:h-16 h-14 overflow-hidden box-border drop-shadow-[0px_0px_8px_rgba(255,255,255,0.8)]"
+            className="rounded-2xl hover:scale-110 transition-all duration-300 min-w-44 px-4  mx-2 flex items-center justify-center md:h-16 h-14 overflow-hidden box-border drop-shadow-[0px_0px_8px_rgba(255,255,255,0.8)]"
           >
             <img
               src={item.src}

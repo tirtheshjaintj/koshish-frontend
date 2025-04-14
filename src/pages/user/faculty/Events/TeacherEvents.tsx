@@ -133,7 +133,7 @@ const Events = () => {
               layout
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white/30 backdrop-blur-lg flex flex-col justify-between shadow-lg rounded-xl p-6 cursor-pointer transition duration-300 hover:shadow-xl border border-white/20 relative"
+              className="bg-white backdrop-blur-lg flex flex-col justify-between shadow-lg rounded-xl p-6 cursor-pointer transition duration-300 hover:shadow-xl border border-white/20 relative"
             >
               <h2 className="text-2xl font-semibold text-gray-800">{event.name}</h2>
               <p className="mt-2 text-gray-600">

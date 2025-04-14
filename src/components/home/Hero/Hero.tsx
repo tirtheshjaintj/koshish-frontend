@@ -4,7 +4,7 @@ import InfiniteCarousel from "./InfiniteCrousal";
 
 export default function Hero() {
   return (
-    <section className="md:flex relative gap-12 w-full  max-h-[612px] xl:px-30 lg:px-24 md:px-10 px-4 ">
+    <section className="md:flex relative gap-12 w-full mb-8   max-h-[640px] xl:px-30 lg:px-24 md:px-10 px-4 ">
       {/* Info */}
       <div className="my-10 md:my-20">
         <div className="flex w-fit relative items-center gap-1 px-3  py-1.5  text-sm font-semibold text-gray-prime-10 border rounded-lg border-red-800">

@@ -12,30 +12,29 @@ const Events = () => {
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("");
   const [partFilterType, setPartFilterType] = useState("");
-  const [selectedEvent, setSelectedEvent] = useState<EventData|null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<EventData | null>(null);
   const [openModal, setOpenModal] = useState(false);
 
   // Filtered events based on search and type
   const filteredEvents = events.filter(
-    (event:EventData) =>
+    (event: EventData) =>
       event.name.toLowerCase().includes(search.toLowerCase()) &&
       (filterType === "" || event.type === filterType) &&
       (partFilterType === "" || event.part_type === partFilterType)
   );
 
+  useEffect(() => {
+    setOpenModal(selectedEvent ? true : false);
+  }, [selectedEvent]);
 
-  useEffect(()=>{
-    setOpenModal(selectedEvent?true:false);
-  },[selectedEvent]);
-
-  useEffect(()=>{
-    window.scrollTo(0,0);
-  },[]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
       <Nav />
-      <div className="container mx-auto p-6">
+      <div className="md:px-16 py-10 px-4 ">
         {/* Search and Filter Section */}
         <div className="flex flex-col justify-between md:flex-row items-center gap-4 mb-6">
           <input
@@ -46,42 +45,39 @@ const Events = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
           <div className="flex gap-2">
-          <select
-            className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-md"
-            value={filterType}
-            onChange={(e) => setFilterType(e.target.value)}
-          >
-            <option value="">All Types</option>
-            <option value="Junior">Junior</option>
-            <option value="Senior">Senior</option>
-          </select>
-          <select
-            className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-md"
-            value={partFilterType}
-            onChange={(e) => setPartFilterType(e.target.value)}
-          >
-            <option value="">All Part</option>
-            <option value="Group">Group</option>
-            <option value="Solo">Solo</option>
-          </select>
+            <select
+              className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-md"
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value)}
+            >
+              <option value="">All Types</option>
+              <option value="Junior">Junior</option>
+              <option value="Senior">Senior</option>
+            </select>
+            <select
+              className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition shadow-md"
+              value={partFilterType}
+              onChange={(e) => setPartFilterType(e.target.value)}
+            >
+              <option value="">All Part</option>
+              <option value="Group">Group</option>
+              <option value="Solo">Solo</option>
+            </select>
           </div>
         </div>
-        
 
         {/* Events List */}
-        <motion.div
-          layout
-          className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-3"
-        >
-          {filteredEvents.map((event:EventData) => (
+        <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredEvents.map((event: EventData) => (
             <motion.div
               key={event._id}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-             >
-
-              <UpcomingCard value={event} openDetailsHandler={setSelectedEvent} />
-            
+              // whileHover={{ scale: 1.05 }}
+              // whileTap={{ scale: 0.95 }}
+            >
+              <UpcomingCard
+                value={event}
+                openDetailsHandler={setSelectedEvent}
+              />
             </motion.div>
           ))}
         </motion.div>
@@ -98,7 +94,8 @@ const Events = () => {
               <>
                 <h2 className="text-2xl font-bold">{selectedEvent.name}</h2>
                 <p className="text-gray-700 mt-4">
-                  <strong>Description:</strong> <br/>{selectedEvent.description}
+                  <strong>Description:</strong> <br />
+                  {selectedEvent.description}
                 </p>
                 <p className="text-gray-700 mt-4">
                   <strong>Part Type:</strong> {selectedEvent.part_type}
@@ -106,7 +103,7 @@ const Events = () => {
                 <p className="text-gray-700 mt-4">
                   <strong>Rules:</strong>
                 </p>
-               
+
                 <ul className="list-disc pl-6 text-gray-600">
                   {selectedEvent.rules.map((rule: string, index: number) => (
                     <li key={index}>{rule}</li>
@@ -121,8 +118,9 @@ const Events = () => {
                     onClick={() => setSelectedEvent(null)}
                   >
                     Close
-                  </button> 
-                  <Link to={`/events/${selectedEvent._id}`}
+                  </button>
+                  <Link
+                    to={`/events/${selectedEvent._id}`}
                     className="px-4 py-2  text-white rounded-lg bg-[#9B1C1C] transition"
                   >
                     Results
