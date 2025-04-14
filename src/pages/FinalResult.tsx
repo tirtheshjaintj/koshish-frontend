@@ -4,7 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 
 import { motion } from "framer-motion";
 import Nav from "../components/home/StaticNavbar";
 
-const currentYear = new Date().getFullYear()-1;
+const currentYear = new Date().getFullYear();
 const RESULTS_PER_PAGE = 20;
 
 interface Result {

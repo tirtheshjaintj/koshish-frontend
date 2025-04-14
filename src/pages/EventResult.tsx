@@ -27,7 +27,7 @@ function EventResult() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const { event_id } = useParams<{ event_id: string }>();
-  const [year, setYear] = useState(new Date().getFullYear()-1);
+  const [year, setYear] = useState(new Date().getFullYear());
   const events = useData().allEvents;
 
   const fetchEventResult = async (selectedYear: number) => {
