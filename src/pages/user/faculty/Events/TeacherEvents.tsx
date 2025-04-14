@@ -6,18 +6,19 @@ import UpdateRegisterationForEvent from "../../dashboard/DashBoardComponents/Upd
 import axiosInstance from "../../../../config/axiosConfig.ts";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { EventData } from "../../../../context/DataProviderContext.tsx";
 
 const Events = () => {
   const [events, setevents] = useState([])
   const [search, setSearch] = useState("");
   const [partFilterType, setPartFilterType] = useState("");
   const [registerFilter, setregisterFilter] = useState("")
-  const [selectedEvent, setSelectedEvent] = useState<any>(null);
+  const [selectedEvent, setSelectedEvent] = useState<EventData | null>(null);
   const [openModal, setOpenModal] = useState(false);
   const [openRegisterModal, setopenRegisterModal] = useState(false);
   const [openUpdateRegiter, setopenUpdateRegiter] = useState(false);
-  const [updatingEvent, setupdatingEvent] = useState(null)
-  const [registerEvent, setRegisterEvent] = useState(null);
+  const [updatingEvent, setupdatingEvent] = useState<EventData | null>(null)
+  const [registerEvent, setRegisterEvent] = useState<EventData | null>(null);
   const user = useSelector((state:any)=>state.user);
 
 
@@ -38,7 +39,7 @@ const Events = () => {
 
   // Filtered events based on search and type
   const filteredEvents = events.filter(
-    (event: any) =>
+    (event: EventData) =>
       event.name.toLowerCase().includes(search.toLowerCase()) &&
       // (filterType === "" || event.type === filterType) &&
       (partFilterType === "" || event.part_type === partFilterType) &&
@@ -126,7 +127,7 @@ const Events = () => {
           layout
           className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
         >
-          {filteredEvents.map((event: any) => (
+          {filteredEvents.map((event: EventData) => (
             <motion.div
               key={event._id}
               layout

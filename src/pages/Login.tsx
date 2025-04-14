@@ -88,7 +88,7 @@ function Login() {
                 <div className="w-full rounded-lg shadow-lg bg-slate-100 dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <div className="flex justify-around border-b pb-2">
-                            <button className={`px-4 py-2 ${activeTab === 'faculty' ? 'font-bold' : ''}`} onClick={() => setActiveTab('faculty')}>Faculty Login</button>
+                            <button className={`px-4 py-2 ${activeTab === 'faculty' ? 'font-bold' : ''}`} onClick={() => setActiveTab('faculty')}>Admin Login</button>
                             <button className={`px-4 py-2 ${activeTab === 'class' ? 'font-bold' : ''}`} onClick={() => setActiveTab('class')}>Class Login</button>
                         </div>
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">

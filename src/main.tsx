@@ -19,7 +19,25 @@ import EventRegisterations from "./pages/user/dashboard/DashBoardComponents/Even
 import AddEvents from "./pages/user/dashboard/AddEvents.tsx";
 import ViewEvents from "./pages/user/dashboard/ViewEvents.tsx";
 import FinalResult from "./pages/FinalResult.tsx";
+
+import { Link } from "react-router-dom";
 import ClassProfile from "./pages/user/profile/ClassProfile.tsx";
+
+const NotFound = () => {
+  return (
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 text-center">
+      <h1 className="text-6xl font-bold text-red-500">404</h1>
+      <p className="text-xl text-gray-700 mt-4">Oops! The page you're looking for doesn't exist.</p>
+      <Link to="/" className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+        Go to Homepage
+      </Link>
+    </div>
+  );
+};
+
+export default NotFound;
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -62,6 +80,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: "*", element: <NotFound /> }
 ]);
 
 createRoot(document.getElementById("root")!).render(
@@ -84,7 +103,6 @@ if ("serviceWorker" in navigator) {
       })
       .catch((err) => {
         console.log(err);
-        // console.error('Service Worker registration failed:', err);
       });
   });
 }

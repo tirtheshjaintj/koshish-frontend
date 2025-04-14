@@ -165,16 +165,16 @@ export default function FacultyManageMain() {
           onClick={() => setOpenModal(true)}
           className="bg-red-800 text-white px-4 py-2 rounded shadow hover:bg-red-600"
         >
-          Add Faculty
+          Add Convenor
         </button>
       </div>
 
       <div>
         <div className="flex items-center gap-4">
           <h2 className="text-xl px-4 font-semibold text-stone-800">
-            All Faculties
+            All Convenors
           </h2>
-          <p>Total Faculties : {faculties?.length || 0}</p>
+          <p>Total Convenors : {faculties?.length || 0}</p>
         </div>
         <div className="flex items-center my-5 justify-between gap-2 md:px-4">
           <input

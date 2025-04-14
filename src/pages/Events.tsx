@@ -71,7 +71,7 @@ const Events = () => {
         {/* Events List */}
         <motion.div
           layout
-          className="grid grid-cols-1 md:px-15 lg:px-20 p-4 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-3"
         >
           {filteredEvents.map((event:EventData) => (
             <motion.div
@@ -79,32 +79,9 @@ const Events = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
              >
-              
 
               <UpcomingCard value={event} openDetailsHandler={setSelectedEvent} />
-              {/* <h2 className="text-2xl font-semibold text-gray-800">{event.name}</h2>
-              <p className="text-gray-600 mt-2">
-                <strong>Type:</strong> {event.type}
-              </p>
-              <p className="text-gray-500 text-sm mt-2">
-                <strong>Description:</strong> {event.description.substring(0,30)+"..."}
-              </p>
-              <p className="text-gray-500 text-sm mt-2">
-                <strong>Location:</strong> {event.location}
-              </p>
-              <div className="mt-4 flex justify-between items-center">
-                <button
-                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
-                  onClick={() => setSelectedEvent(event)}
-                >
-                  Details 
-                </button>
-                <Link to={`/events/${event._id}`}
-                  className="px-4 py-2 bg-[#9B1C1C] text-white rounded-lg  transition"
-                >
-                  Results
-                </Link> */}
-              {/* </div> */}
+            
             </motion.div>
           ))}
         </motion.div>
