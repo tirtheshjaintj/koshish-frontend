@@ -50,6 +50,8 @@ export interface EventData {
   location: string;
   points: number[];
   register?: Registration | null;
+  is_active?:boolean;
+  
 }
 // Define Event interface
 interface Event {

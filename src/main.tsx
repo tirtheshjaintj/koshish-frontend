@@ -21,7 +21,7 @@ import ViewEvents from "./pages/user/dashboard/ViewEvents";
 import FinalResult from "./pages/FinalResult";
 
 import { Link } from "react-router-dom";
-import ClassProfile from "./pages/user/profile/ClassProfile.tsx";
+import ClassProfile from "./pages/user/profile/ClassProfile";
 
 const NotFound = () => {
   return (
