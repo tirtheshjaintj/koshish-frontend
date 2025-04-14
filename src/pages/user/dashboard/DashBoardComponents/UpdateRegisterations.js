@@ -33,13 +33,13 @@ const UpdateRegisterationForEvent = ({ setRegisterEvent, event, fetchAllEvents }
                 eventId: event?._id,
                 classId: event?.register?.classId
             });
-            if (response?.data?.status) {
+            if (response?.data) {
                 console.log("happen");
                 // setMessage(response?.data?.message);
                 toast.success("Registration updated successfully");
                 setRegisterEvent(null);
-                // await fetchAllEvents()
-                // console.log("happen 2")
+                fetchAllEvents();
+                console.log("happen 2");
             }
         }
         catch (error) {
