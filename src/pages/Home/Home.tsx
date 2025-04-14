@@ -17,10 +17,10 @@ export default function Home() {
     <div className="">
       <StaticNavbar />
       <Hero />
+      <Featured />
       <ImageSlider />
       <Upcomings/>
       <BookingSteps/>
-      <Featured />
       <Footer/>
     </div>
   );
