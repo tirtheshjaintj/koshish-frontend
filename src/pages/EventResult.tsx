@@ -95,7 +95,7 @@ function EventResult() {
     <div className="flex flex-col items-center justify-between min-h-screen py-10 text-center text-white bg-gray-900">
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
         <h1 className="text-4xl font-bold text-yellow-400 lg:text-5xl">{eventDetails?.name || "Unknown Event"}
-          <select className="ml-2 text-4xl text-yellow-400 bg-transparent border-none outline-none lg:text-5xl" value={year} onChange={(e) => setYear(Number(e.target.value))}>
+          <select className="ml-2 md:text-4xl  text-yellow-400 bg-transparent border-none outline-none " value={year} onChange={(e) => setYear(Number(e.target.value))}>
             {[...Array(10)].map((_, index) => {
               const y = new Date().getFullYear() - index;
               return <option key={y} value={y}>{y}</option>;

@@ -21,11 +21,11 @@ export default function Upcomings() {
         <span className="text-[#9B1C1C]"> Special </span>
         Events
       </h2>
-      <div className="flex flex-wrap items-center justify-start gap-4 mt-2 text-xl text-light-gray max-sm:hidden">
+      <div className="flex flex-wrap items-center max-sm:justify-start justify-center gap-4 mt-2 text-xl text-light-gray max-sm:hidden">
         <p>Participate in Events of Koshish, Win prizes and Extra internals</p>
         <Link
           to={"/events"}
-          className="flex items-center gap-1 font-medium text-purple-600 hover:text-pink-600"
+          className="flex items-center gap-1 font-medium text-red-600 hover:text-pink-600"
         >
           View All Events <ArrowRight />
         </Link>

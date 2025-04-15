@@ -42,13 +42,10 @@ const UpdateRegisterationForEvent: React.FC<any> = ({ setRegisterEvent , event ,
         eventId: event?._id,
         classId: event?.register?.classId
       });
-      if (response?.data?.status) {
-        console.log("happen")
-        // setMessage(response?.data?.message);
+      if (response?.data) {
         toast.success("Registration updated successfully");
         setRegisterEvent(null);
-        // await fetchAllEvents()
-        // console.log("happen 2")
+        fetchAllEvents()
       }
     } catch (error: any) {
       setMessage(error.response?.data?.message || "Something went wrong");

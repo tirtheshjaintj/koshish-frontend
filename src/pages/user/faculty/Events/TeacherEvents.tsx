@@ -1,23 +1,24 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import ModalWrapper from "../../../../components/common/ModalWrapper";
-import RegisterForEvent from "../../dashboard/DashBoardComponents/RegisterForEvent.tsx";
-import UpdateRegisterationForEvent from "../../dashboard/DashBoardComponents/UpdateRegisterations.tsx";
-import axiosInstance from "../../../../config/axiosConfig.ts";
+import RegisterForEvent from "../../dashboard/DashBoardComponents/RegisterForEvent";
+import UpdateRegisterationForEvent from "../../dashboard/DashBoardComponents/UpdateRegisterations";
+import axiosInstance from "../../../../config/axiosConfig";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { EventData } from "../../../../context/DataProviderContext";
 
 const Events = () => {
   const [events, setevents] = useState([])
   const [search, setSearch] = useState("");
   const [partFilterType, setPartFilterType] = useState("");
   const [registerFilter, setregisterFilter] = useState("")
-  const [selectedEvent, setSelectedEvent] = useState<any>(null);
+  const [selectedEvent, setSelectedEvent] = useState<EventData | null>(null);
   const [openModal, setOpenModal] = useState(false);
   const [openRegisterModal, setopenRegisterModal] = useState(false);
   const [openUpdateRegiter, setopenUpdateRegiter] = useState(false);
-  const [updatingEvent, setupdatingEvent] = useState(null)
-  const [registerEvent, setRegisterEvent] = useState(null);
+  const [updatingEvent, setupdatingEvent] = useState<EventData | null>(null)
+  const [registerEvent, setRegisterEvent] = useState<EventData | null>(null);
   const user = useSelector((state:any)=>state.user);
 
 
@@ -38,7 +39,7 @@ const Events = () => {
 
   // Filtered events based on search and type
   const filteredEvents = events.filter(
-    (event: any) =>
+    (event: EventData) =>
       event.name.toLowerCase().includes(search.toLowerCase()) &&
       // (filterType === "" || event.type === filterType) &&
       (partFilterType === "" || event.part_type === partFilterType) &&
@@ -126,13 +127,13 @@ const Events = () => {
           layout
           className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
         >
-          {filteredEvents.map((event: any) => (
+          {filteredEvents.map((event: EventData) => (
             <motion.div
               key={event._id}
               layout
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white/30 backdrop-blur-lg flex flex-col justify-between shadow-lg rounded-xl p-6 cursor-pointer transition duration-300 hover:shadow-xl border border-white/20 relative"
+              className="bg-white backdrop-blur-lg flex flex-col justify-between shadow-lg rounded-xl p-6 cursor-pointer transition duration-300 hover:shadow-xl border border-white/20 relative"
             >
               <h2 className="text-2xl font-semibold text-gray-800">{event.name}</h2>
               <p className="mt-2 text-gray-600">

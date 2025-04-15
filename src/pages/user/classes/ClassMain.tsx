@@ -25,7 +25,7 @@ export default function FacultyManageMain() {
   const [classType, setClassType] = useState<string>("");
   const { allClasses, classData, setAllClasses, fetchAllClasses } = useData();
   const [updatedPassword, setUpdatedPassword] = useState<string>("");
-console.log(classData)
+// console.log(classData)
   const [data, setData] = useState<Class>({
     name: "",
     type: "",

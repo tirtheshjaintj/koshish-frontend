@@ -10,7 +10,7 @@ export default function EventCard({ value, openDetailsHandler }: EventCardProps)
   return (
     <div
       className="flex-1  hover:drop-shadow-xl border-gray-400 p-2
-    border-[1px] transition-all duration-100 cursor-pointer bg-white min-w-[288px] lg:min-w-96 max-w-sm drop-shadow-md rounded-2xl overflow-clip"
+    border-[1px] transition-all duration-100 cursor-pointer bg-white min-w-[288px] lg:min-w-96 max-w-md drop-shadow-md rounded-2xl overflow-clip"
     >
       {/* Content */}
 

@@ -89,7 +89,7 @@ const RegisterForEvent: React.FC<any> = ({ setRegisterEvent , event , fetchAllEv
           </div>
 
           {/* Student List */}
-          <div className="flex flex-wrap bg-gray-100 rounded-lg p-3 shadow-md gap-2">
+          <div className="flex flex-wrap rounded-lg p-3 shadow-md gap-2">
             {students.length === 0 && (
               <span className="text-gray-600 text-sm">No students added yet</span>
             )}
@@ -98,7 +98,7 @@ const RegisterForEvent: React.FC<any> = ({ setRegisterEvent , event , fetchAllEv
                 key={index}
                 className="bg-white flex items-center gap-4 border px-2 py-1 rounded-lg shadow-md transition-all hover:shadow-xl hover:border-gray-300 cursor-pointer"
               >
-                <span className="text-gray-900  text-md">{student}</span>
+                <span className="text-gray-900 text-md">{student}</span>
                 <button
                   type="button"
                   onClick={() => handleRemoveStudent(index)}

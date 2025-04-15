@@ -1,0 +1,4 @@
+import { jsxs as _jsxs, jsx as _jsx } from "react/jsx-runtime";
+export default function Footer() {
+    return (_jsx("div", { className: 'text-white pt-[100px] bg-stone-900 max-sm:text-sm md:px-32 links-container', children: _jsxs("div", { className: 'flex flex-wrap items-center justify-between gap-2 py-8', children: [_jsxs("p", { children: ["@", new Date().getFullYear(), " PCTE, All Rights Reserved"] }), _jsxs("div", { className: 'flex flex-wrap items-center gap-2 max-sm:text-xs', children: [_jsx("a", { href: '#', className: 'min-w-fit', children: "Terms of Use" }), _jsx("div", { className: 'w-[1px] h-5 bg-black15' }), _jsx("a", { href: '#', className: 'min-w-fit', children: "Privacy Policy" }), _jsx("div", { className: 'w-[1px] h-5 bg-black15' }), _jsx("a", { href: '#', className: 'min-w-fit', children: "Cookie Policy" })] })] }) }));
+}

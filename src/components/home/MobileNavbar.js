@@ -1,0 +1,9 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { Link, useLocation } from "react-router-dom";
+import ProfileOptions from "./ProfileOptions";
+import { navListItems } from "./StaticNavbar";
+import { LogOut, X } from "lucide-react";
+export default function MobileNavbar({ setIsOpen, isOpen, }) {
+    const pathname = useLocation().pathname;
+    return (_jsxs("div", { className: `flex h-screen overflow-y-auto flex-col w-full absolute top-0 left-0 ${isOpen ? "flex" : "-translate-x-full md:hidden"} bg-gray-100 transistion-all duration-300 z-50  gap-4`, style: { scrollbarWidth: "none" }, children: [_jsxs("div", { className: "bg-white w-full sticky top-0 shadow flex items-center justify-between p-4", children: [_jsxs("div", { className: "items-center hidden gap-2", children: [_jsx("div", { className: "min-w-7  min-h-7  rounded-full relative overflow-clip", children: _jsx("img", { alt: "profile", className: "bg-cover", src: "https://plus.unsplash.com/premium_photo-1689977871600-e755257fb5f8?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }) }), "Aniket Gupta"] }), _jsx(X, { strokeWidth: 1.25, onClick: () => setIsOpen(false) })] }), _jsx("div", { className: " hidden   flex-col gap-4 px-4 ", children: _jsx(ProfileOptions, {}) }), _jsx("div", { className: "flex flex-col gap-4 px-4 flex-1", children: navListItems.map((item, idx) => (_jsx(Link, { to: item.url, onClick: () => setIsOpen(false), className: `hover:text-stone-800 ${pathname === item.url && "text-black font-bold font-poppins"}`, children: item.name }, idx))) }), _jsx("div", { className: "bg-white w-full text-red-500 shadow p-4 sticky  bottom-0", children: _jsxs("button", { className: "flex items-center gap-3", children: [_jsx(LogOut, { strokeWidth: 1.25, className: "rotate-180" }), " Log out"] }) })] }));
+}
