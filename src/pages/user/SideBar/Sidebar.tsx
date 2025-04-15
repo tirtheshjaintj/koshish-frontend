@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { MdDashboard } from 'react-icons/md'
 import { GrLogout } from "react-icons/gr";
 import { FaBars } from "react-icons/fa";
 import { PiChalkboardTeacherFill, PiStudent } from "react-icons/pi";
