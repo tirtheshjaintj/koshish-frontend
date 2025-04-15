@@ -1,6 +1,0 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { FaPen } from "react-icons/fa";
-const FacultyRows = ({ faculty, handleEdit }) => {
-    return (_jsxs("tr", { className: "border-b border-red-300  text-xs text-stone-700 ", children: [_jsx("td", { className: "p-2", children: _jsx("img", { src: "https://cdn-icons-png.flaticon.com/512/3541/3541871.png", alt: faculty.name, className: "w-8 h-8 rounded-full" }) }), _jsx("td", { className: "p-2", children: _jsxs("p", { className: "font-semibold", children: [" ", faculty.name] }) }), _jsx("td", { className: "p-2", children: _jsxs("p", { className: "font-semibold", children: [" ", faculty.email] }) }), _jsx("td", { className: "p-2", children: _jsxs("p", { className: "font-semibold", children: [" ", faculty.phone_number] }) }), _jsx("td", { className: "p-2", children: _jsxs("p", { className: "font-semibold", children: [" ", faculty.user_type] }) }), _jsx("td", { className: "p-2 ", children: faculty?.is_active ? (_jsx("div", { className: "w-4 h-4  rounded-full bg-green-600 " })) : (_jsx("div", { className: "w-4 h-4 rounded-full bg-red-600 " })) }), _jsx("td", { className: "p-2", children: _jsx(FaPen, { title: "Edit", onClick: () => handleEdit(faculty), className: "cursor-pointer" }) })] }));
-};
-export default FacultyRows;

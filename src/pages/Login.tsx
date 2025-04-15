@@ -4,19 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../config/axiosConfig";
 import toast from "react-hot-toast";
 import Cookie from "universal-cookie";
-import Navbar from "../components/Navbar";
 import GoogleBox from "../components/GoogleBox";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addUser } from "../store/userSlice";
-import { RootState } from "../store/store";
 import Nav from "../components/home/StaticNavbar";
 import Loader from "../components/common/Loader";
-type User = {
-  user_type?: string;
-  avatar?: string;
-  name?: string;
-  email?: string;
-};
+
 
 function Login() {
   const [activeTab, setActiveTab] = useState<"class" | "faculty">("faculty");
@@ -30,7 +23,6 @@ function Login() {
   const navigate = useNavigate();
   const cookie = new Cookie();
   const dispatch = useDispatch();
-  const user: User | null = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     document.title = "PCTE User Login";
@@ -58,13 +50,13 @@ function Login() {
       const payload =
         activeTab === "faculty"
           ? {
-              email: credentials.email.toLowerCase(),
-              password: credentials.password,
-            }
+            email: credentials.email.toLowerCase().trim(),
+            password: credentials.password,
+          }
           : {
-              username: credentials.username.toLowerCase(),
-              password: credentials.password,
-            };
+            username: credentials.username.toLowerCase().trim(),
+            password: credentials.password,
+          };
 
       const response = await axiosInstance.post(endpoint, payload);
       dispatch(addUser(response.data.data));
@@ -96,32 +88,30 @@ function Login() {
   return (
     <>
       <Nav />
-      <div className="flex flex-col items-center my-10 min-h-screen mx-auto bg-white">
-        <div className="w-full rounded-xl shadow-2xl bg-white border border-red-800 md:mt-0 sm:max-w-md xl:p-0">
+      <div className="flex flex-col items-center min-h-screen mx-auto my-10 bg-white">
+        <div className="w-full bg-white border border-red-800 shadow-2xl rounded-xl md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-8 space-y-6">
-            <div className="flex justify-around border-b border-stone-200 pb-2">
+            <div className="flex justify-around pb-2 border-b border-stone-200">
               <button
-                className={`px-4 py-2 relative text-stone-700 transition-colors duration-300 ${
-                  activeTab === "faculty"
-                    ? "font-semibold text-red-800 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-red-800"
-                    : "hover:text-red-800"
-                }`}
+                className={`px-4 py-2 relative text-stone-700 transition-colors duration-300 ${activeTab === "faculty"
+                  ? "font-semibold text-red-800 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-red-800"
+                  : "hover:text-red-800"
+                  }`}
                 onClick={() => setActiveTab("faculty")}
               >
                 Admin Login
               </button>
               <button
-                className={`px-4 py-2 relative text-stone-700 transition-colors duration-300 ${
-                  activeTab === "class"
-                    ? "font-semibold text-red-800 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-red-800"
-                    : "hover:text-red-800"
-                }`}
+                className={`px-4 py-2 relative text-stone-700 transition-colors duration-300 ${activeTab === "class"
+                  ? "font-semibold text-red-800 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-red-800"
+                  : "hover:text-red-800"
+                  }`}
                 onClick={() => setActiveTab("class")}
               >
                 Class Login
               </button>
             </div>
-            <h1 className="text-2xl font-bold text-center tracking-tight text-stone-800">
+            <h1 className="text-2xl font-bold tracking-tight text-center text-stone-800">
               Welcome Back
             </h1>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -184,7 +174,7 @@ function Login() {
                   />
                   <button
                     type="button"
-                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-stone-500 hover:text-red-800 transition-colors"
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 transition-colors text-stone-500 hover:text-red-800"
                     onClick={handleShowPasswordToggle}
                   >
                     <EyeToggleSVG
@@ -195,11 +185,11 @@ function Login() {
               </div>
               <button
                 type="submit"
-                className="w-full bg-red-800 hover:bg-red-900 text-white font-semibold py-3 rounded-lg transition-colors duration-300 flex items-center justify-center"
+                className="flex items-center justify-center w-full py-3 font-semibold text-white transition-colors duration-300 bg-red-800 rounded-lg hover:bg-red-900"
                 disabled={isLoading}
               >
                 {isLoading ? (
-                 <Loader/>
+                  <Loader />
                 ) : (
                   "Sign In"
                 )}
@@ -209,10 +199,10 @@ function Login() {
                 <GoogleBox setIsLoading={setIsLoading} />
               )}
 
-              <div className="text-center pt-4">
+              <div className="pt-4 text-center">
                 <Link
                   to="/user/forgot"
-                  className="text-sm font-medium text-red-800 hover:text-red-900 transition-colors underline underline-offset-4"
+                  className="text-sm font-medium text-red-800 underline transition-colors hover:text-red-900 underline-offset-4"
                 >
                   Forgot Password?
                 </Link>

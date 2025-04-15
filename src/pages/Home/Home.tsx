@@ -8,20 +8,20 @@ import BookingSteps from "../../components/home/BookingSteps/BookingSteps";
 import { useEffect } from "react";
 
 export default function Home() {
-  
-  useEffect(()=>{
-      window.scrollTo(0,0);
-  },[]);
-    
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="">
       <StaticNavbar />
       <Hero />
-      <Featured />
       <ImageSlider />
-      <Upcomings/>
-      <BookingSteps/>
-      <Footer/>
+      <Upcomings />
+      <BookingSteps />
+      <Featured />
+      <Footer />
     </div>
   );
 }

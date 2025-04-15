@@ -11,7 +11,7 @@ import { CiSettings } from "react-icons/ci";
 
 const listData = [
     {
-        name: "Faculty",
+        name: "Convenor",
         type: ["Admin"],
         icon: <PiChalkboardTeacherFill size={20} />,
         link: "/user/dashboard/faculties",
@@ -59,6 +59,7 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
     const dispatch = useDispatch();
     const cookie = new Cookies();
     const navigate = useNavigate();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const user = useSelector((state: any) => state.user);
 
     const signOut = () => {
