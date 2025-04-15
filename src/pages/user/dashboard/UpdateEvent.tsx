@@ -17,7 +17,7 @@ interface EventData {
   minStudents: string;
   location: string;
   points: number[];
-  is_active: boolean;
+  is_active?: boolean;
 }
 
 interface UpdateEventProps {
