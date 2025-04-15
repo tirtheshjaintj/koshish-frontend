@@ -1,7 +1,6 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import axiosInstance from "../../../config/axiosConfig";
 import Swal from "sweetalert2";
-import { motion } from "framer-motion";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { useData } from "../../../context/DataProviderContext";
 import { FaToggleOn } from "react-icons/fa6";

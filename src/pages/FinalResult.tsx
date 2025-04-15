@@ -4,7 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 
 import { motion } from "framer-motion";
 import Nav from "../components/home/StaticNavbar";
 
-const currentYear = new Date().getFullYear();
+const currentYear = new Date().getFullYear() - 1;
 const RESULTS_PER_PAGE = 20;
 
 interface Result {
@@ -68,26 +68,26 @@ function FinalResult() {
   return (
     <>
       <Nav />
-      <div className="bg-white min-h-screen">
+      <div className="min-h-screen bg-white">
         {/* Hero Section with red-800 bg */}
         <div className="bg-red-800">
-          <motion.div 
-            className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20"
+          <motion.div
+            className="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8 md:py-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
             <div className="text-center">
               <motion.h1
-                className="text-3xl md:text-5xl font-bold text-white mb-3"
+                className="mb-3 text-3xl font-bold text-white md:text-5xl"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 PCTE Koshish {year} Results
               </motion.h1>
-              <motion.p 
-                className="text-xl text-red-100 max-w-3xl mx-auto"
+              <motion.p
+                className="max-w-3xl mx-auto text-xl text-red-100"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
@@ -99,17 +99,17 @@ function FinalResult() {
         </div>
 
         {/* Main Content */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 -mt-8">
+        <div className="px-4 py-8 mx-auto -mt-8 max-w-7xl sm:px-6 lg:px-8 md:py-12">
           {/* Filters Card */}
-          <motion.div 
-            className="bg-white rounded-xl shadow-lg p-6 mb-8 border border-gray-100"
+          <motion.div
+            className="p-6 mb-8 bg-white border border-gray-100 shadow-lg rounded-xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <div className="flex flex-col md:flex-row items-center gap-4 justify-center">
+            <div className="flex flex-col items-center justify-center gap-4 md:flex-row">
               <div className="relative w-full md:w-48">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Year</label>
+                <label className="block mb-1 text-sm font-medium text-gray-700">Year</label>
                 <select
                   className="block w-full pl-4 pr-10 py-2.5 text-base border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent rounded-lg bg-gray-50"
                   value={year}
@@ -124,7 +124,7 @@ function FinalResult() {
               </div>
 
               <div className="relative w-full md:w-48">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Wing</label>
+                <label className="block mb-1 text-sm font-medium text-gray-700">Wing</label>
                 <select
                   className="block w-full pl-4 pr-10 py-2.5 text-base border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent rounded-lg bg-gray-50"
                   value={type}
@@ -138,8 +138,8 @@ function FinalResult() {
           </motion.div>
 
           {/* Bar Chart Section */}
-          <motion.div 
-            className="bg-white rounded-xl shadow-lg p-6 mb-8 border border-gray-100"
+          <motion.div
+            className="p-6 mb-8 bg-white border border-gray-100 shadow-lg rounded-xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.8 }}
@@ -153,21 +153,21 @@ function FinalResult() {
             </div>
 
             {loading ? (
-              <div className="w-full h-80 bg-gradient-to-r from-gray-50 to-gray-100 animate-pulse rounded-lg"></div>
+              <div className="w-full rounded-lg h-80 bg-gradient-to-r from-gray-50 to-gray-100 animate-pulse"></div>
             ) : (
               <div className="h-80">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={results.slice(0, 10)}>
-                    <XAxis 
-                      dataKey="name" 
-                      tick={{ fill: '#4b5563', fontSize: 12 }} 
+                    <XAxis
+                      dataKey="name"
+                      tick={{ fill: '#4b5563', fontSize: 12 }}
                       axisLine={{ stroke: '#e5e7eb' }}
                     />
-                    <YAxis 
-                      tick={{ fill: '#4b5563', fontSize: 12 }} 
+                    <YAxis
+                      tick={{ fill: '#4b5563', fontSize: 12 }}
                       axisLine={{ stroke: '#e5e7eb' }}
                     />
-                    <Tooltip 
+                    <Tooltip
                       contentStyle={{
                         background: 'rgba(255, 255, 255, 0.98)',
                         border: '1px solid #e5e7eb',
@@ -180,9 +180,9 @@ function FinalResult() {
                     />
                     <Bar dataKey="totalPoints" radius={[4, 4, 0, 0]} barSize={40}>
                       {results.slice(0, 10).map((entry, index) => (
-                        <Cell 
-                          key={`cell-${index}`} 
-                          fill={COLORS[index % COLORS.length]} 
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
                           strokeWidth={index === 2 ? 1 : 0}
                         />
                       ))}
@@ -194,21 +194,21 @@ function FinalResult() {
           </motion.div>
 
           {/* Search and Results Section */}
-          <motion.div 
-            className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100"
+          <motion.div
+            className="overflow-hidden bg-white border border-gray-100 shadow-lg rounded-xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 1 }}
           >
             <div className="p-6 border-b border-gray-100">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <h2 className="text-xl font-bold text-gray-900">
                   <span className="inline-block w-1.5 h-6 bg-red-800 mr-2 align-middle"></span>
                   Complete Results Table
                 </h2>
                 <div className="relative w-full md:w-64">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg className="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
                     </svg>
                   </div>
@@ -226,7 +226,7 @@ function FinalResult() {
               {loading ? (
                 <div className="p-6 space-y-4">
                   {[...Array(10)].map((_, i) => (
-                    <div key={i} className="h-12 bg-gradient-to-r from-gray-50 to-gray-100 animate-pulse rounded-lg"></div>
+                    <div key={i} className="h-12 rounded-lg bg-gradient-to-r from-gray-50 to-gray-100 animate-pulse"></div>
                   ))}
                 </div>
               ) : (
@@ -234,36 +234,35 @@ function FinalResult() {
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                       <tr>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                           Rank
                         </th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                           Class Name
                         </th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                           Total Points
                         </th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {paginatedResults.map((result, index) => (
-                        <tr 
-                          key={result._id} 
-                          className="hover:bg-gray-50 transition-colors duration-150"
+                        <tr
+                          key={result._id}
+                          className="transition-colors duration-150 hover:bg-gray-50"
                         >
                           <td className="px-6 py-4 whitespace-nowrap">
-                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                              index < 3 
-                                ? 'bg-gradient-to-r from-red-100 to-red-200 text-red-800' 
+                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${index < 3
+                                ? 'bg-gradient-to-r from-red-100 to-red-200 text-red-800'
                                 : 'bg-gray-100 text-gray-800'
-                            }`}>
+                              }`}>
                               #{index + 1}
                             </span>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                          <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
                             {result.name}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-semibold">
+                          <td className="px-6 py-4 text-sm font-semibold text-gray-500 whitespace-nowrap">
                             {result.totalPoints.toLocaleString()}
                           </td>
                         </tr>
@@ -272,13 +271,13 @@ function FinalResult() {
                   </table>
 
                   {hasMoreResults && (
-                    <div className="px-6 py-4 border-t border-gray-200 text-center">
+                    <div className="px-6 py-4 text-center border-t border-gray-200">
                       <button
                         onClick={loadMore}
-                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-800 hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200"
+                        className="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors duration-200 bg-red-800 border border-transparent rounded-md shadow-sm hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                       >
                         Load More Results
-                        <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
                         </svg>
                       </button>
