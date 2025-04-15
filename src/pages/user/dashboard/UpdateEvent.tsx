@@ -18,6 +18,7 @@ interface EventData {
   minStudents: string;
   location: string;
   points: number[];
+  is_active: boolean;
 }
 
 interface UpdateEventProps {
@@ -129,10 +130,10 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event, closeModal }) => {
 
   return (
     <div className="  p-4 sm:p-8 bg-white border-[2px] rounded-md ">
-      <div className="flex justify-between mb-4 flex-wrap gap-4">
-        <h1 className="font-bold text-2xl ">EDIT EVENT</h1>
+      <div className="flex flex-wrap justify-between gap-4 mb-4">
+        <h1 className="text-2xl font-bold ">EDIT EVENT</h1>
 
-        <div className="font-bold text-lg flex items-center gap-4">
+        <div className="flex items-center gap-4 text-lg font-bold">
           Event Staus :
           {eventData.is_active ? (
             <FaToggleOn
@@ -154,7 +155,7 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event, closeModal }) => {
         </div>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Left Column */}
           <div className="space-y-4 sm:space-y-6">
             <input
@@ -162,7 +163,7 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event, closeModal }) => {
               placeholder="Event Name"
               value={eventData.name}
               onChange={handleChange}
-              className="w-full p-2 sm:p-3 border rounded-lg text-xs sm:text-sm lg:text-base"
+              className="w-full p-2 text-xs border rounded-lg sm:p-3 sm:text-sm lg:text-base"
               required
             />
 
@@ -171,7 +172,7 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event, closeModal }) => {
                 name="type"
                 value={eventData.type}
                 onChange={handleChange}
-                className="w-full p-2 sm:p-3 border rounded-lg text-xs sm:text-sm lg:text-base"
+                className="w-full p-2 text-xs border rounded-lg sm:p-3 sm:text-sm lg:text-base"
                 required
               >
                 <option value="Junior">Junior</option>
@@ -182,7 +183,7 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event, closeModal }) => {
                 name="part_type"
                 value={eventData.part_type}
                 onChange={handleChange}
-                className="w-full p-2 sm:p-3 border rounded-lg text-xs sm:text-sm lg:text-base"
+                className="w-full p-2 text-xs border rounded-lg sm:p-3 sm:text-sm lg:text-base"
                 required
               >
                 <option value="Group">Group</option>
@@ -196,7 +197,7 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event, closeModal }) => {
               placeholder="Description"
               value={eventData.description}
               onChange={handleChange}
-              className="w-full p-2 sm:p-3 border rounded-lg text-xs sm:text-sm lg:text-base"
+              className="w-full p-2 text-xs border rounded-lg sm:p-3 sm:text-sm lg:text-base"
               required
             />
 
@@ -208,7 +209,7 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event, closeModal }) => {
                 placeholder="Min Students"
                 value={eventData.minStudents}
                 onChange={handleChange}
-                className="w-full p-2 sm:p-3 border rounded-lg text-xs sm:text-sm lg:text-base"
+                className="w-full p-2 text-xs border rounded-lg sm:p-3 sm:text-sm lg:text-base"
                 required
               />
               <input
@@ -218,7 +219,7 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event, closeModal }) => {
                 placeholder="Max Students"
                 value={eventData.maxStudents}
                 onChange={handleChange}
-                className="w-full p-2 sm:p-3 border rounded-lg text-xs sm:text-sm lg:text-base"
+                className="w-full p-2 text-xs border rounded-lg sm:p-3 sm:text-sm lg:text-base"
                 required
               />
             </div>
@@ -228,30 +229,30 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event, closeModal }) => {
               placeholder="Location"
               value={eventData.location}
               onChange={handleChange}
-              className="w-full p-2 sm:p-3 border rounded-lg text-xs sm:text-sm lg:text-base"
+              className="w-full p-2 text-xs border rounded-lg sm:p-3 sm:text-sm lg:text-base"
               required
             />
           </div>
 
           {/* Right Column - Rules Section */}
           <div>
-            <label className="block font-semibold text-sm sm:text-base lg:text-lg">
+            <label className="block text-sm font-semibold sm:text-base lg:text-lg">
               Rules:
             </label>
-            <div className="space-y-2 mt-2">
+            <div className="mt-2 space-y-2">
               {eventData.rules.map((rule, index) => (
                 <div key={index} className="flex items-center gap-2">
                   <input
                     type="text"
                     value={rule}
                     onChange={(e) => handleRuleChange(index, e.target.value)}
-                    className="w-full p-2 sm:p-3 border rounded-lg text-xs sm:text-sm lg:text-base"
+                    className="w-full p-2 text-xs border rounded-lg sm:p-3 sm:text-sm lg:text-base"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => removeRule(index)}
-                    className="bg-red-500 text-white px-2 sm:px-3 py-1 rounded-md flex items-center text-xs sm:text-sm"
+                    className="flex items-center px-2 py-1 text-xs text-white bg-red-500 rounded-md sm:px-3 sm:text-sm"
                   >
                     <FaMinus />
                   </button>
@@ -260,7 +261,7 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event, closeModal }) => {
               <button
                 type="button"
                 onClick={addRule}
-                className="mt-2 bg-green-500 text-white px-3 py-1 sm:py-2 rounded-lg flex items-center gap-1 text-xs sm:text-sm"
+                className="flex items-center gap-1 px-3 py-1 mt-2 text-xs text-white bg-green-500 rounded-lg sm:py-2 sm:text-sm"
               >
                 <FaPlus />
                 &nbsp;Add Rule
@@ -270,10 +271,10 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event, closeModal }) => {
         </div>
 
         {/* Buttons */}
-        <div className="flex gap-2 sm:gap-4 flex-col sm:flex-row pt-4">
+        <div className="flex flex-col gap-2 pt-4 sm:gap-4 sm:flex-row">
           <button
             onClick={closeModal}
-            className="w-full bg-gray-600 text-white py-2 sm:py-3 rounded-lg text-sm sm:text-base font-semibold shadow-md flex justify-center items-center"
+            className="flex items-center justify-center w-full py-2 text-sm font-semibold text-white bg-gray-600 rounded-lg shadow-md sm:py-3 sm:text-base"
             disabled={isLoading}
           >
             Cancel
@@ -282,11 +283,11 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event, closeModal }) => {
           <button
             onClick={handleSubmit}
             type="submit"
-            className="w-full bg-red-800 hover:bg-red-700 text-white py-2 sm:py-3 rounded-lg text-sm sm:text-base font-semibold shadow-md flex justify-center items-center"
+            className="flex items-center justify-center w-full py-2 text-sm font-semibold text-white bg-red-800 rounded-lg shadow-md hover:bg-red-700 sm:py-3 sm:text-base"
             disabled={isLoading}
           >
             {isLoading ? (
-              <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 sm:border-4 border-white border-t-transparent rounded-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-white rounded-full sm:w-5 sm:h-5 sm:border-4 border-t-transparent animate-spin" />
             ) : (
               "Update Event"
             )}
@@ -297,19 +298,19 @@ const UpdateEvent: React.FC<UpdateEventProps> = ({ event, closeModal }) => {
       {/* Delete Confirmation Modal */}
       {isDeletingEvent && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg text-center max-w-xs sm:max-w-sm">
-            <p className="text-sm sm:text-base lg:text-lg font-semibold mb-3 sm:mb-4">
+          <div className="max-w-xs p-4 text-center bg-white rounded-lg shadow-lg sm:p-6 sm:max-w-sm">
+            <p className="mb-3 text-sm font-semibold sm:text-base lg:text-lg sm:mb-4">
               Do you want to delete this event?
             </p>
             <div className="flex justify-center gap-2 sm:gap-4">
               <button
-                className="px-3 py-1 sm:px-4 sm:py-2 bg-red-800 text-white rounded hover:bg-red-700 text-xs sm:text-sm"
+                className="px-3 py-1 text-xs text-white bg-red-800 rounded sm:px-4 sm:py-2 hover:bg-red-700 sm:text-sm"
                 onClick={deleteEvent}
               >
                 Delete
               </button>
               <button
-                className="px-3 py-1 sm:px-4 sm:py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 text-xs sm:text-sm"
+                className="px-3 py-1 text-xs text-gray-800 bg-gray-300 rounded sm:px-4 sm:py-2 hover:bg-gray-400 sm:text-sm"
                 onClick={toggleIsDeletingEvent}
               >
                 Cancel
